@@ -1,0 +1,55 @@
+// route/go_route.dart
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sakeena/features/auth_screens/forgot_password_page.dart';
+import 'package:sakeena/features/auth_screens/login_screen.dart';
+import 'package:sakeena/features/auth_screens/otp_page.dart';
+import 'package:sakeena/features/auth_screens/reset_password_page.dart';
+import 'package:sakeena/features/auth_screens/sign_up_screen.dart';
+import 'package:sakeena/features/auth_screens/splash_screen.dart';
+import 'package:sakeena/features/auth_screens/success_page.dart';
+
+GoRouter createRouter() { 
+  return GoRouter(
+    initialLocation: '/',
+
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const SplashScreen(),
+        redirect: (context, state) {
+          Future.delayed(const Duration(seconds: 2), () {
+            if (context.mounted) {
+              context.go('/login');
+            }
+          });
+          return null;
+        },
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: '/signup',
+        builder: (context, state) => const SignupPage(),
+      ),
+      GoRoute(
+        path: '/forgot',
+        builder: (context, state) => const ForgotPasswordPage(),
+      ),
+      GoRoute(
+        path: '/otp',
+        builder: (context, state) => const OtpPage(),
+      ),
+      GoRoute(
+        path: '/reset',
+        builder: (context, state) => const ResetPasswordPage(),
+      ),
+      GoRoute(
+        path: '/success',
+        builder: (context, state) => const SuccessPage(),
+      ),
+    ],
+  );
+}
