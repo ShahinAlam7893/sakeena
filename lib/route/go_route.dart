@@ -8,10 +8,11 @@ import 'package:sakeena/features/auth_screens/reset_password_page.dart';
 import 'package:sakeena/features/auth_screens/sign_up_screen.dart';
 import 'package:sakeena/features/auth_screens/splash_screen.dart';
 import 'package:sakeena/features/auth_screens/success_page.dart';
+import 'package:sakeena/features/guest/home_screen.dart';
 
 GoRouter createRouter() { 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/guest_home',
 
     routes: [
       GoRoute(
@@ -50,6 +51,7 @@ GoRouter createRouter() {
         path: '/success',
         builder: (context, state) => const SuccessPage(),
       ),
+      GoRoute(path: '/guest_home', builder: (context, state) => const GuestHomeScreen()),
     ],
   );
 }

@@ -215,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                             SizedBox(height: 20.h),
                             CustomButton(
                               text: 'Continue as a guest',
-                              onPressed: () => context.go('/home'),
+                              onPressed: () => context.go('/guest_home'),
                               isOutlined: true,
                               // textColor: Colors.black,
                             ),
