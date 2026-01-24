@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
   final bool isOutlined;
   final bool isWhiteOutlined;
   final Widget? icon;
-  final Color? textColor; 
+  final Color? textColor;
 
   const CustomButton({
     super.key,
@@ -74,12 +74,17 @@ class CustomButton extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (icon != null) ...[icon!, SizedBox(width: 8.w)],
-                Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    color: effectiveTextColor,
+                Flexible(
+                  child: Text(
+                    text,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],

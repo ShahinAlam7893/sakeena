@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sakeena/features/guest/about_us_section.dart';
 import 'package:sakeena/features/guest/what_makes_us_diff_section.dart';
 import 'package:sakeena/widgets/book_card.dart';
@@ -188,6 +189,18 @@ class GuestHomeScreen extends StatelessWidget {
                       description: 'Healing journey with spiritual support',
                       color: Color(0xFF51A2FF),
                       iconPath: 'assets/icons/depression_Icon.svg',
+                    ), 
+                    CategoryCard(
+                      title: 'Relationships',
+                      description: 'Build healthy Islamic relationships',
+                      color: Color(0xFFF6339A),
+                      iconPath: 'assets/icons/relationship_Icon.svg',
+                    ), 
+                    CategoryCard(
+                      title: 'Spiritual Growth',
+                      description: 'Deepen your connection with Allah',
+                      color: Color(0xFF00BBA7),
+                      iconPath: 'assets/icons/love_icon.svg',
                     ),
                   ],
                 ),
@@ -209,7 +222,9 @@ class GuestHomeScreen extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        context.go('/courses_screen');
+                      },
                       child: Row(
                         children: [
                           Text(
@@ -253,15 +268,27 @@ class GuestHomeScreen extends StatelessWidget {
                     ),
 
                     CourseCard(
-                      title: 'Advanced Islamic Psychology',
-                      instructor: 'Dr. Rahman',
+                      title: 'Mindfulness in Islam',
+                      instructor: 'Sheikh Omar Ibrahim',
                       sessionDuration: '1.5hr per session',
                       numberOfWeeks: '16 Weeks',
                       duration: '24 hr',
                       lessons: '18 Lessons',
-                      price: '\$129',
-                      imagePath: 'assets/images/background.svg',
-                      isSvgImage: true,
+                      price: '\$99',
+                      imagePath: 'assets/images/quran_recite_image.png',
+                      isSvgImage: false,
+                      isUpcoming: true,              
+                    ),
+                    CourseCard(
+                      title: 'Islamic Family Counseling',
+                      instructor: 'Dr. Fatema Saekh',
+                      sessionDuration: '1.5hr per session',
+                      numberOfWeeks: '16 Weeks',
+                      duration: '24 hr',
+                      lessons: '18 Lessons',
+                      price: '\$99',
+                      imagePath: 'assets/images/female_image.png',
+                      isSvgImage: false,
                       isUpcoming: true,
                     ),
                   ],
@@ -415,22 +442,22 @@ class GuestHomeScreen extends StatelessWidget {
                       tagColor: Color(0xFF2C7A7B),
                     ),
                     BookCard(
-                      title: 'Prayers for the Heart',
-                      author: 'Dr. Ahmed Hassan',
-                      price: '\$89',
-                      imagePath: 'assets/images/book_image.png',
+                      title: 'Healing the Anxious Heart',
+                      author: 'Dr. Sarah Ahmed',
+                      price: '\$99',
+                      imagePath: 'assets/images/book_two.png',
                       tagText: 'eBook',
                       tagColor: Colors.blue,
                     ),
                     BookCard(
-                      title: 'Kiwama Ehsanulillah',
-                      author: 'Dr. Rahman',
-                      price: '\$79',
-                      imagePath: 'assets/images/book_image.png',
+                      title: 'Islamic Psychology Guide',
+                      author: 'Dr. Sarah Ahmed',
+                      price: '\$99',
+                      imagePath: 'assets/images/book_three.png',
                       tagText: 'Physical',
                       tagColor: Colors.orange,
                     ),
-                  ],
+                  ], 
                 ),
               ),
 

@@ -19,7 +19,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 110.w,
+      width: 150.w,
       margin: EdgeInsets.only(right: 15.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
