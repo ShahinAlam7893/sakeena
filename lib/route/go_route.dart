@@ -15,6 +15,7 @@ import 'package:sakeena/features/guest/home_screen.dart';
 import 'package:sakeena/features/guest/teachers/teacher_details_screen.dart';
 import 'package:sakeena/features/guest/teachers/teachers_screen.dart';
 import 'package:sakeena/features/subscription/subscription_screen.dart';
+import 'package:sakeena/route/teachers_routes.dart';
 
 class AppRoutes {
   static const splash = '/';
@@ -35,7 +36,7 @@ class AppRoutes {
 
 GoRouter createRouter() {
   return GoRouter(
-    initialLocation: AppRoutes.guestHome,
+    initialLocation: TeachersRoutes.myCourses,
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -106,7 +107,8 @@ GoRouter createRouter() {
         path: '/books_screen',
         builder: (context, state) => const BooksPage(),
       ),
-      
+      // Teachers route defined in #teachers_routes.dart
+      ...TeachersRoutes.getRoutes(),
     ],
   );
 }
