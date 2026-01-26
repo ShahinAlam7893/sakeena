@@ -7,6 +7,7 @@ import 'package:sakeena/features/auth_screens/reset_password_page.dart';
 import 'package:sakeena/features/auth_screens/sign_up_screen.dart';
 import 'package:sakeena/features/auth_screens/splash_screen.dart';
 import 'package:sakeena/features/auth_screens/success_page.dart';
+import 'package:sakeena/features/guest/books/books_screen.dart';
 import 'package:sakeena/features/guest/consultation_screen.dart';
 import 'package:sakeena/features/guest/course/course_details_screen.dart';
 import 'package:sakeena/features/guest/course/course_screen.dart';
@@ -34,7 +35,7 @@ class AppRoutes {
 
 GoRouter createRouter() {
   return GoRouter(
-    initialLocation: AppRoutes.teachersScreen,
+    initialLocation: AppRoutes.guestHome,
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -46,16 +47,46 @@ GoRouter createRouter() {
           return null;
         },
       ),
-      GoRoute(path: AppRoutes.login, builder: (context, state) => const LoginPage()),
-      GoRoute(path: AppRoutes.signup, builder: (context, state) => const SignupPage()),
-      GoRoute(path: AppRoutes.forgot, builder: (context, state) => const ForgotPasswordPage()),
-      GoRoute(path: AppRoutes.otp, builder: (context, state) => const OtpPage()),
-      GoRoute(path: AppRoutes.reset, builder: (context, state) => const ResetPasswordPage()),
-      GoRoute(path: AppRoutes.success, builder: (context, state) => const SuccessPage()),
-      GoRoute(path: AppRoutes.guestHome, builder: (context, state) => const GuestHomeScreen()),
-      GoRoute(path: AppRoutes.howItWorks, builder: (context, state) => const ConsultationScreen()),
-      GoRoute(path: AppRoutes.subscription, builder: (context, state) => const SubscriptionPage()),
-      GoRoute(path: AppRoutes.coursesScreen, builder: (context, state) => const CoursesPage()),
+      GoRoute(
+        path: AppRoutes.login,
+        builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.signup,
+        builder: (context, state) => const SignupPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.forgot,
+        builder: (context, state) => const ForgotPasswordPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.otp,
+        builder: (context, state) => const OtpPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reset,
+        builder: (context, state) => const ResetPasswordPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.success,
+        builder: (context, state) => const SuccessPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.guestHome,
+        builder: (context, state) => const GuestHomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.howItWorks,
+        builder: (context, state) => const ConsultationScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.subscription,
+        builder: (context, state) => const SubscriptionPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.coursesScreen,
+        builder: (context, state) => const CoursesPage(),
+      ),
       GoRoute(
         path: AppRoutes.courseDetails,
         builder: (context, state) => const CourseDetailsPage(),
@@ -71,6 +102,11 @@ GoRouter createRouter() {
           return CounselorDetailPage(counselorId: id);
         },
       ),
+      GoRoute(
+        path: '/books_screen',
+        builder: (context, state) => const BooksPage(),
+      ),
+      
     ],
   );
 }

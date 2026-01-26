@@ -404,7 +404,9 @@ class GuestHomeScreen extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        context.push('/books_screen');
+                      },
                       child: Row(
                         children: [
                           Text(
