@@ -7,6 +7,7 @@ import 'package:sakeena/features/auth_screens/reset_password_page.dart';
 import 'package:sakeena/features/auth_screens/sign_up_screen.dart';
 import 'package:sakeena/features/auth_screens/splash_screen.dart';
 import 'package:sakeena/features/auth_screens/success_page.dart';
+import 'package:sakeena/features/guest/books/book_details_screen.dart';
 import 'package:sakeena/features/guest/books/books_screen.dart';
 import 'package:sakeena/features/guest/consultation_screen.dart';
 import 'package:sakeena/features/guest/course/course_details_screen.dart';
@@ -14,6 +15,9 @@ import 'package:sakeena/features/guest/course/course_screen.dart';
 import 'package:sakeena/features/guest/home_screen.dart';
 import 'package:sakeena/features/guest/teachers/teacher_details_screen.dart';
 import 'package:sakeena/features/guest/teachers/teachers_screen.dart';
+import 'package:sakeena/features/subscription/checkout/checkout_details_page.dart';
+import 'package:sakeena/features/subscription/checkout/checkout_payment_page.dart';
+import 'package:sakeena/features/subscription/checkout/checkout_success_page.dart';
 import 'package:sakeena/features/subscription/subscription_screen.dart';
 
 class AppRoutes {
@@ -31,6 +35,9 @@ class AppRoutes {
   static const courseDetails = '/courses_details_screen';
   static const teachersScreen = '/teachers_screen';
   static const teacherDetails = '/teachers_details_screen';
+  static const checkoutDetails = '/checkout/details';
+  static const checkoutPayment = '/checkout/payment';
+  static const checkoutSuccess = '/checkout/success';
 }
 
 GoRouter createRouter() {
@@ -106,7 +113,25 @@ GoRouter createRouter() {
         path: '/books_screen',
         builder: (context, state) => const BooksPage(),
       ),
-      
+      GoRoute(
+        path: '/book_details/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id'] ?? '1';
+          return BookDetailsPage(bookId: id);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.checkoutDetails,
+        builder: (context, state) => const CheckoutDetailsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.checkoutPayment,
+        builder: (context, state) => const CheckoutPaymentPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.checkoutSuccess,
+        builder: (context, state) => const CheckoutSuccessPage(),
+      ),
     ],
   );
 }

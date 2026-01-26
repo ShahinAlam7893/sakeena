@@ -151,17 +151,17 @@ class _BooksPageState extends State<BooksPage> {
               SizedBox(height: 20.h),
 
               // View All Button
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: CustomButton(
-                  text: 'View all',
-                  onPressed: () {},
-                  isGradient: true,
-                  textColor: Colors.white,
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+              //   child: CustomButton(
+              //     text: 'View all',
+              //     onPressed: () {},
+              //     isGradient: true,
+              //     textColor: Colors.white,
+              //   ),
+              // ),
 
-              SizedBox(height: 20.h),
+              // SizedBox(height: 20.h),
             ],
           ),
         ),
