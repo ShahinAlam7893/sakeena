@@ -2,299 +2,252 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sakeena/core/app_theme.dart';
 
-class CourseDetail extends StatelessWidget {
-  final String courseTitle;
-  final String instructor;
-  final String category;
-  final String status;
-  final String price;
-  final String duration;
-  final int totalLessons;
-  final double rating;
-  final int totalEnrolled;
-  final List<Map<String, String>> students;
+class CourseDetailScreen extends StatefulWidget {
+  const CourseDetailScreen({super.key});
 
-  const CourseDetail({
-    super.key,
-    required this.courseTitle,
-    required this.instructor,
-    required this.category,
-    required this.status,
-    required this.price,
-    required this.duration,
-    required this.totalLessons,
-    required this.rating,
-    required this.totalEnrolled,
-    required this.students,
-  });
+  @override
+  State<CourseDetailScreen> createState() => _CourseDetailScreenState();
+}
+
+class _CourseDetailScreenState extends State<CourseDetailScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  final List<bool> _expandedModules = [true, false, false, false, false];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.white,
-      insetPadding: EdgeInsets.all(16.w),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          'Back to Courses',
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: false,
+      ),
+      body: Column(
         children: [
-          // Header
-          Padding(
-            padding: EdgeInsets.all(20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Course Details',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      'Complete information about the course',
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.close,
-                    size: 24.sp,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
+          // Tab Bar
+          Container(
+            color: Colors.white,
+            child: TabBar(
+              controller: _tabController,
+              indicatorColor: AppTheme.primaryColor,
+              labelColor: AppTheme.primaryColor,
+              unselectedLabelColor: Colors.grey.shade600,
+              labelStyle: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
+              ),
+              unselectedLabelStyle: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w400,
+              ),
+              tabs: const [
+                Tab(text: 'Overview'),
+                Tab(text: 'Curriculum'),
+                Tab(text: 'Reviews'),
               ],
             ),
           ),
-          Divider(height: 0.5.h, color: Colors.grey.shade200),
-          // Content
+          // Tab Content
           Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(20.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                // Overview Tab
+                _buildOverviewTab(),
+                // Curriculum Tab
+                _buildCurriculumTab(),
+                // Reviews Tab
+                _buildReviewsTab(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOverviewTab() {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Course Image with Play Button
+          Stack(
+            children: [
+              Image.network(
+                'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop',
+                height: 250.h,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 250.h,
+                    color: Colors.grey.shade300,
+                  );
+                },
+              ),
+              Center(
+                child: Container(
+                  padding: EdgeInsets.all(12.w),
+                  decoration: BoxDecoration(
+                    color: AppTheme.primaryColor.withOpacity(0.9),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                    size: 28.sp,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // Course Title and Description
+          Padding(
+            padding: EdgeInsets.all(16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title
+                Text(
+                  '40 Days Towards Change \'Faith-centered emotional healing journey\'',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                // Description
+                Text(
+                  'This comprehensive healing program integrates Islamic spiritual practices with modern-based psychological approaches. Through 5 carefully designed modules over 6 weeks (40 Days), you will learn tools and insights to overcome stress, build emotional resilience, and cultivate lasting behavior change.\n\nThe course combines video lessons, guided exercises, daily routines, and community support to give you lasting healing healing and practical skills practices noted in Islamic teachings. Each session is 2 hours, designed to give you deep understanding and practical application.',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey.shade700,
+                    height: 1.6,
+                  ),
+                ),
+                SizedBox(height: 24.h),
+                // What You'll Learn
+                Text(
+                  'What You\'ll Learn',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                ..._buildLearningOutcomes(),
+                SizedBox(height: 24.h),
+                // Course Image
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.r),
+                  child: Image.network(
+                    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop',
+                    height: 200.h,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: 200.h,
+                        color: Colors.grey.shade300,
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 16.h),
+                // Status Badge and Price
+                Row(
                   children: [
-                    // Add Student Button
-                    SizedBox(
-                      width: 130.w,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          // Handle add student
-                        },
-                        style: OutlinedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12.w,
-                            vertical: 8.h,
-                          ),
-                          side: BorderSide(
-                            color: AppTheme.primaryColor,
-                            width: 1.5.w,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.add,
-                              size: 16.sp,
-                              color: AppTheme.primaryColor,
-                            ),
-                            SizedBox(width: 4.w),
-                            Text(
-                              'Add Student',
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppTheme.primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 24.h),
-                    // Course Title
-                    _DetailField(label: 'Course Title', value: courseTitle),
-                    SizedBox(height: 16.h),
-                    // Instructor
-                    _DetailField(label: 'Instructor', value: instructor),
-                    SizedBox(height: 16.h),
-                    // Category
-                    _DetailField(label: 'Category', value: category),
-                    SizedBox(height: 16.h),
-                    // Status
-                    _DetailField(
-                      label: 'Status',
-                      value: status,
-                      isStatus: true,
-                    ),
-                    SizedBox(height: 16.h),
-                    // Price
-                    _DetailField(label: 'Price', value: '\$$price'),
-                    SizedBox(height: 16.h),
-                    // Duration
-                    _DetailField(label: 'Duration', value: duration),
-                    SizedBox(height: 16.h),
-                    // Total Lessons
-                    _DetailField(
-                      label: 'Total Lessons',
-                      value: '$totalLessons Lessons',
-                    ),
-                    SizedBox(height: 16.h),
-                    // Rating
-                    _DetailField(
-                      label: 'Rating',
-                      value: '${rating.toStringAsFixed(1)}/5.0',
-                      showIcon: true,
-                    ),
-                    SizedBox(height: 24.h),
-                    // Total Enrolled
-                    Text(
-                      'Total Enrolled',
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      '$totalEnrolled students',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 20.h),
-                    // Students Table
                     Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade200),
-                        borderRadius: BorderRadius.circular(8.r),
+                        color: AppTheme.successColor,
+                        borderRadius: BorderRadius.circular(16.r),
                       ),
-                      child: Column(
-                        children: [
-                          // Table Header
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16.w,
-                              vertical: 12.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade50,
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(8.r),
-                              ),
-                              border: Border(
-                                bottom: BorderSide(color: Colors.grey.shade200),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Student Name',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Email',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          // Table Rows
-                          ...students.asMap().entries.map((entry) {
-                            final isLast = entry.key == students.length - 1;
-                            final student = entry.value;
-                            return Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16.w,
-                                vertical: 12.h,
-                              ),
-                              decoration: BoxDecoration(
-                                border: isLast
-                                    ? null
-                                    : Border(
-                                        bottom: BorderSide(
-                                          color: Colors.grey.shade200,
-                                        ),
-                                      ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      student['name'] ?? '',
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      student['email'] ?? '',
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        color: Colors.grey.shade700,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                        ],
+                      child: Text(
+                        'Upcoming',
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ),
-          Divider(height: 0.5.h, color: Colors.grey.shade200),
-          // Footer
-          Padding(
-            padding: EdgeInsets.all(20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(
-                    'Close',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey.shade700,
-                    ),
+                SizedBox(height: 12.h),
+                // Title
+                Text(
+                  'Mindfulness in Islam',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
                   ),
+                ),
+                SizedBox(height: 12.h),
+                // Price and Button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '\$99',
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.primaryColor,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        side: BorderSide(
+                          color: Colors.grey.shade300,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20.w,
+                          vertical: 10.h,
+                        ),
+                      ),
+                      child: Text(
+                        'Enrolled',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -303,80 +256,220 @@ class CourseDetail extends StatelessWidget {
       ),
     );
   }
-}
 
-class _DetailField extends StatelessWidget {
-  final String label;
-  final String value;
-  final bool isStatus;
-  final bool showIcon;
-
-  const _DetailField({
-    required this.label,
-    required this.value,
-    this.isStatus = false,
-    this.showIcon = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
+  Widget _buildCurriculumTab() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.all(16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Course Curriculum Header
+            Text(
+              'Course Curriculum',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 8.h),
+            Text(
+              '22 lessons • 3 weeks',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey.shade600,
+              ),
+            ),
+            SizedBox(height: 16.h),
+            // Modules
+            ..._buildCurriculumModules(),
+          ],
         ),
-        SizedBox(height: 8.h),
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(8.r),
-            border: Border.all(color: Colors.grey.shade200),
-          ),
-          child: Row(
-            children: [
-              if (showIcon) ...[
-                Text('⭐', style: TextStyle(fontSize: 14.sp)),
-                SizedBox(width: 8.w),
-              ],
-              if (isStatus)
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 4.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFE5E5),
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
+      ),
+    );
+  }
+
+  Widget _buildReviewsTab() {
+    return Center(
+      child: Text(
+        'No reviews yet',
+        style: TextStyle(
+          fontSize: 14.sp,
+          color: Colors.grey.shade600,
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _buildLearningOutcomes() {
+    final outcomes = [
+      'Understanding anxiety from both Islamic and psychological perspectives',
+      'Integrate dhikr and mindfulness techniques for anxiety relief',
+      'Apply cognitive behavioral strategies noted in Islamic teachings',
+      'Build lasting emotional resilience through faith practices',
+      'Recognizing triggers and developing coping mechanisms',
+    ];
+
+    return outcomes
+        .map(
+          (outcome) => Padding(
+            padding: EdgeInsets.only(bottom: 12.h),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.radio_button_unchecked,
+                  size: 16.sp,
+                  color: Colors.grey.shade600,
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
                   child: Text(
-                    value,
+                    outcome,
                     style: TextStyle(
                       fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.errorColor,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey.shade700,
                     ),
                   ),
-                )
-              else
-                Text(
-                  value,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    color: Colors.grey.shade700,
-                  ),
                 ),
-            ],
+              ],
+            ),
           ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildCurriculumModules() {
+    final modules = [
+      {
+        'title': 'Module 1: Understanding Anxiety',
+        'duration': '4 lessons • 52 min',
+        'lessons': [
+          'Introduction to the Course',
+          'What is Anxiety?',
+          'Islamic Perspective on Anxiety',
+          'Types of Anxiety Disorders',
+        ],
+      },
+      {
+        'title': 'Module 2: Dhikr & Mindfulness',
+        'duration': '4 lessons • 48 min',
+        'lessons': [
+          'Introduction to Dhikr',
+          'Mindfulness Practices',
+          'Combining Dhikr and Mindfulness',
+        ],
+      },
+      {
+        'title': 'Module 3: Cognitive Approaches',
+        'duration': '4 lessons • 56 min',
+        'lessons': [
+          'Cognitive Behavioral Therapy Basics',
+          'Identifying Negative Thoughts',
+        ],
+      },
+      {
+        'title': 'Module 4: Tawakkul & Trust',
+        'duration': '5 lessons • 62 min',
+        'lessons': [
+          'Understanding Tawakkul',
+          'Building Trust in Allah',
+        ],
+      },
+      {
+        'title': 'Module 5: Building Resilience',
+        'duration': '3 lessons • 54 min',
+        'lessons': [
+          'Creating Resilience Plans',
+          'Long-term Strategies',
+        ],
+      },
+    ];
+
+    return List.generate(
+      modules.length,
+      (index) => _buildModuleCard(
+        index,
+        modules[index]['title'] as String,
+        modules[index]['duration'] as String,
+        modules[index]['lessons'] as List<String>,
+      ),
+    );
+  }
+
+  Widget _buildModuleCard(
+    int index,
+    String title,
+    String duration,
+    List<String> lessons,
+  ) {
+    return Card(
+      margin: EdgeInsets.only(bottom: 12.h),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      child: ExpansionTile(
+        initiallyExpanded: _expandedModules[index],
+        onExpansionChanged: (expanded) {
+          setState(() {
+            _expandedModules[index] = expanded;
+          });
+        },
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 4.h),
+            Text(
+              duration,
+              style: TextStyle(
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
         ),
-      ],
+        children: lessons
+            .map(
+              (lesson) => Padding(
+                padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 8.h),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.radio_button_unchecked,
+                      size: 16.sp,
+                      color: Colors.grey.shade400,
+                    ),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: Text(
+                        lesson,
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }
