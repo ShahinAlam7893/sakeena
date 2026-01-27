@@ -7,6 +7,9 @@ import 'package:sakeena/features/auth_screens/reset_password_page.dart';
 import 'package:sakeena/features/auth_screens/sign_up_screen.dart';
 import 'package:sakeena/features/auth_screens/splash_screen.dart';
 import 'package:sakeena/features/auth_screens/success_page.dart';
+import 'package:sakeena/features/guest/about/about_screen.dart';
+import 'package:sakeena/features/guest/blog/blog_details_screen.dart';
+import 'package:sakeena/features/guest/blog/blog_screen.dart';
 import 'package:sakeena/features/guest/books/book_details_screen.dart';
 import 'package:sakeena/features/guest/books/books_screen.dart';
 import 'package:sakeena/features/guest/consultation_screen.dart';
@@ -15,6 +18,8 @@ import 'package:sakeena/features/guest/course/course_screen.dart';
 import 'package:sakeena/features/guest/home_screen.dart';
 import 'package:sakeena/features/guest/teachers/teacher_details_screen.dart';
 import 'package:sakeena/features/guest/teachers/teachers_screen.dart';
+import 'package:sakeena/features/guest/video/video_description_screen.dart';
+import 'package:sakeena/features/guest/video/video_library_screen.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_details_page.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_payment_page.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_success_page.dart';
@@ -38,11 +43,16 @@ class AppRoutes {
   static const checkoutDetails = '/checkout/details';
   static const checkoutPayment = '/checkout/payment';
   static const checkoutSuccess = '/checkout/success';
+  static const aboutScreen = '/about';
+  static const blogScreen = '/blog_screen';
+  static const blogDetailsScreen = '/blog/:id';
+  static const videoLibraryScreen = '/video_library_screen';
+  static const videoDescriptionScreen = '/video_description_screen';
 }
 
 GoRouter createRouter() {
   return GoRouter(
-    initialLocation: AppRoutes.guestHome,
+    initialLocation: AppRoutes.videoDescriptionScreen,
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -131,6 +141,25 @@ GoRouter createRouter() {
       GoRoute(
         path: AppRoutes.checkoutSuccess,
         builder: (context, state) => const CheckoutSuccessPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.aboutScreen,
+        builder: (context, state) => const AboutScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.blogScreen,
+        builder: (context, state) => const BlogScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.blogDetailsScreen,
+        builder: (context, state) => const BlogDetailsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.videoLibraryScreen,
+        builder: (context, state) => const VideoLibraryScreen(),
+      ),GoRoute(
+        path: AppRoutes.videoDescriptionScreen,
+        builder: (context, state) => const VideoDescriptionScreen(),
       ),
     ],
   );

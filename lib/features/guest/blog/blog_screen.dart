@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sakeena/widgets/course_card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sakeena/widgets/blog_card.dart';
+import 'package:sakeena/widgets/custom_button.dart';
 import 'package:sakeena/widgets/filter_section.dart';
 
-class CoursesPage extends StatefulWidget {
-  const CoursesPage({super.key});
-
-  @override
-  State<CoursesPage> createState() => _CoursesPageState();
-}
-
-class _CoursesPageState extends State<CoursesPage> {
-  String selectedCategory = 'All';
-  String selectedCourseType = 'All';
+class BlogScreen extends StatelessWidget {
+  const BlogScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     const categories = ['All', 'Mental Health', 'Spiritual Growth'];
-    const courseTypes = ['All', 'Live', 'Recorded'];
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -38,9 +30,7 @@ class _CoursesPageState extends State<CoursesPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
@@ -65,7 +55,7 @@ class _CoursesPageState extends State<CoursesPage> {
                       border: Border.all(color: Colors.white70),
                     ),
                     child: Text(
-                      'Explore Our Courses',
+                      'Knowledge & Insights',
                       style: TextStyle(
                         fontSize: 11.sp,
                         color: Colors.white,
@@ -78,7 +68,7 @@ class _CoursesPageState extends State<CoursesPage> {
 
                   // Title
                   Text(
-                    'Learn, Grow, Heal',
+                    'Sakeena Institute Blog',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 22.sp,
@@ -94,7 +84,7 @@ class _CoursesPageState extends State<CoursesPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Text(
-                      'Discover courses that integrate Islamic wisdom with modern psychology',
+                      'Explore articles on Islamic psychology, mental wellness, and spiritual growth',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 12.sp,
@@ -142,100 +132,73 @@ class _CoursesPageState extends State<CoursesPage> {
             ),
 
             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FilterSection(
+                    title: '',
+                    items: categories,
+                    selectedItem: 'All',
+                    onSelected: (value) {
+                      debugPrint('Selected category: $value');
+                    },
+                    isHorizontal: true,
+                  ),
+                ],
+              ),
+            ),
+
+            Padding(
               padding: EdgeInsets.all(16.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Category Filter
-                  FilterSection(
-                    title: 'Category',
-                    items: categories,
-                    selectedItem: selectedCategory,
-                    onSelected: (v) => setState(() => selectedCategory = v),
-                    isHorizontal: true,
+                  BlogCard(
+                    imagePath: 'assets/images/blog_one.png',
+                    date: 'Dec 22, 2025',
+                    readTime: '6 min read',
+                    category: 'Relationships',
+                    title:
+                        'Building Healthy Relationships Through Islamic Values',
+                    description:
+                        'Learn how Islamic principles can strengthen your family bonds and improve communication.',
+                    author: 'Dr. Sarah Ahmed',
+                    onTap: () {
+                      context.push('/blog/2');
+                    },
                   ),
-                  SizedBox(height: 20.h),
-
-                  // Course Type Filter
-                  FilterSection(
-                    title: 'Course Type',
-                    items: courseTypes,
-                    selectedItem: selectedCourseType,
-                    onSelected: (v) => setState(() => selectedCourseType = v),
-                    isHorizontal: true,
-                  ),
-                  SizedBox(height: 24.h),
-
-                  // Courses
-                  Column(
-                    children: [
-                      _CenteredCourseCard(
-                        child: CourseCard(
-                          title: 'Mindfulness in Islam',
-                          instructor: 'Sheikh Omar Ibrahim',
-                          sessionDuration: '90 min',
-                          numberOfWeeks: '12 weeks',
-                          duration: '24 Lessons',
-                          lessons: '24 Lessons',
-                          price: '\$99',
-                          imagePath: 'assets/images/quran_recite_image.png',
-                          isSvgImage: false,
-                          isUpcoming: false,
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      _CenteredCourseCard(
-                        child: CourseCard(
-                          title: 'Islamic Psychology Basics',
-                          instructor: 'Dr. Aisha Khan',
-                          sessionDuration: '60 min',
-                          numberOfWeeks: '8 weeks',
-                          duration: '16 Lessons',
-                          lessons: '16 Lessons',
-                          price: '\$79',
-                          imagePath: 'assets/images/quran_image.png',
-                          isSvgImage: false,
-                          isUpcoming: true,
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      _CenteredCourseCard(
-                        child: CourseCard(
-                          title: 'Quran & Mental Wellness',
-                          instructor: 'Prof. Ahmed Hassan',
-                          sessionDuration: '75 min',
-                          numberOfWeeks: '10 weeks',
-                          duration: '20 Lessons',
-                          lessons: '20 Lessons',
-                          price: '\$89',
-                          imagePath: 'assets/images/quran_recite_image.png',
-                          isSvgImage: false,
-                          isUpcoming: false,
-                        ),
-                      ),
-                    ],
+                  SizedBox(height: 8.h),
+                  BlogCard(
+                    imagePath: 'assets/images/blog_two.png',
+                    date: 'Dec 20, 2025',
+                    readTime: '8 min read',
+                    category: 'Mental Health',
+                    title: 'Healing Trauma with Faith and Professional Support',
+                    description:
+                        'Combining Islamic spiritual practices with evidence-based therapeutic approaches for trauma recovery.',
+                    author: 'Dr. Ahmed Youssef',
+                    onTap: () {
+                      context.push('/blog/2');
+                    },
                   ),
                 ],
+              ),
+            ),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomButton(
+                  text: 'View all',
+                  textColor: Colors.white,
+                  onPressed: () {},
+                  isGradient: true,
+                ),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-// // ------------------ Centered Course Card ------------------
-
-class _CenteredCourseCard extends StatelessWidget {
-  final Widget child;
-
-  const _CenteredCourseCard({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(width: 0.95.sw, child: child),
     );
   }
 }
