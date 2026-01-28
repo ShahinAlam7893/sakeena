@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sakeena/widgets/custom_button.dart';
 
 class ContactScreen extends StatelessWidget {
   ContactScreen({super.key});
@@ -161,22 +162,22 @@ class ContactScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: _buildButton(
+                          child: CustomButton(
                             text: 'Cancel',
-                            backgroundColor: Colors.grey.shade200,
-                            textColor: Colors.black87,
+                            isGradient: false,
+                            isOutlined: true,
+                            textColor: Colors.black,
                             onPressed: () => Navigator.pop(context),
                           ),
                         ),
                         SizedBox(width: 16.w),
                         Expanded(
-                          child: _buildButton(
+                          child: CustomButton(
                             text: 'Submit',
-                            backgroundColor: teal,
+                            isGradient: true,
+                            isOutlined: false,
                             textColor: Colors.white,
-                            onPressed: () {
-                              // TODO: Submit form logic
-                            },
+                            onPressed: () {},
                           ),
                         ),
                       ],
@@ -314,33 +315,6 @@ class ContactScreen extends StatelessWidget {
           borderSide: BorderSide.none,
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-      ),
-    );
-  }
-
-  Widget _buildButton({
-    required String text,
-    required Color backgroundColor,
-    required Color textColor,
-    required VoidCallback onPressed,
-  }) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16.h),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(12.r),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-            color: textColor,
-          ),
-        ),
       ),
     );
   }

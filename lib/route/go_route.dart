@@ -22,6 +22,7 @@ import 'package:sakeena/features/guest/teachers/teacher_details_screen.dart';
 import 'package:sakeena/features/guest/teachers/teachers_screen.dart';
 import 'package:sakeena/features/guest/video/video_description_screen.dart';
 import 'package:sakeena/features/guest/video/video_library_screen.dart';
+import 'package:sakeena/features/student/home/home_screen.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_details_page.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_payment_page.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_success_page.dart';
@@ -52,11 +53,12 @@ class AppRoutes {
   static const videoDescriptionScreen = '/video_description_screen';
   static const supportScreen = '/support_screen';
   static const contactScreen = '/contact_screen';
+  static const studentHomeScreen = '/student_home_screen';
 }
 
 GoRouter createRouter() {
   return GoRouter(
-    initialLocation: AppRoutes.contactScreen,
+    initialLocation: AppRoutes.studentHomeScreen,
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -173,6 +175,15 @@ GoRouter createRouter() {
       GoRoute(
         path: AppRoutes.contactScreen,
         builder: (context, state) => ContactScreen(),
+      ),
+      
+      
+      
+      
+      
+      GoRoute(
+        path: AppRoutes.studentHomeScreen,
+        builder: (context, state) => StudentHomeScreen(),
       ),
     ],
   );
