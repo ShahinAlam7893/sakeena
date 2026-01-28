@@ -13,9 +13,11 @@ import 'package:sakeena/features/guest/blog/blog_screen.dart';
 import 'package:sakeena/features/guest/books/book_details_screen.dart';
 import 'package:sakeena/features/guest/books/books_screen.dart';
 import 'package:sakeena/features/guest/consultation_screen.dart';
+import 'package:sakeena/features/guest/contact/contact_screen.dart';
 import 'package:sakeena/features/guest/course/course_details_screen.dart';
 import 'package:sakeena/features/guest/course/course_screen.dart';
 import 'package:sakeena/features/guest/home_screen.dart';
+import 'package:sakeena/features/guest/support/support_screen.dart';
 import 'package:sakeena/features/guest/teachers/teacher_details_screen.dart';
 import 'package:sakeena/features/guest/teachers/teachers_screen.dart';
 import 'package:sakeena/features/guest/video/video_description_screen.dart';
@@ -48,11 +50,13 @@ class AppRoutes {
   static const blogDetailsScreen = '/blog/:id';
   static const videoLibraryScreen = '/video_library_screen';
   static const videoDescriptionScreen = '/video_description_screen';
+  static const supportScreen = '/support_screen';
+  static const contactScreen = '/contact_screen';
 }
 
 GoRouter createRouter() {
   return GoRouter(
-    initialLocation: AppRoutes.videoDescriptionScreen,
+    initialLocation: AppRoutes.contactScreen,
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -157,9 +161,18 @@ GoRouter createRouter() {
       GoRoute(
         path: AppRoutes.videoLibraryScreen,
         builder: (context, state) => const VideoLibraryScreen(),
-      ),GoRoute(
+      ),
+      GoRoute(
         path: AppRoutes.videoDescriptionScreen,
         builder: (context, state) => const VideoDescriptionScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.supportScreen,
+        builder: (context, state) => const SupportScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.contactScreen,
+        builder: (context, state) => ContactScreen(),
       ),
     ],
   );

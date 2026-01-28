@@ -111,7 +111,7 @@ class VideoDescriptionScreen extends StatelessWidget {
               const VideoDetailsSection(),
 
               SizedBox(height: 10.h),
-              const RelatedVideosSection(),
+              RelatedVideosSection(),
 
               SizedBox(height: 10.h),
             ],
