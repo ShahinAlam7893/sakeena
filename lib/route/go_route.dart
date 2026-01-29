@@ -24,7 +24,10 @@ import 'package:sakeena/features/guest/video/video_description_screen.dart';
 import 'package:sakeena/features/guest/video/video_library_screen.dart';
 import 'package:sakeena/features/student/course/my_course_screen.dart';
 import 'package:sakeena/features/student/home/home_screen.dart';
+import 'package:sakeena/features/student/live_class/student_live_class_screen.dart';
+import 'package:sakeena/features/student/profile/privecy_policy_screen.dart';
 import 'package:sakeena/features/student/profile/profile_screen.dart';
+import 'package:sakeena/features/student/profile/terms_and_condition.dart';
 import 'package:sakeena/features/student/teachers/teachers_screen.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_details_page.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_payment_page.dart';
@@ -60,11 +63,14 @@ class AppRoutes {
   static const myCourseScreen = '/my_course_screen';
   static const teachersScreenForStudent = '/teachers_screen_for_student';
   static const studentProfilePage = '/student_profile_screen';
+  static const studentLiveClass = '/student_live_class';
+  static const privacyPolicyPage = '/privacy_policy_page';
+  static const termsAndConditionsPage = '/terms_and_conditions_page';
 }
 
 GoRouter createRouter() {
   return GoRouter(
-    initialLocation: AppRoutes.studentProfilePage,
+    initialLocation: AppRoutes.termsAndConditionsPage,
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -202,6 +208,18 @@ GoRouter createRouter() {
       GoRoute(
         path: AppRoutes.studentProfilePage,
         builder: (context, state) => ProfileScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.studentLiveClass,
+        builder: (context, state) => StudentLiveClassPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.privacyPolicyPage,
+        builder: (context, state) => PrivacyPolicyPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.termsAndConditionsPage,
+        builder: (context, state) => TermsAndConditionsPage(),
       ),
     ],
   );
