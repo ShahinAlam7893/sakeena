@@ -24,12 +24,14 @@
 //     NavItem(label: 'Teachers', icon: Icons.person_outline),
 //     NavItem(label: 'Menu', icon: Icons.menu),
 //   ],
+
 //   UserType.student: const [
 //     NavItem(label: 'Home', icon: Icons.home_outlined),
 //     NavItem(label: 'Courses', icon: Icons.school_outlined),
 //     NavItem(label: 'Class', icon: Icons.video_call_outlined),
 //     NavItem(label: 'Menu', icon: Icons.menu),
 //   ],
+
 //   UserType.teacher: const [
 //     NavItem(label: 'Home', icon: Icons.home_outlined),
 //     NavItem(label: 'Courses', icon: Icons.school_outlined),

@@ -72,23 +72,11 @@ class BookCard extends StatelessWidget {
                     children: [
                       Text(price, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: teal)),
                       CustomButton(
-                        text: 'Buy Now',
+                        text: 'Download',
                         textColor: Colors.white,
-                        onPressed: () => showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (_) => AuthRequiredDialog(
-                            onSignIn: () {
-                              Navigator.pop(context);
-                              context.go('/login');
-                            },
-                            onCreateAccount: () {
-                              Navigator.pop(context);
-                              context.go('/signup');
-                            },
-                            onBrowse: () => Navigator.pop(context),
-                          ),
-                        ),
+                        onPressed: () {
+                          
+                        },
                         height: 35.h,
                         width: 80.w,
                         isGradient: true,

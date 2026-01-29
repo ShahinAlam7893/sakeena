@@ -62,7 +62,7 @@ class TeachersScreenForStudent extends StatelessWidget {
           ),
         ),
         actions: [
-          Icon(Icons.notifications_none, color: Colors.black),
+          IconButton(color: Colors.black, onPressed: () {  }, icon: Icon(Icons.notifications_none),),
           SizedBox(width: 12.w),
         ],
       ),
