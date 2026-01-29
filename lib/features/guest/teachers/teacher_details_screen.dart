@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/widgets/achievement_section.dart';
+import 'package:sakeena/widgets/booking_dialog_box.dart';
 import 'package:sakeena/widgets/course_card.dart';
 import 'package:sakeena/widgets/course_taught_card.dart';
 import 'package:sakeena/widgets/custom_button.dart';
@@ -291,7 +292,20 @@ class CounselorDetailPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                       text: 'Book Consultation',
-                      onPressed: () => context.go('/how_it_works'),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return BookingDialog(
+                              counselorName: 'Dr. Fatima Rahman',
+                              counselorTitle: 'Clinical Psychologist',
+                              counselorImage:
+                                  'assets/images/teacher_screen_image.png',
+                              price: 50.00,
+                            );
+                          },
+                        );
+                      },
                       isGradient: true,
                       textColor: Colors.white,
                     ),

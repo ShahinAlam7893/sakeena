@@ -45,7 +45,8 @@ class CustomButton extends StatelessWidget {
     final bgColor = (isOutlined || isWhiteOutlined) ? Colors.transparent : null;
 
     return SizedBox(
-      width: width ?? double.infinity,
+      // width: width ?? double.infinity,
+      width: width,
       height: height.h,
       child: ElevatedButton(
         onPressed: onPressed,
