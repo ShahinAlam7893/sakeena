@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/features/guest/course/course_screen.dart';
 import 'package:sakeena/widgets/book_card.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 
 import 'package:flutter/material.dart';
@@ -56,22 +57,7 @@ class _BooksPageState extends State<BooksPage> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => context.pop(),
-        ),
-        title: const Text(
-          'Back to Courses',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(

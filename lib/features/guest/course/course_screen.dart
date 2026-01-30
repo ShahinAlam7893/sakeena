@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sakeena/widgets/course_card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/filter_section.dart';
 
 class CoursesPage extends StatefulWidget {
@@ -22,20 +24,7 @@ class _CoursesPageState extends State<CoursesPage> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 80.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w, bottom: 10.h),
-          child: SvgPicture.asset(
-            'assets/images/sakeena_logo.svg',
-            width: 42.w,
-            height: 42.h,
-            fit: BoxFit.contain,
-          ),
-        ),
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,24 +43,36 @@ class _CoursesPageState extends State<CoursesPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 14.w,
-                      vertical: 6.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0x33FFFFFF),
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(color: Colors.white70),
-                    ),
-                    child: Text(
-                      'Explore Our Courses',
-                      style: TextStyle(
-                        fontSize: 11.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          context.pop();
+                        },
+                        icon: Icon(Icons.arrow_back, color: Colors.white),
                       ),
-                    ),
+                      SizedBox(width: 50.w,),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 14.w,
+                          vertical: 6.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0x33FFFFFF),
+                          borderRadius: BorderRadius.circular(20.r),
+                          border: Border.all(color: Colors.white70),
+                        ),
+                        child: Text(
+                          'Explore Our Courses',
+                          style: TextStyle(
+                            fontSize: 11.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
 
                   SizedBox(height: 14.h),
@@ -183,7 +184,7 @@ class _CoursesPageState extends State<CoursesPage> {
                           isUpcoming: false,
                         ),
                       ),
-                      SizedBox(height: 16.h),
+                      SizedBox(height: 8.h),
                       _CenteredCourseCard(
                         child: CourseCard(
                           title: 'Islamic Psychology Basics',
@@ -198,19 +199,21 @@ class _CoursesPageState extends State<CoursesPage> {
                           isUpcoming: true,
                         ),
                       ),
-                      SizedBox(height: 16.h),
-                      _CenteredCourseCard(
-                        child: CourseCard(
-                          title: 'Quran & Mental Wellness',
-                          instructor: 'Prof. Ahmed Hassan',
-                          sessionDuration: '75 min',
-                          numberOfWeeks: '10 weeks',
-                          duration: '20 Lessons',
-                          lessons: '20 Lessons',
-                          price: '\$89',
-                          imagePath: 'assets/images/quran_recite_image.png',
-                          isSvgImage: false,
-                          isUpcoming: false,
+                      SizedBox(height: 8.h),
+                      SafeArea(
+                        child: _CenteredCourseCard(
+                          child: CourseCard(
+                            title: 'Quran & Mental Wellness',
+                            instructor: 'Prof. Ahmed Hassan',
+                            sessionDuration: '75 min',
+                            numberOfWeeks: '10 weeks',
+                            duration: '20 Lessons',
+                            lessons: '20 Lessons',
+                            price: '\$89',
+                            imagePath: 'assets/images/quran_recite_image.png',
+                            isSvgImage: false,
+                            isUpcoming: false,
+                          ),
                         ),
                       ),
                     ],
@@ -235,7 +238,7 @@ class _CenteredCourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(width: 0.95.sw, child: child),
+      child: SizedBox(width: 0.95.sw, height: 332.h, child: child),
     );
   }
 }

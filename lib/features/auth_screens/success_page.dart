@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/auth_background.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 
@@ -40,7 +41,7 @@ class SuccessPage extends StatelessWidget {
               CustomButton(
                 text: 'Back to Login',
                 textColor: Colors.white,
-                onPressed: () => context.go('/login'),
+                onPressed: () => context.go(AppRoutes.login),
                 isGradient: true,
               ),
             ],

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/course_card.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 import 'package:sakeena/widgets/filter_section.dart';
 
@@ -24,23 +25,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 80.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: SvgPicture.asset(
-            'assets/images/sakeena_logo.svg',
-            width: 42.w,
-            height: 42.h,
-          ),
-        ),
-        actions: [
-          Icon(Icons.notifications_none, color: Colors.black),
-          SizedBox(width: 12.w),
-        ],
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: Column(

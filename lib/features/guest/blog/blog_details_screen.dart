@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/blog_author_info_card.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 import 'package:sakeena/widgets/related_article_card.dart';
 
@@ -16,6 +17,7 @@ class BlogDetailsPage extends StatelessWidget {
     const lightTeal = Color(0xFF3A6E73);
 
     return Scaffold(
+      appBar: const CustomAppBar(showBackButton: true),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(

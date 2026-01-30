@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sakeena/core/constant/app_colors.dart';
-import 'package:sakeena/features/student/home/greeting_section.dart';
+
 import 'package:sakeena/features/student/home/next_live_class_card.dart';
 import 'package:sakeena/features/student/home/stat_card.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 
 class StudentHomeScreen extends StatelessWidget {
   const StudentHomeScreen({super.key});
@@ -12,21 +13,7 @@ class StudentHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 80.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w, bottom: 10.h),
-          child: SvgPicture.asset(
-            'assets/images/sakeena_logo.svg',
-            width: 42.w,
-            height: 42.h,
-            fit: BoxFit.contain,
-          ),
-        ),
-        actions: [Icon(Icons.notifications_none)],
-      ),
+      appBar: const CustomAppBar(),
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -84,24 +71,6 @@ class StudentHomeScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-
-      // Bottom Navigation (placeholder)
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: "Courses"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: "Notifications",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
       ),
     );
   }

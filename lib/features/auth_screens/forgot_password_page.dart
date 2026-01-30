@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/view_model/auth_view_model.dart';
 import 'package:sakeena/widgets/auth_background.dart';
 import 'package:sakeena/widgets/custom_button.dart';
@@ -31,6 +32,7 @@ class ForgotPasswordPage extends StatelessWidget {
     return Consumer<AuthViewModel>(
       builder: (context, auth, child) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: AuthBackground(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 28.w),
@@ -40,16 +42,15 @@ class ForgotPasswordPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 60.h),
-                            
                     // Logo
                     SvgPicture.asset(
                       'assets/images/sakeena_logo.svg',
                       height: 60.h,
                       fit: BoxFit.contain,
                     ),
-                            
+
                     SizedBox(height: 50.h),
-                            
+
                     // Card with content
                     Column(
                       children: [
@@ -70,9 +71,9 @@ class ForgotPasswordPage extends StatelessWidget {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                    
+
                         SizedBox(height: 40.h),
-                    
+
                         // Email field
                         CustomTextField(
                           controller: emailController,
@@ -84,14 +85,15 @@ class ForgotPasswordPage extends StatelessWidget {
                             if (value == null || value.trim().isEmpty) {
                               return 'Email is required';
                             }
-                            if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                .hasMatch(value.trim())) {
+                            if (!RegExp(
+                              r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                            ).hasMatch(value.trim())) {
                               return 'Please enter a valid email';
                             }
                             return null;
                           },
                         ),
-                    
+
                         if (auth.errorMessage != null) ...[
                           SizedBox(height: 16.h),
                           Container(
@@ -113,9 +115,9 @@ class ForgotPasswordPage extends StatelessWidget {
                             ),
                           ),
                         ],
-                    
+
                         SizedBox(height: 32.h),
-                    
+
                         auth.isLoading
                             ? const CircularProgressIndicator(
                                 color: Color(0xFF2C7A7B),
@@ -133,9 +135,29 @@ class ForgotPasswordPage extends StatelessWidget {
                                 },
                                 isGradient: true,
                               ),
+
+                        SizedBox(height: 16.h),
+
+                        CustomButton(
+                    text: 'Go back',
+                    onPressed: () {
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        context.go(AppRoutes.login);
+                      }
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                      size: 24.sp,
+                    ),
+                    isOutlined: true,
+                    textColor: Colors.black,
+                  ),
                       ],
                     ),
-                            
+
                     SizedBox(height: 40.h),
                   ],
                 ),

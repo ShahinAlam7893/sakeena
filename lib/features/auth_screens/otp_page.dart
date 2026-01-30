@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/view_model/auth_view_model.dart';
 import 'package:sakeena/widgets/auth_background.dart';
 import 'package:sakeena/widgets/custom_button.dart';
@@ -36,6 +37,7 @@ class _OtpPageState extends State<OtpPage> {
         final email = auth.resetEmail ?? 'example@gmail.com';
 
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: AuthBackground(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -135,6 +137,26 @@ class _OtpPageState extends State<OtpPage> {
                           },
                           isGradient: true,
                         ),
+
+                  SizedBox(height: 16.h),
+
+                  CustomButton(
+                    text: 'Go back',
+                    onPressed: () {
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        context.go(AppRoutes.forgot);
+                      }
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                      size: 24.sp,
+                    ),
+                    isOutlined: true,
+                    textColor: Colors.black,
+                  ),
 
                   SizedBox(height: 16.h),
 

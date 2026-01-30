@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/widgets/counselor_card.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/past_consultation_card%20.dart';
 import 'package:sakeena/widgets/session_card.dart';
 
@@ -49,23 +50,7 @@ class TeachersScreenForStudent extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 80.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: SvgPicture.asset(
-            'assets/images/sakeena_logo.svg',
-            width: 42.w,
-            height: 42.h,
-          ),
-        ),
-        actions: [
-          IconButton(color: Colors.black, onPressed: () {  }, icon: Icon(Icons.notifications_none),),
-          SizedBox(width: 12.w),
-        ],
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [

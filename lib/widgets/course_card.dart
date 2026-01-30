@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 
 class CourseCard extends StatelessWidget {
@@ -241,7 +242,7 @@ class CourseCard extends StatelessWidget {
                         text: 'View Details',
                         textColor: Colors.white,
                         onPressed: () {
-                          context.push('/courses_details_screen');
+                          context.push(AppRoutes.courseDetails);
                         },
                         height: 32,
                         isGradient: true,

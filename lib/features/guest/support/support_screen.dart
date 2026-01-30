@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/features/guest/support/donation_section.dart'; // ← make sure this file exports DonationAmountSection
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 
 class SupportScreen extends StatefulWidget {
@@ -32,20 +33,7 @@ class _SupportScreenState extends State<SupportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 80.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w, bottom: 10.h),
-          child: SvgPicture.asset(
-            'assets/images/sakeena_logo.svg',
-            width: 42.w,
-            height: 42.h,
-            fit: BoxFit.contain,
-          ),
-        ),
-      ),
+      appBar: const CustomAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

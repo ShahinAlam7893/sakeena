@@ -228,16 +228,19 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> with SingleTicker
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
+
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black87),
-          onPressed: () => context.pop(),
-        ),
-        title: Text(
-          'Course Details',
-          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
+        leadingWidth: 80.w,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 16.w, bottom: 10.h),
+          child: SvgPicture.asset(
+            'assets/images/sakeena_logo.svg',
+            width: 42.w,
+            height: 42.h,
+            fit: BoxFit.contain,
+          ),
         ),
         centerTitle: true,
         bottom: TabBar(

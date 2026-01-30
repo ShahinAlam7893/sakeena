@@ -4,9 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/features/guest/about_us_section.dart';
 import 'package:sakeena/features/guest/what_makes_us_diff_section.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/book_card.dart';
 import 'package:sakeena/widgets/category_card.dart';
 import 'package:sakeena/widgets/course_card.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 import 'package:sakeena/widgets/expert_teachers_card.dart';
 import 'package:sakeena/widgets/subscription_ads_card.dart';
@@ -18,20 +20,7 @@ class GuestHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 80.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w, bottom: 10.h),
-          child: SvgPicture.asset(
-            'assets/images/sakeena_logo.svg',
-            width: 42.w,
-            height: 42.h,
-            fit: BoxFit.contain,
-          ),
-        ),
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -123,8 +112,7 @@ class GuestHomeScreen extends StatelessWidget {
                           SizedBox(height: 24.h),
 
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center, // ✅ KEY FIX
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomButton(
                                 text: 'Browse Courses',
@@ -132,7 +120,9 @@ class GuestHomeScreen extends StatelessWidget {
                                 height: 44.h,
                                 isGradient: true,
                                 textColor: Colors.white,
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.push(AppRoutes.coursesScreen);
+                                },
                               ),
                               SizedBox(width: 12.w),
                               CustomButton(
@@ -141,7 +131,9 @@ class GuestHomeScreen extends StatelessWidget {
                                 height: 44.h,
                                 isOutlined: true,
                                 textColor: Colors.white,
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.push(AppRoutes.teachersScreen);
+                                },
                               ),
                             ],
                           ),
@@ -189,13 +181,13 @@ class GuestHomeScreen extends StatelessWidget {
                       description: 'Healing journey with spiritual support',
                       color: Color(0xFF51A2FF),
                       iconPath: 'assets/icons/depression_Icon.svg',
-                    ), 
+                    ),
                     CategoryCard(
                       title: 'Relationships',
                       description: 'Build healthy Islamic relationships',
                       color: Color(0xFFF6339A),
                       iconPath: 'assets/icons/relationship_Icon.svg',
-                    ), 
+                    ),
                     CategoryCard(
                       title: 'Spiritual Growth',
                       description: 'Deepen your connection with Allah',
@@ -223,7 +215,7 @@ class GuestHomeScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        context.go('/courses_screen');
+                        context.go(AppRoutes.coursesScreen);
                       },
                       child: Row(
                         children: [
@@ -277,7 +269,7 @@ class GuestHomeScreen extends StatelessWidget {
                       price: '\$99',
                       imagePath: 'assets/images/quran_recite_image.png',
                       isSvgImage: false,
-                      isUpcoming: true,              
+                      isUpcoming: true,
                     ),
                     CourseCard(
                       title: 'Islamic Family Counseling',
@@ -313,7 +305,7 @@ class GuestHomeScreen extends StatelessWidget {
                   'Community forum access',
                 ],
                 onPressed: () {
-                  // handle subscription
+                  context.push(AppRoutes.subscription);
                 },
                 iconPath: 'assets/icons/subscription_icon.svg',
               ),
@@ -334,7 +326,9 @@ class GuestHomeScreen extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        context.push(AppRoutes.teachersScreen);
+                      },
                       child: Row(
                         children: [
                           Text(
@@ -378,7 +372,9 @@ class GuestHomeScreen extends StatelessWidget {
                       description:
                           "PhD in Islamic Studies with 20+ years of teaching experience",
                       imagePath: "assets/images/teacher_image.png",
-                      onReadMore: () {},
+                      onReadMore: () {
+                        context.push(AppRoutes.aboutScreen);
+                      },
                     ),
                   ],
                 ),
@@ -405,7 +401,7 @@ class GuestHomeScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        context.push('/books_screen');
+                        context.push(AppRoutes.booksPage);
                       },
                       child: Row(
                         children: [
@@ -459,7 +455,7 @@ class GuestHomeScreen extends StatelessWidget {
                       tagText: 'Physical',
                       tagColor: Colors.orange,
                     ),
-                  ], 
+                  ],
                 ),
               ),
 

@@ -73,7 +73,7 @@ class WhatMakesUsDifferentSection extends StatelessWidget {
                   description:
                       'Discover how we integrate Islamic wisdom with modern psychological practices for holistic healing.',
                   onTap: () {
-                    // play video / navigate
+                    context.push(AppRoutes.videoDescriptionScreen);
                   },
                 );
               },

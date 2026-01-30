@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/view_model/auth_view_model.dart';
 import 'package:sakeena/view_model/user_provider.dart';
 import 'package:sakeena/widgets/auth_background.dart';
@@ -191,7 +192,7 @@ class _SignupPageState extends State<SignupPage> {
                                             );
                                             context.go(
                                               '/',
-                                            ); // or your home route
+                                            ); 
                                           },
                                         );
                                       }
@@ -228,7 +229,7 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () => context.go('/login'),
+                                  onTap: () => context.go(AppRoutes.login),
                                   child: Text(
                                     'Login',
                                     style: TextStyle(

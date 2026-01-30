@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 
 import 'package:sakeena/widgets/profile_header.dart';
 import 'package:sakeena/widgets/book_card.dart';
@@ -23,23 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 80.w,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: SvgPicture.asset(
-            'assets/images/sakeena_logo.svg',
-            width: 42.w,
-            height: 42.h,
-          ),
-        ),
-        actions: [
-          IconButton(color: Colors.black, onPressed: () {  }, icon: Icon(Icons.notifications_none),),
-          SizedBox(width: 12.w),
-        ],
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.w),
         child: Column(
