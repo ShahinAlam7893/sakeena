@@ -48,7 +48,7 @@ class _CoursesPageState extends State<CoursesPage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          context.pop();
+                          context.pop(context);
                         },
                         icon: Icon(Icons.arrow_back, color: Colors.white),
                       ),

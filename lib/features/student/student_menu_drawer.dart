@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sakeena/route/go_route.dart';
 
-enum UserRole { guest, student, teacher }
 
-class CustomDrawer extends StatelessWidget {
-  final UserRole role;
+class StudentMenuDrawer extends StatelessWidget {
   final String userName;
-  final String? avatarUrl; 
+  final String? avatarUrl;
   final String? email;
   final VoidCallback? onLogout;
-  final String? selectedRoute; 
+  final String? selectedRoute;
 
-  const CustomDrawer({
+  const StudentMenuDrawer({
     super.key,
-    required this.role,
-    required this.userName,
+    this.userName = 'Student',
     this.avatarUrl,
     this.email,
     this.onLogout,
@@ -45,10 +44,8 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-
   Widget _buildHeader(BuildContext context) {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    final headerColor = const Color(0xFF2C7A7B); // your brand color
+    final headerColor = const Color(0xFF2C7A7B);
 
     return Container(
       width: double.infinity,
@@ -87,7 +84,7 @@ class CustomDrawer extends StatelessWidget {
           ),
           SizedBox(height: 4.h),
           Text(
-            _getRoleDisplayName(),
+            'Student',
             style: TextStyle(
               color: Colors.white70,
               fontSize: 14.sp,
@@ -108,64 +105,60 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  String _getRoleDisplayName() {
-    switch (role) {
-      case UserRole.guest:
-        return 'Guest';
-      case UserRole.student:
-        return 'Student';
-      case UserRole.teacher:
-        return 'Teacher / Instructor';
-    }
-  }
-
   List<Widget> _buildMenuItems(BuildContext context) {
-    final items = <Map<String, dynamic>>[];
-
-    // Common items
-    items.addAll([
-      {'icon': Icons.home_outlined, 'title': 'Home', 'route': '/home'},
-      {'icon': Icons.school_outlined, 'title': 'Courses', 'route': '/courses'},
-    ]);
-
-
-    // Role-specific items
-    switch (role) {
-      case UserRole.student:
-        items.addAll([
-          {'icon': Icons.video_call_outlined, 'title': 'My Classes', 'route': '/classes'},
-          {'icon': Icons.bookmark_border, 'title': 'Bookmarks', 'route': '/bookmarks'},
-          {'icon': Icons.assessment_outlined, 'title': 'Progress', 'route': '/progress'},
-        ]);
-        break;
-
-      case UserRole.teacher:
-        items.addAll([
-          {'icon': Icons.chat_bubble_outline, 'title': 'Messages', 'route': '/messages'},
-          {'icon': Icons.upload_file_outlined, 'title': 'Upload Content', 'route': '/upload'},
-          {'icon': Icons.people_outline, 'title': 'My Students', 'route': '/students'},
-          {'icon': Icons.analytics_outlined, 'title': 'Analytics', 'route': '/analytics'},
-        ]);
-        break;
-
-      case UserRole.guest:
-        items.addAll([
-          {'icon': Icons.person_add_outlined, 'title': 'Become a Teacher', 'route': '/become-teacher'},
-          {'icon': Icons.help_outline, 'title': 'How it Works', 'route': '/how-it-works'},
-        ]);
-        break;
-    }
+    final items = [
+      {
+        'icon': Icons.home_outlined,
+        'title': 'Home',
+        'route': AppRoutes.studentHomeScreen,
+      },
+      {
+        'icon': Icons.school_outlined,
+        'title': 'Courses',
+        'route': AppRoutes.myCourseScreen,
+      },
+      {
+        'icon': Icons.video_call_outlined,
+        'title': 'Class Joining',
+        'route': AppRoutes.studentLiveClass,
+      },
+      {
+        'icon': Icons.person_outline,
+        'title': 'Teachers',
+        'route': AppRoutes.teachersScreenForStudent,
+      },
+      {
+        'icon': Icons.auto_stories_outlined,
+        'title': 'Books',
+        'route': AppRoutes.booksPage,
+      },
+      {
+        'icon': Icons.article_outlined,
+        'title': 'Blog',
+        'route': AppRoutes.blogScreen,
+      },
+      {
+        'icon': Icons.person,
+        'title': 'Profile',
+        'route': AppRoutes.studentProfilePage,
+      },
+      {
+        'icon': Icons.settings_outlined,
+        'title': 'Settings',
+        'route': AppRoutes.profileSettingsPage,
+      },
+    ];
 
     return items.map((item) {
       final isSelected = selectedRoute == item['route'];
       return ListTile(
         leading: Icon(
-          item['icon'],
+          item['icon'] as IconData,
           color: isSelected ? const Color(0xFF2C7A7B) : null,
           size: 26.sp,
         ),
         title: Text(
-          item['title'],
+          item['title'] as String,
           style: TextStyle(
             fontSize: 15.5.sp,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
@@ -175,10 +168,8 @@ class CustomDrawer extends StatelessWidget {
         selected: isSelected,
         selectedTileColor: const Color(0xFF2C7A7B).withOpacity(0.08),
         onTap: () {
-          // You can use Navigator.pushNamed(context, item['route']);
-          // or your own navigation logic
-          Navigator.pop(context); // close drawer
-          // Example: ScaffoldMessenger.of(context).showSnackBar(...);
+          Navigator.pop(context);
+          context.go(item['route'] as String);
         },
       );
     }).toList();
@@ -188,19 +179,11 @@ class CustomDrawer extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: const Icon(Icons.settings_outlined),
-          title: const Text('Settings'),
-          onTap: () {
-            Navigator.pop(context);
-            // → navigate to settings
-          },
-        ),
-        ListTile(
           leading: const Icon(Icons.help_outline),
           title: const Text('Help & Support'),
           onTap: () {
             Navigator.pop(context);
-            // → help page
+            context.go(AppRoutes.supportScreen);
           },
         ),
         const Divider(height: 8),

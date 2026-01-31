@@ -31,17 +31,17 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () => context.pop(),
-                ),
-                Text('Back to Courses', style: TextStyle(fontSize: 14.sp)),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     IconButton(
+            //       icon: const Icon(Icons.arrow_back),
+            //       onPressed: () => context.pop(),
+            //     ),
+            //     Text('Back to Courses', style: TextStyle(fontSize: 14.sp)),
+            //   ],
+            // ),
 
-            SizedBox(height: 6.h),
+            // SizedBox(height: 6.h),
 
             Text(
               'My Courses',
@@ -133,7 +133,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                   },
                   isGradient: true,
                   width: 70.w,
-                  height: 44.h,
+                  height: 35.h,
                   textColor: Colors.white,
                 ),
               ],

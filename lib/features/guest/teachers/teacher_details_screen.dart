@@ -312,7 +312,7 @@ class CounselorDetailPage extends StatelessWidget {
                     SizedBox(height: 12.h),
                     CustomButton(
                       text: 'View Courses',
-                      onPressed: () => context.go('/courses_screen'),
+                      onPressed: () => context.push('/courses_screen'),
                       isGradient: true,
                       textColor: Colors.white,
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 
 class CheckoutSuccessPage extends StatelessWidget {
@@ -81,13 +82,20 @@ class CheckoutSuccessPage extends StatelessWidget {
                   children: [
                     Text(
                       'What happens next?',
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     SizedBox(height: 12.h),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.download, color: Colors.green.shade700, size: 20.sp),
+                        Icon(
+                          Icons.download,
+                          color: Colors.green.shade700,
+                          size: 20.sp,
+                        ),
                         SizedBox(width: 8.w),
                         Expanded(
                           child: Text(
@@ -101,7 +109,11 @@ class CheckoutSuccessPage extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.local_shipping, color: Colors.green.shade700, size: 20.sp),
+                        Icon(
+                          Icons.local_shipping,
+                          color: Colors.green.shade700,
+                          size: 20.sp,
+                        ),
                         SizedBox(width: 8.w),
                         Expanded(
                           child: Text(
@@ -115,7 +127,11 @@ class CheckoutSuccessPage extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.email, color: Colors.green.shade700, size: 20.sp),
+                        Icon(
+                          Icons.email,
+                          color: Colors.green.shade700,
+                          size: 20.sp,
+                        ),
                         SizedBox(width: 8.w),
                         Expanded(
                           child: Text(
@@ -149,7 +165,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                     child: CustomButton(
                       text: 'View My Library',
                       onPressed: () {
-                        // TODO: navigate to library
+                        context.go(AppRoutes.studentProfilePage);
                       },
                       height: 48.h,
                       isOutlined: true,
@@ -160,7 +176,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                     child: CustomButton(
                       text: 'Continue Shopping',
                       onPressed: () {
-                        context.go('/home');
+                        context.go(AppRoutes.studentHomeScreen);
                       },
                       height: 48.h,
                       isOutlined: true,
