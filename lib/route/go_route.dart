@@ -45,7 +45,6 @@ import 'package:sakeena/features/subscription/subscription_screen.dart';
 import 'package:sakeena/route/guest_shell_route.dart';
 import 'package:sakeena/route/shell_route_for_student.dart';
 
-
 class AppRoutes {
   static const splash = '/';
   static const login = '/login';
@@ -120,8 +119,47 @@ GoRouter createRouter() {
         path: AppRoutes.success,
         builder: (context, state) => const SuccessPage(),
       ),
+      GoRoute(
+        path: AppRoutes.courseDetails,
+        builder: (context, state) => const CourseDetailScreen(),
+      ),
+      // GoRoute(
+      //   path: AppRoutes.courseDetails,
+      //   builder: (context, state) => const CourseDetailsPage(),
+      // ),
+      GoRoute(
+        path: '${AppRoutes.teacherDetails}/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id'] ?? '1';
+          return CounselorDetailPage(counselorId: id);
+        },
+      ),
 
-      /// 🔹 GUEST SHELL (GLOBAL BOTTOM NAV + DRAWER)
+      GoRoute(
+        path: '/book_details/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id'] ?? '1';
+          return BookDetailsPage(bookId: id);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.checkoutSuccess,
+        builder: (context, state) => const CheckoutSuccessPage(),
+      ),
+      GoRoute(
+            path: AppRoutes.checkoutDetails,
+            builder: (context, state) => const CheckoutDetailsPage(),
+          ),
+          GoRoute(
+            path: AppRoutes.checkoutPayment,
+            builder: (context, state) => const CheckoutPaymentPage(),
+          ),
+          GoRoute(
+            path: AppRoutes.videoDescriptionScreen,
+            builder: (context, state) => const VideoDescriptionScreen(),
+          ),
+
+      /// GUEST SHELL (GLOBAL BOTTOM NAV + DRAWER)
       ShellRoute(
         builder: (context, state, child) {
           return GuestShell(child: child);
@@ -143,44 +181,19 @@ GoRouter createRouter() {
             path: AppRoutes.coursesScreen,
             builder: (context, state) => const CoursesPage(),
           ),
-          GoRoute(
-            path: AppRoutes.courseDetails,
-            builder: (context, state) => const CourseDetailsPage(),
-          ),
+
           GoRoute(
             path: AppRoutes.teachersScreen,
             builder: (context, state) => const TeachersScreen(),
           ),
-          GoRoute(
-            path: '${AppRoutes.teacherDetails}/:id',
-            builder: (context, state) {
-              final id = state.pathParameters['id'] ?? '1';
-              return CounselorDetailPage(counselorId: id);
-            },
-          ),
+
           GoRoute(
             path: AppRoutes.booksPage,
             builder: (context, state) => const BooksPage(),
           ),
-          GoRoute(
-            path: '/book_details/:id',
-            builder: (context, state) {
-              final id = state.pathParameters['id'] ?? '1';
-              return BookDetailsPage(bookId: id);
-            },
-          ),
-          GoRoute(
-            path: AppRoutes.checkoutDetails,
-            builder: (context, state) => const CheckoutDetailsPage(),
-          ),
-          GoRoute(
-            path: AppRoutes.checkoutPayment,
-            builder: (context, state) => const CheckoutPaymentPage(),
-          ),
-          GoRoute(
-            path: AppRoutes.checkoutSuccess,
-            builder: (context, state) => const CheckoutSuccessPage(),
-          ),
+
+          
+
           GoRoute(
             path: AppRoutes.aboutScreen,
             builder: (context, state) => const AboutScreen(),
@@ -197,10 +210,7 @@ GoRouter createRouter() {
             path: AppRoutes.videoLibraryScreen,
             builder: (context, state) => const VideoLibraryScreen(),
           ),
-          GoRoute(
-            path: AppRoutes.videoDescriptionScreen,
-            builder: (context, state) => const VideoDescriptionScreen(),
-          ),
+          
           GoRoute(
             path: AppRoutes.supportScreen,
             builder: (context, state) => const SupportScreen(),
@@ -212,7 +222,7 @@ GoRouter createRouter() {
         ],
       ),
 
-      /// 🔥 STUDENT SHELL (GLOBAL BOTTOM NAV + DRAWER)
+      /// STUDENT SHELL (GLOBAL BOTTOM NAV + DRAWER)
       ShellRoute(
         builder: (context, state, child) {
           return StudentShell(child: child);

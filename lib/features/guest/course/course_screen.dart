@@ -43,36 +43,24 @@ class _CoursesPageState extends State<CoursesPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          context.pop(context);
-                        },
-                        icon: Icon(Icons.arrow_back, color: Colors.white),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 14.w,
+                      vertical: 6.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color(0x33FFFFFF),
+                      borderRadius: BorderRadius.circular(20.r),
+                      border: Border.all(color: Colors.white70),
+                    ),
+                    child: Text(
+                      'Explore Our Courses',
+                      style: TextStyle(
+                        fontSize: 11.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
                       ),
-                      SizedBox(width: 50.w,),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 14.w,
-                          vertical: 6.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0x33FFFFFF),
-                          borderRadius: BorderRadius.circular(20.r),
-                          border: Border.all(color: Colors.white70),
-                        ),
-                        child: Text(
-                          'Explore Our Courses',
-                          style: TextStyle(
-                            fontSize: 11.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
 
                   SizedBox(height: 14.h),

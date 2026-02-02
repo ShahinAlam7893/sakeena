@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/achievement_section.dart';
 import 'package:sakeena/widgets/booking_dialog_box.dart';
 import 'package:sakeena/widgets/course_card.dart';
 import 'package:sakeena/widgets/course_taught_card.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sakeena/widgets/education_section_card.dart';
@@ -114,26 +116,40 @@ class CounselorDetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => context.pop(),
-        ),
-        title: const Text(
-          'Back to Teachers',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: Colors.transparent,
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back, color: Colors.black),
+      //     onPressed: () => context.pop(),
+      //   ),
+      //   title: const Text(
+      //     'Back to Teachers',
+      //     style: TextStyle(
+      //       color: Colors.black,
+      //       fontSize: 14,
+      //       fontWeight: FontWeight.w600,
+      //     ),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
             children: [
+              Row(
+                children: [
+                  IconButton(onPressed: (){context.pop(context);}, icon: Icon(Icons.arrow_back)),
+                  Text(
+                    'Back to Teachers',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
               /// ================= PROFILE SECTION (NO WHITE BG) =================
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 24.h),
@@ -312,7 +328,7 @@ class CounselorDetailPage extends StatelessWidget {
                     SizedBox(height: 12.h),
                     CustomButton(
                       text: 'View Courses',
-                      onPressed: () => context.push('/courses_screen'),
+                      onPressed: () => context.go(AppRoutes.coursesScreen),
                       isGradient: true,
                       textColor: Colors.white,
                     ),
