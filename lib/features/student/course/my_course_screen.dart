@@ -42,7 +42,6 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
             // ),
 
             // SizedBox(height: 6.h),
-
             Text(
               'My Courses',
               style: TextStyle(
@@ -64,25 +63,22 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                   return SizedBox(
                     width: 250.w,
                     child: CourseCard(
-                      title: index == 0
-                          ? 'Mindfulness in Islam'
-                          : 'Islamic Psychology Basics',
-                      instructor: index == 0
-                          ? 'Sheikh Omar Ibrahim'
-                          : 'Dr. Aisha Khan',
-                      sessionDuration: index == 0
-                          ? '2hr per session'
-                          : '60 min',
-                      numberOfWeeks: index == 0 ? '12 weeks' : '8 weeks',
-                      duration: index == 0 ? '24 Lessons' : '16 Lessons',
-                      lessons: index == 0 ? '24 Lessons' : '16 Lessons',
-                      price: index == 0 ? '\$99' : '\$79',
-                      imagePath: index == 0
-                          ? 'assets/images/quran_recite_image.png'
-                          : 'assets/images/quran_image.png',
-                      isSvgImage: false,
-                      isUpcoming: index == 1,
-                    ),
+                        title: index == 0
+                            ? 'Tafsir Al-Quran: Understanding Divine Message'
+                            : 'Quran & Mental Wellness',
+                        instructor: index == 0
+                            ? 'Dr. Ahmad Hassan'
+                            : 'Prof. Ahmed Hassan',
+                        sessionDuration: '2hr per session',
+                        numberOfWeeks: '12 weeks',
+                        duration: '24 Lessons',
+                        lessons: '24 Lessons',
+                        price: '\$99',
+                        imagePath: 'assets/images/quran_recite_image.png',
+                        isSvgImage: false,
+                        isUpcoming: index == 0,
+                      ),
+
                   );
                 },
               ),

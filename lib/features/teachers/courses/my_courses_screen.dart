@@ -158,7 +158,7 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
                     itemCount: courses.length,
                     itemBuilder: (context, index) {
                       final course = courses[index];
-                      return CourseCard(
+                      return CourseCardTeacher(
                         imageUrl: course['imageUrl'],
                         category: course['category'],
                         title: course['title'],

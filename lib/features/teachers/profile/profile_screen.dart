@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   // Profile Header
-                  ProfileHeader(
+                  ProfileHeaderTeacher(
                     initials: 'FR',
                     onUploadPhoto: () {
                       // Handle photo upload

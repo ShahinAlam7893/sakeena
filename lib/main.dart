@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/view_model/auth_view_model.dart';
 import 'package:sakeena/view_model/user_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+final router = createRouter();
+  runApp( MyApp(router: router,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final GoRouter router;
+   MyApp({super.key,required this.router});
 
   static const Color primaryColor = Color(0xFF2C7A7B);
   static const Color backgroundColor = Color(0xFFFFFEF8);
@@ -29,10 +32,7 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(create: (_) => UserProvider()),
             ChangeNotifierProvider(create: (_) => AuthViewModel()),
           ],
-          child: Consumer<UserProvider>(
-            builder: (context, userProvider, _) {
-              final router = createRouter();
-              return MaterialApp.router(
+          child: MaterialApp.router(
                 title: 'Sakeena Institute',
                 debugShowCheckedModeBanner: false,
                 routerConfig: router,
@@ -42,9 +42,7 @@ class MyApp extends StatelessWidget {
                   useMaterial3: true,
                   colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
                 ),
-              );
-            },
-          ),
+              )
         );
       },
     );

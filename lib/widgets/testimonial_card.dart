@@ -35,16 +35,16 @@ class TestimonialCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Opening quote icon
-          SvgPicture.asset(
-            'assets/icons/quote_open.svg', // ← add your quote SVG or use Icon
-            width: 32.w,
-            height: 32.h,
-            colorFilter: const ColorFilter.mode(
-              Color(0xFF2C7A7B), // your teal color
-              BlendMode.srcIn,
-            ),
-          ),
-          SizedBox(height: 12.h),
+          // SvgPicture.asset(
+          //   'assets/icons/quote_open.svg',
+          //   width: 32.w,
+          //   height: 32.h,
+          //   colorFilter: const ColorFilter.mode(
+          //     Color(0xFF2C7A7B), // your teal color
+          //     BlendMode.srcIn,
+          //   ),
+          // ),
+          // SizedBox(height: 12.h),
 
           // Quote text
           Text(

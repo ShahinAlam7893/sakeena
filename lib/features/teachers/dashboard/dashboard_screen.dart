@@ -114,17 +114,17 @@ class DashboardScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16.h),
-                  SessionCard(
+                  SessionCardForTeacher(
                     title: 'Introduction to Python',
                     time: '10:00 AM',
                     studentCount: 32,
                   ),
-                  SessionCard(
+                  SessionCardForTeacher(
                     title: 'Advanced JavaScript',
                     time: '2:00 PM',
                     studentCount: 28,
                   ),
-                  SessionCard(
+                  SessionCardForTeacher(
                     title: 'Database Design',
                     time: '4:30 PM',
                     studentCount: 25,

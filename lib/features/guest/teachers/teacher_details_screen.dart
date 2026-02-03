@@ -139,7 +139,12 @@ class CounselorDetailPage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  IconButton(onPressed: (){context.pop(context);}, icon: Icon(Icons.arrow_back)),
+                  IconButton(
+                    onPressed: () {
+                      context.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back),
+                  ),
                   Text(
                     'Back to Teachers',
                     style: TextStyle(
@@ -150,6 +155,7 @@ class CounselorDetailPage extends StatelessWidget {
                   ),
                 ],
               ),
+
               /// ================= PROFILE SECTION (NO WHITE BG) =================
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 24.h),
@@ -421,15 +427,12 @@ class CounselorDetailPage extends StatelessWidget {
                             title: course['title'],
                             instructor: course['instructor'],
                             lessons: course['lessons'],
+                            numberOfWeeks: course['weeks'],
+                            duration: course['duration'],
+                            sessionDuration: course['sessionDuration'],
                             price: course['price'],
-                            imageUrl: course['image'],
-                            category: 'Islamic Course',
-                            weeks: int.parse(course['weeks'].split(' ')[0]),
-                            totalHours: double.parse(
-                              course['duration'].split(' ')[0],
-                            ),
-                            hoursPerSession: 1.5,
-                            onViewDetails: () {},
+                            imagePath: course['image'],
+                            isUpcoming: course['isUpcoming'],
                           );
                         },
                       ),

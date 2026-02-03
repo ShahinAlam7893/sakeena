@@ -120,15 +120,16 @@ class TeachersScreenForStudent extends StatelessWidget {
                   ),
                 ),
                 // SizedBox(height: 16.h),
-                SessionCard(
-                  title: 'Dr. Fatima Rahman',
-                  dateTime: 'Monday, January 8, 2024 at 2:00 PM',
-                  topic: 'Stress Management',
-                  isUpcoming: true,
-                  onAction: () {
-                    // Action to join the session
-                  },
-                ),
+                // SessionCard(
+                //   title: 'Dr. Fatima Rahman',
+                //   dateTime: 'Monday, January 8, 2024 at 2:00 PM',
+                //   topic: 'Stress Management',
+                //   isUpcoming: true,
+                //   onAction: () {
+                //     // Action to join the session
+                //   },
+                // ),
+
               ],
             ),
             Padding(

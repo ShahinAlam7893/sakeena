@@ -91,9 +91,10 @@ class AppRoutes {
 
 GoRouter createRouter() {
   return GoRouter(
+     debugLogDiagnostics: true,
     initialLocation: AppRoutes.splash,
     routes: [
-      /// 🔹 Splash & Auth
+      ///Splash & Auth
       GoRoute(
         path: AppRoutes.splash,
         builder: (context, state) => const SplashScreen(),
@@ -195,9 +196,6 @@ GoRouter createRouter() {
           ),
 
           
-
-          
-
           GoRoute(
             path: AppRoutes.aboutScreen,
             builder: (context, state) => const AboutScreen(),
