@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SessionCard extends StatelessWidget {
-  final String title;
-  final String time;
-  final int studentCount;
+class UploadItem extends StatelessWidget {
+  final String fileName;
+  final String category;
+  final String date;
 
-  const SessionCard({
+  const UploadItem({
     super.key,
-    required this.title,
-    required this.time,
-    required this.studentCount,
+    required this.fileName,
+    required this.category,
+    required this.date,
   });
 
   @override
@@ -31,7 +31,7 @@ class SessionCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  fileName,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -40,7 +40,7 @@ class SessionCard extends StatelessWidget {
                 ),
                 SizedBox(height: 6.h),
                 Text(
-                  '$time • $studentCount students',
+                  category,
                   style: TextStyle(
                     fontSize: 12.sp,
                     color: Colors.grey.shade600,
@@ -49,19 +49,12 @@ class SessionCard extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-            decoration: BoxDecoration(
-              color: Color(0xFF2C7A7B).withOpacity(0.2),
-              borderRadius: BorderRadius.circular(20.r),
-            ),
-            child: Text(
-              'upcoming',
-              style: TextStyle(
-                fontSize: 12.sp,
-                color: Color(0xFF2C7A7B),
-                fontWeight: FontWeight.w600,
-              ),
+          Text(
+            date,
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: Colors.grey.shade600,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],

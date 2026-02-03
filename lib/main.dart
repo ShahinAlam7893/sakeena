@@ -12,8 +12,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  static const Color primaryColor = Color(0xFF2C7A7B);
+  static const Color backgroundColor = Color(0xFFFFFEF8);
+  static const Color notificationDotColor = Color(0xFFE53E3E);
+
   @override
   Widget build(BuildContext context) {
+    
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -32,12 +37,10 @@ class MyApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 routerConfig: router,
                 theme: ThemeData(
-                  primaryColor: const Color(0xFF2C7A7B),
+                  primaryColor: primaryColor,
                   scaffoldBackgroundColor: Colors.grey.shade50,
                   useMaterial3: true,
-                  colorScheme: ColorScheme.fromSeed(
-                    seedColor: const Color(0xFF2C7A7B),
-                  ),
+                  colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
                 ),
               );
             },

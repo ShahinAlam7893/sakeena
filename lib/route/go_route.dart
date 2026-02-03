@@ -44,6 +44,7 @@ import 'package:sakeena/features/subscription/checkout/checkout_success_page.dar
 import 'package:sakeena/features/subscription/subscription_screen.dart';
 import 'package:sakeena/route/guest_shell_route.dart';
 import 'package:sakeena/route/shell_route_for_student.dart';
+import 'package:sakeena/route/teachers_routes.dart';
 
 class AppRoutes {
   static const splash = '/';
@@ -84,6 +85,7 @@ class AppRoutes {
   static const privacyPolicyPage = '/privacy_policy_page';
   static const termsAndConditionsPage = '/terms_and_conditions_page';
   static const profileSettingsPage = '/profile_settings_page';
+
 }
 
 
@@ -268,6 +270,8 @@ GoRouter createRouter() {
           ),
         ],
       ),
+      // Teachers route defined in #teachers_routes.dart
+      ...TeachersRoutes.getRoutes(),
     ],
   );
 }
