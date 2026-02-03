@@ -86,6 +86,7 @@ class AppRoutes {
   static const profileSettingsPage = '/profile_settings_page';
 }
 
+
 GoRouter createRouter() {
   return GoRouter(
     initialLocation: AppRoutes.splash,
@@ -158,6 +159,10 @@ GoRouter createRouter() {
             path: AppRoutes.videoDescriptionScreen,
             builder: (context, state) => const VideoDescriptionScreen(),
           ),
+          GoRoute(
+            path: AppRoutes.booksPage,
+            builder: (context, state) => const BooksPage(),
+          ),
 
       /// GUEST SHELL (GLOBAL BOTTOM NAV + DRAWER)
       ShellRoute(
@@ -187,10 +192,7 @@ GoRouter createRouter() {
             builder: (context, state) => const TeachersScreen(),
           ),
 
-          GoRoute(
-            path: AppRoutes.booksPage,
-            builder: (context, state) => const BooksPage(),
-          ),
+          
 
           
 

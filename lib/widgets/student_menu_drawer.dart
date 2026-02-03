@@ -7,15 +7,15 @@ class DrawerMenuItem {
   final String label;
   final IconData icon;
   final String route;
+ 
 
   const DrawerMenuItem({
     required this.label,
     required this.icon,
     required this.route,
+ 
   });
 }
-
-
 
 const List<DrawerMenuItem> studentMenuItems = [
   DrawerMenuItem(
@@ -60,9 +60,8 @@ const List<DrawerMenuItem> studentMenuItems = [
   ),
 ];
 
-
 class StudentMenuDrawer extends StatelessWidget {
-  const StudentMenuDrawer({super.key});
+  const StudentMenuDrawer({super.key, required String selectedRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,7 @@ class StudentMenuDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: studentMenuItems.map((item) {
-              final isActive = currentRoute.startsWith(item.route);
+              final isActive =  currentRoute.startsWith(item.route);
 
               return _MenuTile(
                 label: item.label,

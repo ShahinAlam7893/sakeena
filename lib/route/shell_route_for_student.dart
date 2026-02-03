@@ -68,6 +68,7 @@
 //   }
 // }
 
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/widgets/custom_bottom_navbar.dart';
@@ -134,7 +135,7 @@ class _StudentShellState extends State<StudentShell> {
     return Scaffold(
       key: _scaffoldKey,
       body: widget.child,
-      endDrawer: const StudentMenuDrawer(),
+      endDrawer: StudentMenuDrawer(selectedRoute: location),
       bottomNavigationBar: CustomBottomNavBar(
         items: studentBottomNavItems,
         currentIndex: _currentIndex,

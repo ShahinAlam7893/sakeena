@@ -94,7 +94,27 @@ class SubscriptionPage extends StatelessWidget {
               ],
               sales: 47,
               created: '1/10/2024',
-              onBuyPressed: () {},
+              onBuyPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AuthRequiredDialog(
+                      onSignIn: () {
+                        Navigator.pop(context); 
+                        context.push(AppRoutes.login); 
+                      },
+                      onCreateAccount: () {
+                        Navigator.pop(context); 
+                        context.push(AppRoutes.signup); 
+                      },
+                      onBrowse: () {
+                        Navigator.pop(context); 
+                      },
+                    );
+                  },
+                );
+              },
             ),
             SizedBox(height: 20.h),
 
@@ -117,7 +137,27 @@ class SubscriptionPage extends StatelessWidget {
               ],
               sales: 47,
               created: '1/10/2024',
-              onBuyPressed: () {},
+              onBuyPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AuthRequiredDialog(
+                      onSignIn: () {
+                        Navigator.pop(context); 
+                        context.push(AppRoutes.login); 
+                      },
+                      onCreateAccount: () {
+                        Navigator.pop(context); 
+                        context.push(AppRoutes.signup); 
+                      },
+                      onBrowse: () {
+                        Navigator.pop(context); 
+                      },
+                    );
+                  },
+                );
+              },
             ),
             SizedBox(height: 20.h),
           ],

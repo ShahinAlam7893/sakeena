@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/route/go_route.dart';
 
-
 class StudentMenuDrawer extends StatelessWidget {
   final String userName;
   final String? avatarUrl;
   final String? email;
   final VoidCallback? onLogout;
   final String? selectedRoute;
+  
 
   const StudentMenuDrawer({
     super.key,
@@ -65,7 +65,9 @@ class StudentMenuDrawer extends StatelessWidget {
           CircleAvatar(
             radius: 38.r,
             backgroundColor: Colors.white24,
-            backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl!) : null,
+            backgroundImage: avatarUrl != null
+                ? NetworkImage(avatarUrl!)
+                : null,
             child: avatarUrl == null
                 ? Icon(Icons.person, size: 44.sp, color: Colors.white70)
                 : null,
@@ -85,19 +87,13 @@ class StudentMenuDrawer extends StatelessWidget {
           SizedBox(height: 4.h),
           Text(
             'Student',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14.sp,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 14.sp),
           ),
           if (email != null) ...[
             SizedBox(height: 4.h),
             Text(
               email!,
-              style: TextStyle(
-                color: Colors.white60,
-                fontSize: 13.sp,
-              ),
+              style: TextStyle(color: Colors.white60, fontSize: 13.sp),
             ),
           ],
         ],
@@ -169,37 +165,39 @@ class StudentMenuDrawer extends StatelessWidget {
         selectedTileColor: const Color(0xFF2C7A7B).withOpacity(0.08),
         onTap: () {
           Navigator.pop(context);
-          context.go(item['route'] as String);
+          context.push(item['route'] as String);
         },
       );
     }).toList();
   }
 
   Widget _buildBottomSection(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          leading: const Icon(Icons.help_outline),
-          title: const Text('Help & Support'),
-          onTap: () {
-            Navigator.pop(context);
-            context.go(AppRoutes.supportScreen);
-          },
-        ),
-        const Divider(height: 8),
-        ListTile(
-          leading: const Icon(Icons.logout, color: Colors.redAccent),
-          title: const Text(
-            'Logout',
-            style: TextStyle(color: Colors.redAccent),
+    return SafeArea(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.help_outline),
+            title: const Text('Help & Support'),
+            onTap: () {
+              Navigator.pop(context);
+              context.go(AppRoutes.supportScreen);
+            },
           ),
-          onTap: () {
-            Navigator.pop(context);
-            if (onLogout != null) onLogout!();
-          },
-        ),
-        SizedBox(height: 16.h),
-      ],
+          const Divider(height: 8),
+          ListTile(
+            leading: const Icon(Icons.logout, color: Colors.redAccent),
+            title: const Text(
+              'Logout',
+              style: TextStyle(color: Colors.redAccent),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              if (onLogout != null) onLogout!();
+            },
+          ),
+          SizedBox(height: 16.h),
+        ],
+      ),
     );
   }
 }

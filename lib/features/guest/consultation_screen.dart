@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 
 class ConsultationScreen extends StatelessWidget {
@@ -278,7 +280,9 @@ class ConsultationScreen extends StatelessWidget {
                         Expanded(
                           child: CustomButton(
                             text: 'Book Consultation',
-                            onPressed: () {},
+                            onPressed: () {
+                              context.push(AppRoutes.teachersScreen);
+                            },
                             isGradient: true,
                             textColor: Colors.white,
                           ),
@@ -287,7 +291,9 @@ class ConsultationScreen extends StatelessWidget {
                         Expanded(
                           child: CustomButton(
                             text: 'View Counselors',
-                            onPressed: () {},
+                            onPressed: () {
+                              context.push(AppRoutes.teachersScreen);
+                            },
                             isGradient: false,
                             textColor: teal,
                           ),

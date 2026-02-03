@@ -54,7 +54,6 @@ class _BooksPageState extends State<BooksPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: const CustomAppBar(),
@@ -69,13 +68,23 @@ class _BooksPageState extends State<BooksPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Books & Publications',
-                      style: TextStyle(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            context.pop(context);
+                          },
+                          icon: Icon(Icons.arrow_back),
+                        ),
+                        Text(
+                          'Books & Publications',
+                          style: TextStyle(
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 8.h),
                     Text(

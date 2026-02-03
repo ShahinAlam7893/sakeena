@@ -3,14 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/route/go_route.dart';
 
-
 class GuestMenuDrawer extends StatelessWidget {
   final String? selectedRoute;
 
-  const GuestMenuDrawer({
-    super.key,
-    this.selectedRoute,
-  });
+  const GuestMenuDrawer({super.key, this.selectedRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +37,7 @@ class GuestMenuDrawer extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(24.w, 60.h, 24.w, 28.h),
+      padding: EdgeInsets.fromLTRB(24.w, 40.h, 24.w, 10.h),
       decoration: BoxDecoration(
         color: headerColor,
         gradient: LinearGradient(
@@ -59,7 +55,7 @@ class GuestMenuDrawer extends StatelessWidget {
             backgroundColor: Colors.white24,
             child: Icon(Icons.person, size: 44.sp, color: Colors.white70),
           ),
-          SizedBox(height: 16.h),
+          SizedBox(height: 12.h),
 
           // Name & Role
           Text(
@@ -74,10 +70,7 @@ class GuestMenuDrawer extends StatelessWidget {
           SizedBox(height: 4.h),
           Text(
             'Explore & Learn',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14.sp,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 14.sp),
           ),
         ],
       ),
@@ -127,11 +120,6 @@ class GuestMenuDrawer extends StatelessWidget {
         'route': AppRoutes.booksPage,
       },
       {
-        'icon': Icons.star_outline,
-        'title': 'Testimonials',
-        'route': AppRoutes.blogScreen,
-      },
-      {
         'icon': Icons.card_membership_outlined,
         'title': 'Subscription',
         'route': AppRoutes.subscription,
@@ -163,25 +151,27 @@ class GuestMenuDrawer extends StatelessWidget {
         selectedTileColor: const Color(0xFF2C7A7B).withOpacity(0.08),
         onTap: () {
           Navigator.pop(context);
-          context.go(item['route'] as String);
+          context.push(item['route'] as String);
         },
       );
     }).toList();
   }
 
   Widget _buildBottomSection(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          leading: const Icon(Icons.help_outline),
-          title: const Text('Help & Support'),
-          onTap: () {
-            Navigator.pop(context);
-            context.go(AppRoutes.supportScreen);
-          },
-        ),
-        SizedBox(height: 16.h),
-      ],
+    return SafeArea(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.help_outline),
+            title: const Text('Help & Support'),
+            onTap: () {
+              Navigator.pop(context);
+              context.go(AppRoutes.supportScreen);
+            },
+          ),
+          SizedBox(height: 16.h),
+        ],
+      ),
     );
   }
 }

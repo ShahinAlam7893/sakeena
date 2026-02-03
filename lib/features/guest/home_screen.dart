@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/features/guest/about_us_section.dart';
+import 'package:sakeena/features/guest/testimonials_section.dart';
 import 'package:sakeena/features/guest/what_makes_us_diff_section.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/book_card.dart';
@@ -458,8 +459,7 @@ class GuestHomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
-              SizedBox(height: 60.h),
+              const TestimonialsSection()
             ],
           ),
         ),
