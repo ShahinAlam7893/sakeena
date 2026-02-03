@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sakeena/core/app_theme.dart';
 import 'package:sakeena/widgets/stat_card.dart';
 import 'package:sakeena/widgets/session_card.dart';
@@ -10,7 +11,6 @@ import '../../../main.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -28,31 +28,28 @@ class DashboardScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'S',
-                      style: TextStyle(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w700,
-                        color: AppTheme.primaryColor,
-                      ),
+                    SvgPicture.asset(
+                      "assets/images/sakeena_logo.svg",
+                      height: 50,
+                      width: 50,
                     ),
-                    Container(
-                      width: 40.w,
-                      height: 40.w,
-                      decoration: BoxDecoration(
-                        color: MyApp.notificationDotColor,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '1',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
+                    Stack(
+                      children: [
+                        SvgPicture.asset("assets/icons/notification.svg"),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          bottom: 10,
+                          child: Container(
+                            height: 10,
+                            width: 10,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
@@ -164,12 +161,6 @@ class DashboardScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: TeacherBottomNavigation(
-        currentIndex: 0,
-        onTap: (index) {
-          
-        },
       ),
     );
   }

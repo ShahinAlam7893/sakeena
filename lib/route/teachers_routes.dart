@@ -1,7 +1,8 @@
 import 'package:go_router/go_router.dart';
-
-import '../features/teachers/_old_course_detail/course_detail.model.dart';
-import '../features/teachers/_old_course_detail/course_detail_screen.dart';
+import 'package:sakeena/features/guest/consultation_screen.dart';
+import 'package:sakeena/features/teachers/consultation_page/consultation_page.dart';
+import 'package:sakeena/features/teachers/landing_page/landing_page.dart';
+import 'package:sakeena/features/teachers/upload_content/upload_content.dart';
 import '../features/teachers/course_detail/course_detail_screen.dart';
 import '../features/teachers/courses/my_courses_screen.dart';
 import '../features/teachers/create_course/create_course_screen.dart';
@@ -12,11 +13,39 @@ class TeachersRoutes {
   static const String dashboard = '/teachers/dashboard';
   static const String profile = '/teachers/profile';
   static const String myCourses = '/teachers/my-courses';
+  static const String message = "/message";
   static const String createCourse = '/teachers/create-course';
   static const String courseDetail = '/teachers/course-detail';
+  static const String menu = "/menu";
+  static const String consultation = "/consultation";
+  static const consultationManagement = "/consultation-management";
 
-  static List<GoRoute> getRoutes() {
+  static const String uploadContent = "/upload-content";
+
+  static List<RouteBase> getRoutes() {
     return [
+      ShellRoute(
+        builder: (context, state, child) => LandingPageTeacher(child: child),
+        routes: [
+          GoRoute(
+            path: dashboard,
+            builder: (context, state) => const DashboardScreen(),
+          ),
+          GoRoute(
+            path: myCourses,
+            builder: (context, state) => const MyCoursesScreen(),
+          ),
+          GoRoute(
+            path: consultation,
+            builder: (context, state) => const ConsultationManagementScreen(),
+          ),
+          GoRoute(
+            path: uploadContent,
+            builder: (context, state) => const UploadContentHomePage(),
+          ),
+        ],
+      ),
+
       GoRoute(
         path: dashboard,
         builder: (context, state) => const DashboardScreen(),
@@ -35,8 +64,7 @@ class TeachersRoutes {
       ),
       GoRoute(
         path: courseDetail,
-        builder: (context, state) =>
-           const CourseDetailScreen(),
+        builder: (context, state) => const CourseDetailScreen(),
       ),
       // Add more teacher-specific routes here
     ];

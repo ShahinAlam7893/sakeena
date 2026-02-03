@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -39,9 +40,7 @@ class MyApp extends StatelessWidget {
                   primaryColor: primaryColor,
                   scaffoldBackgroundColor: Colors.grey.shade50,
                   useMaterial3: true,
-                  colorScheme: ColorScheme.fromSeed(
-                    seedColor: primaryColor,
-                  ),
+                  colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
                 ),
               );
             },

@@ -32,11 +32,12 @@ class AppRoutes {
   static const courseDetails = '/courses_details_screen';
   static const teachersScreen = '/teachers_screen';
   static const teacherDetails = '/teachers_details_screen';
+
 }
 
 GoRouter createRouter() {
   return GoRouter(
-    initialLocation: TeachersRoutes.myCourses,
+    initialLocation: TeachersRoutes.dashboard,
     routes: [
       GoRoute(
         path: AppRoutes.splash,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/core/app_theme.dart';
+import 'package:sakeena/features/teachers/common/custom_app_bar.dart';
 import 'package:sakeena/widgets/category_filter_button.dart';
 import 'package:sakeena/widgets/course_card.dart';
 import 'package:sakeena/widgets/teacher_bottom_navigation.dart';
@@ -73,74 +74,13 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-              child: SafeArea(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'S',
-                      style: TextStyle(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w700,
-                        color: AppTheme.primaryColor,
-                      ),
-                    ),
-                    Container(
-                      width: 40.w,
-                      height: 40.w,
-                      decoration: BoxDecoration(
-                        color: MyApp.notificationDotColor,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '1',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            CustomAppBar(),
             // Main Content
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Back Button
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.arrow_back,
-                          size: 20.sp,
-                          color: AppTheme.primaryColor,
-                        ),
-                        SizedBox(width: 4.w),
-                        Text(
-                          'Back to Courses',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppTheme.primaryColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   SizedBox(height: 20.h),
                   // Title Section
                   Text(
@@ -229,6 +169,7 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
                         hoursPerSession: course['hoursPerSession'],
                         price: course['price'],
                         onViewDetails: () {
+                          print("data");
                           context.push(
                             TeachersRoutes.courseDetail,
                             extra: CourseDetailModelOld(
@@ -254,12 +195,6 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: TeacherBottomNavigation(
-        currentIndex: 2,
-        onTap: (index) {
-          // Handle navigation
-        },
       ),
     );
   }

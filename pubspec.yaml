@@ -37,6 +37,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/icons/teacher/
     - assets/fonts/
   #   - images/a_dot_ham.jpeg
 
