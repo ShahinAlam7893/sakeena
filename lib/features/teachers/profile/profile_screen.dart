@@ -403,12 +403,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: TeacherBottomNavigation(
-        currentIndex: 1,
-        onTap: (index) {
-          // Handle navigation
-        },
-      ),
     );
   }
 

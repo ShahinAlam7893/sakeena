@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sakeena/features/teachers/common/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 
@@ -520,10 +521,10 @@ class RescheduleDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 500),
-        padding: const EdgeInsets.all(24.0),
+        constraints: BoxConstraints(maxWidth: 600.w),
+        padding: EdgeInsets.all(20.w),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -533,41 +534,44 @@ class RescheduleDialog extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.videocam_outlined,
-                        color: Color(0xFF2D7A7B),
-                        size: 28,
+                        color: const Color(0xFF2D7A7B),
+                        size: 28.sp,
                       ),
-                      SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       Text(
                         'Reschedule New Session',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF2D7A7B),
+                          color: const Color(0xFF2D7A7B),
                         ),
                       ),
                     ],
                   ),
                   IconButton(
+                    iconSize: 20.sp,
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.close, color: Colors.grey),
                   ),
                 ],
               ),
-              const Divider(height: 32),
+
+              SizedBox(height: 16.h),
+              Divider(height: 32.h),
 
               // Reason Section
               _buildLabel("Reschedule Reason:", isRequired: true),
               _buildInputField(hint: "Busy for...."),
-              const SizedBox(height: 4),
-              const Text(
+              SizedBox(height: 4.h),
+              Text(
                 "Give your live session a descriptive title",
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(color: Colors.grey, fontSize: 12.sp),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
 
               // Date and Time Row
               Row(
@@ -585,7 +589,7 @@ class RescheduleDialog extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -599,7 +603,7 @@ class RescheduleDialog extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -615,17 +619,19 @@ class RescheduleDialog extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+
+              SizedBox(height: 20.h),
 
               // Zoom Link Section
               _buildLabel("Zoom Meeting Link", icon: Icons.videocam_outlined),
               _buildInputField(hint: "https://zoom.us/j/1234567890"),
-              const SizedBox(height: 4),
-              const Text(
+              SizedBox(height: 4.h),
+              Text(
                 "Create a Zoom meeting and paste the link here. Students will use this to join.",
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(color: Colors.grey, fontSize: 12.sp),
               ),
-              const SizedBox(height: 32),
+
+              SizedBox(height: 32.h),
 
               // Action Buttons
               Row(
@@ -634,29 +640,32 @@ class RescheduleDialog extends StatelessWidget {
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(context),
                       style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: StadiumBorder(),
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        shape: const StadiumBorder(),
                         side: const BorderSide(color: Colors.grey),
                       ),
-                      child: const Text(
+                      child: Text(
                         "Cancel",
-                        style: TextStyle(color: Colors.black54),
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 14.sp,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16.w),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).primaryColor,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: StadiumBorder(),
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        shape: const StadiumBorder(),
                         elevation: 0,
                       ),
-                      child: const Text(
+                      child: Text(
                         "Send Schedule",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 14.sp),
                       ),
                     ),
                   ),
@@ -668,56 +677,53 @@ class RescheduleDialog extends StatelessWidget {
       ),
     );
   }
+}
 
-  // Helper to build labels with optional red asterisk and icons
-  Widget _buildLabel(String text, {bool isRequired = false, IconData? icon}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        children: [
-          if (icon != null) ...[
-            Icon(icon, size: 16, color: const Color(0xFF2D7A7B)),
-            const SizedBox(width: 6),
-          ],
-          RichText(
-            text: TextSpan(
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-                fontSize: 10,
-              ),
-              children: [
-                TextSpan(text: text),
-                if (isRequired)
-                  const TextSpan(
-                    text: " *",
-                    style: TextStyle(color: Colors.red),
-                  ),
-              ],
-            ),
-          ),
+// Helper to build labels with optional red asterisk and icons
+Widget _buildLabel(String text, {bool isRequired = false, IconData? icon}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8.0),
+    child: Row(
+      children: [
+        if (icon != null) ...[
+          Icon(icon, size: 16, color: const Color(0xFF2D7A7B)),
+          const SizedBox(width: 6),
         ],
-      ),
-    );
-  }
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+              fontSize: 10,
+            ),
+            children: [
+              TextSpan(text: text),
+              if (isRequired)
+                const TextSpan(
+                  text: " *",
+                  style: TextStyle(color: Colors.red),
+                ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
-  // Helper to build the stylized gray input fields
-  Widget _buildInputField({String? hint}) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
-        filled: true,
-        fillColor: const Color(0xFFF3F4F6),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
-        ),
+// Helper to build the stylized gray input fields
+Widget _buildInputField({String? hint}) {
+  return TextField(
+    decoration: InputDecoration(
+      hintText: hint,
+      hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
+      filled: true,
+      fillColor: const Color(0xFFF3F4F6),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
       ),
-    );
-  }
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    ),
+  );
 }

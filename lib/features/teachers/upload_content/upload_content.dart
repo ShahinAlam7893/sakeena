@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sakeena/features/teachers/common/custom_app_bar.dart';
+import 'package:sakeena/route/teachers_routes.dart';
 
 class UploadContentHomePage extends StatelessWidget {
   const UploadContentHomePage({super.key});
@@ -41,7 +43,7 @@ class UploadContentHomePage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {context.push(TeachersRoutes.uploadNewContent);},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryTeal,
                         shape: const StadiumBorder(),
@@ -56,7 +58,9 @@ class UploadContentHomePage extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push(TeachersRoutes.uploadNewContent);
+                      },
                       style: OutlinedButton.styleFrom(
                         shape: const StadiumBorder(),
                         side: const BorderSide(color: Colors.grey),

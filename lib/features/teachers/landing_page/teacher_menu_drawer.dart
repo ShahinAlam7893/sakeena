@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/route/teachers_routes.dart';
 
 class TeacherDrawerMenuItem {
@@ -50,6 +51,7 @@ const List<TeacherDrawerMenuItem> teacherMenuItems = [
     label: 'Settings',
     icon: Icons.settings_outlined,
     route: TeachersRoutes.settings,
+    // route: AppRoutes.profileSettingsPage,
   ),
 ];
 

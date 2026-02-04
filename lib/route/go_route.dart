@@ -20,6 +20,7 @@ import 'package:sakeena/features/guest/consultation_screen.dart';
 import 'package:sakeena/features/guest/contact/contact_screen.dart';
 import 'package:sakeena/features/guest/course/course_details_screen.dart';
 import 'package:sakeena/features/guest/course/course_screen.dart';
+import 'package:sakeena/features/guest/course/live_course_registration_screen.dart';
 import 'package:sakeena/features/guest/home_screen.dart';
 import 'package:sakeena/features/guest/support/support_screen.dart';
 import 'package:sakeena/features/guest/teachers/teacher_details_screen.dart';
@@ -85,13 +86,12 @@ class AppRoutes {
   static const privacyPolicyPage = '/privacy_policy_page';
   static const termsAndConditionsPage = '/terms_and_conditions_page';
   static const profileSettingsPage = '/profile_settings_page';
-
+  static const LiveCourseRegistrationScreen = '/live_course_registration_screen';
 }
-
 
 GoRouter createRouter() {
   return GoRouter(
-     debugLogDiagnostics: true,
+    debugLogDiagnostics: true,
     initialLocation: AppRoutes.splash,
     routes: [
       ///Splash & Auth
@@ -125,7 +125,7 @@ GoRouter createRouter() {
       ),
       GoRoute(
         path: AppRoutes.courseDetails,
-        builder: (context, state) => const CourseDetailScreen(),
+        builder: (context, state) => CourseDetailScreen(),
       ),
       // GoRoute(
       //   path: AppRoutes.courseDetails,
@@ -151,21 +151,22 @@ GoRouter createRouter() {
         builder: (context, state) => const CheckoutSuccessPage(),
       ),
       GoRoute(
-            path: AppRoutes.checkoutDetails,
-            builder: (context, state) => const CheckoutDetailsPage(),
-          ),
-          GoRoute(
-            path: AppRoutes.checkoutPayment,
-            builder: (context, state) => const CheckoutPaymentPage(),
-          ),
-          GoRoute(
-            path: AppRoutes.videoDescriptionScreen,
-            builder: (context, state) => const VideoDescriptionScreen(),
-          ),
-          GoRoute(
-            path: AppRoutes.booksPage,
-            builder: (context, state) => const BooksPage(),
-          ),
+        path: AppRoutes.checkoutDetails,
+        builder: (context, state) => const CheckoutDetailsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.checkoutPayment,
+        builder: (context, state) => const CheckoutPaymentPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.videoDescriptionScreen,
+        builder: (context, state) => const VideoDescriptionScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.booksPage,
+        builder: (context, state) => const BooksPage(),
+      ),
+      GoRoute(path: AppRoutes.LiveCourseRegistrationScreen, builder: (context, state) => const LiveCourseRegistrationPage(),),
 
       /// GUEST SHELL (GLOBAL BOTTOM NAV + DRAWER)
       ShellRoute(
@@ -195,7 +196,6 @@ GoRouter createRouter() {
             builder: (context, state) => const TeachersScreen(),
           ),
 
-          
           GoRoute(
             path: AppRoutes.aboutScreen,
             builder: (context, state) => const AboutScreen(),
@@ -212,7 +212,7 @@ GoRouter createRouter() {
             path: AppRoutes.videoLibraryScreen,
             builder: (context, state) => const VideoLibraryScreen(),
           ),
-          
+
           GoRoute(
             path: AppRoutes.supportScreen,
             builder: (context, state) => const SupportScreen(),
