@@ -164,7 +164,7 @@ GoRouter createRouter() {
       ),
       GoRoute(
         path: AppRoutes.booksPage,
-        builder: (context, state) => const BooksPage(),
+        builder: (context, state) => BooksPage(),
       ),
       GoRoute(path: AppRoutes.LiveCourseRegistrationScreen, builder: (context, state) => const LiveCourseRegistrationPage(),),
 

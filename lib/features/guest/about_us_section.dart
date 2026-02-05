@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/about_feature_card.dart';
 import 'package:sakeena/widgets/custom_button.dart';
+
 class AboutUsSection extends StatelessWidget {
   const AboutUsSection({super.key});
 
@@ -11,11 +14,7 @@ class AboutUsSection extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFFF2FFFC),
-            Color(0xFFFFFFFF),
-            Color(0xFFF2FFFC),
-          ],
+          colors: [Color(0xFFF2FFFC), Color(0xFFFFFFFF), Color(0xFFF2FFFC)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -27,8 +26,7 @@ class AboutUsSection extends StatelessWidget {
           children: [
             // About Us pill
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
               decoration: BoxDecoration(
                 color: const Color(0xFF2C7A7B),
                 borderRadius: BorderRadius.circular(20.r),
@@ -59,13 +57,9 @@ class AboutUsSection extends StatelessWidget {
 
             AboutFeatureCard(
               title: 'Islamic Education',
-              description:
-                  'Authentic Islamic knowledge guided by scholars',
+              description: 'Authentic Islamic knowledge guided by scholars',
               iconPath: 'assets/icons/islamic_edu_icon.svg',
-              gradientColors: const [
-                Color(0xFFBFF5EE),
-                Color(0xFFE8FFFB)
-              ],
+              gradientColors: const [Color(0xFFBFF5EE), Color(0xFFE8FFFB)],
               borderColor: const Color(0xFF2C7A7B),
             ),
 
@@ -73,13 +67,9 @@ class AboutUsSection extends StatelessWidget {
 
             AboutFeatureCard(
               title: 'Psychological Guidance',
-              description:
-                  'Mental health & emotional wellbeing support',
+              description: 'Mental health & emotional wellbeing support',
               iconPath: 'assets/icons/psychological_icon.svg',
-              gradientColors: const [
-                Color(0xFFFFE29F),
-                Color(0xFFFFF4CC)
-              ],
+              gradientColors: const [Color(0xFFFFE29F), Color(0xFFFFF4CC)],
               borderColor: const Color(0xFFE6A800),
             ),
 
@@ -90,10 +80,7 @@ class AboutUsSection extends StatelessWidget {
               description:
                   'Structured programs combining faith, learning, and healing',
               iconPath: 'assets/icons/Guided_icon.svg',
-              gradientColors: const [
-                Color(0xFFD4F5C7),
-                Color(0xFFF0FFE9)
-              ],
+              gradientColors: const [Color(0xFFD4F5C7), Color(0xFFF0FFE9)],
               borderColor: const Color(0xFF4CAF50),
             ),
 
@@ -106,7 +93,9 @@ class AboutUsSection extends StatelessWidget {
                 width: 200.w,
                 height: 44.h,
                 isGradient: true,
-                onPressed: () {},
+                onPressed: () {
+                  context.push(AppRoutes.aboutScreen);
+                },
               ),
             ),
           ],

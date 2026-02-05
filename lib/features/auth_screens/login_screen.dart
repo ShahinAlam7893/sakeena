@@ -46,8 +46,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 50.h),
-            
+                      SizedBox(height: 65.h),
+
                       // Logo (replaced text 'Sakeena')
                       SvgPicture.asset(
                         'assets/images/sakeena_logo.svg',
@@ -60,9 +60,9 @@ class _LoginPageState extends State<LoginPage> {
                         //   BlendMode.srcIn,
                         // ),
                       ),
-            
+
                       SizedBox(height: 10.h),
-            
+
                       Column(
                         children: [
                           SvgPicture.asset(
@@ -81,9 +81,9 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                      
+
                           SizedBox(height: 32.h),
-                      
+
                           // Email
                           CustomTextField(
                             labelText: 'Email',
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           ),
                           SizedBox(height: 20.h),
-                      
+
                           // Password
                           CustomTextField(
                             controller: _passwordController,
@@ -121,9 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                               return null;
                             },
                           ),
-                      
+
                           SizedBox(height: 12.h),
-                      
+
                           // Remember me + Forgot Password
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -161,9 +161,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                           ),
-                      
+
                           SizedBox(height: 16.h),
-                      
+
                           // Error message
                           if (auth.errorMessage != null) ...[
                             Text(
@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             SizedBox(height: 12.h),
                           ],
-                      
+
                           // Login button
                           auth.isLoading
                               ? const CircularProgressIndicator()
@@ -195,18 +195,22 @@ class _LoginPageState extends State<LoginPage> {
                                           );
                                           if (_emailController.text ==
                                               "teacher@gmail.com") {
-                                            context.go(TeachersRoutes.dashboard);
-                                          }else if(_emailController.text == "student@gmail.com"){
-                                            context.go(AppRoutes.studentHomeScreen);
+                                            context.go(
+                                              TeachersRoutes.dashboard,
+                                            );
+                                          } else if (_emailController.text ==
+                                              "student@gmail.com") {
+                                            context.go(
+                                              AppRoutes.studentHomeScreen,
+                                            );
                                           }
-                                          
                                         },
                                       );
                                     }
                                   },
                                   isGradient: true,
                                 ),
-                      
+
                           // CustomButton(
                           //   text: 'Login',
                           //   onPressed: () {
@@ -262,7 +266,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-            
+
                       SizedBox(height: 30.h),
                     ],
                   ),
