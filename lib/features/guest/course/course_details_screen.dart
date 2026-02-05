@@ -14,6 +14,7 @@ import 'package:sakeena/model/course_module_model.dart';
 import 'package:sakeena/model/course_review_model.dart';
 import 'package:sakeena/model/instructior_data_model.dart';
 import 'package:sakeena/model/quiz_question_model.dart';
+import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 import 'package:sakeena/widgets/custom_text_field.dart';
@@ -297,11 +298,11 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
             onPressed: () {
               if (_courseData.enrollmentStatus ==
                   EnrollmentStatus.notEnrolled) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Registering for ${_courseData.title}'),
-                  ),
-                );
+                context.push(AppRoutes.LiveCourseRegistrationScreen);
+                //   SnackBar(
+                //     content: Text('Registering for ${_courseData.title}'),
+                //   ),
+                // );
               }
             },
             height: 32.h,
@@ -908,7 +909,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
     ),
   );
 
-
   Widget _buildScholarship() {
     final nameController = TextEditingController();
     final emailController = TextEditingController();
@@ -1088,8 +1088,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
               Expanded(
                 child: CustomButton(
                   text: 'Cancel',
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   isOutlined: true,
                   height: 52.h,
                 ),

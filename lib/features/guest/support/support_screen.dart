@@ -198,7 +198,7 @@ class _SupportScreenState extends State<SupportScreen> {
                         SizedBox(width: 12.w),
                         Expanded(
                           child: CustomButton(
-                            text: "Complete Purchase",
+                            text: "Complete Donation",
                             icon: Icon(Icons.lock_outline, color: Colors.white),
                             onPressed: () {
                               // TODO: Process donation

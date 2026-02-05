@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/core/app_theme.dart'; 
-import 'package:sakeena/features/teachers/common/custom_app_bar.dart';
 import 'package:sakeena/route/teachers_routes.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 import 'package:sakeena/widgets/custom_text_field.dart'; 
 
@@ -18,13 +18,12 @@ class UploadNewContentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
+      appBar: CustomAppBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppBar(),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

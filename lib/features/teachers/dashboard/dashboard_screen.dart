@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sakeena/core/app_theme.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/stat_card.dart';
 import 'package:sakeena/widgets/session_card.dart';
 import 'package:sakeena/widgets/upload_item.dart';
@@ -16,46 +17,11 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyApp.backgroundColor,
+      appBar: CustomAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-              child: SafeArea(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/images/sakeena_logo.svg",
-                      height: 50,
-                      width: 50,
-                    ),
-                    Stack(
-                      children: [
-                        SvgPicture.asset("assets/icons/notification.svg"),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          bottom: 10,
-                          child: Container(
-                            height: 10,
-                            width: 10,
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Main Content
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
               child: Column(

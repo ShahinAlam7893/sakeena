@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sakeena/features/teachers/common/custom_app_bar.dart';
 import 'package:sakeena/route/teachers_routes.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 
 class UploadContentHomePage extends StatelessWidget {
   const UploadContentHomePage({super.key});
@@ -15,14 +15,13 @@ class UploadContentHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFBF2),
-
+      appBar: CustomAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(),
               const Text(
                 "Upload Content",
                 style: TextStyle(

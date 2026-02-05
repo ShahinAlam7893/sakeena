@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sakeena/core/app_theme.dart';
+import 'package:sakeena/route/go_route.dart';
+import 'package:sakeena/route/teachers_routes.dart';
 import 'package:sakeena/widgets/achievement_item.dart';
+import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/education_item.dart';
 import 'package:sakeena/widgets/profile_header.dart';
 import 'package:sakeena/widgets/profile_section_card.dart';
@@ -32,7 +36,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ];
 
   List<Map<String, String>> educations = [
-    {'degree': 'PhD in Clinical Psychology', 'institution': 'University of Cambridge'},
+    {
+      'degree': 'PhD in Clinical Psychology',
+      'institution': 'University of Cambridge',
+    },
     {'degree': 'MA in Islamic Studies', 'institution': 'Al Azhar University'},
     {'degree': 'BA in Psychology', 'institution': 'University of London'},
   ];
@@ -48,81 +55,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyApp.backgroundColor,
+      appBar: CustomAppBar(onNotificationTap: () {}),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-              child: SafeArea(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'S',
-                      style: TextStyle(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w700,
-                        color: AppTheme.primaryColor,
-                      ),
-                    ),
-                    Container(
-                      width: 40.w,
-                      height: 40.w,
-                      decoration: BoxDecoration(
-                        color: MyApp.notificationDotColor,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '1',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Main Content
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Title
-                  Text(
-                    'Public Profile',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppTheme.primaryColor,
+                  Center(
+                    child: Text(
+                      'Public Profile',
+                      style: TextStyle(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.primaryColor,
+                      ),
                     ),
                   ),
                   SizedBox(height: 8.h),
-                  Text(
-                    'Manage what students see on your profile',
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      color: Colors.grey.shade600,
+                  Center(
+                    child: Text(
+                      'Manage what students see on your profile',
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ),
                   // Profile Header
                   ProfileHeaderTeacher(
-                    initials: 'FR',
+                    initials: "AT",
                     onUploadPhoto: () {
-                      // Handle photo upload
+                      // open image picker / camera
                     },
-                    fullName: 'Dr. Fatima Rahman',
-                    title: 'Professional Psychologist',
-                    email: 'Learner@Sakeena.edu',
-                    location: 'London, UK',
+                    initialFullName: "Alex Thompson",
+                    initialTitle: "Senior Flutter Developer & Instructor",
+                    initialEmail: "alex.thompson@email.com",
+                    initialLocation: "Dhaka, Bangladesh",
                   ),
                   // About & Professional Approach
                   ProfileSectionCard(
@@ -193,7 +166,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: TextField(
                                 controller: specialtyController,
                                 decoration: InputDecoration(
-                                  hintText: 'Add a specialty tag (e.g., Anxiety Psychology)',
+                                  hintText:
+                                      'Add a specialty tag (e.g., Anxiety Psychology)',
                                   hintStyle: TextStyle(
                                     fontSize: 12.sp,
                                     color: Colors.grey.shade400,
@@ -355,45 +329,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Action Buttons
                   Row(
                     children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () {
-                            // Handle preview
-                          },
-                          style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 12.h),
-                            side: BorderSide(color: AppTheme.primaryColor),
-                          ),
-                          child: Text(
-                            'Preview Profile',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppTheme.primaryColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Handle save
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppTheme.primaryColor,
-                            padding: EdgeInsets.symmetric(vertical: 12.h),
-                          ),
-                          child: Text(
-                            'Save Public Profile',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: OutlinedButton(
+                      //     onPressed: () {
+                      //       context.push(TeachersRoutes.profilePreview);
+                      //     },
+                      //     style: OutlinedButton.styleFrom(
+                      //       padding: EdgeInsets.symmetric(vertical: 12.h),
+                      //       side: BorderSide(color: AppTheme.primaryColor),
+                      //     ),
+                      //     child: Text(
+                      //       'Preview Profile',
+                      //       style: TextStyle(
+                      //         fontSize: 14.sp,
+                      //         fontWeight: FontWeight.w600,
+                      //         color: AppTheme.primaryColor,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(width: 12.w),
+                      // Expanded(
+                      //   child: ElevatedButton(
+                      //     onPressed: () {
+                      //       // Handle save
+                      //     },
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: AppTheme.primaryColor,
+                      //       padding: EdgeInsets.symmetric(vertical: 12.h),
+                      //     ),
+                      //     child: Text(
+                      //       'Save Public Profile',
+                      //       style: TextStyle(
+                      //         fontSize: 14.sp,
+                      //         fontWeight: FontWeight.w600,
+                      //         color: Colors.white,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                   SizedBox(height: 24.h),

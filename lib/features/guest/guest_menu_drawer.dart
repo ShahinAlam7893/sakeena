@@ -10,24 +10,26 @@ class GuestMenuDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: [
-          // ─── Header ───────────────────────────────────────
-          _buildHeader(context),
-
-          // ─── Menu Items ───────────────────────────────────
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: _buildMenuItems(context),
+    return SafeArea(
+      child: Drawer(
+        child: Column(
+          children: [
+            // ─── Header ───────────────────────────────────────
+            _buildHeader(context),
+      
+            // ─── Menu Items ───────────────────────────────────
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: _buildMenuItems(context),
+              ),
             ),
-          ),
-
-          // ─── Bottom section ───────────────────────────────
-          const Divider(height: 1),
-          _buildBottomSection(context),
-        ],
+      
+            // ─── Bottom section ───────────────────────────────
+            const Divider(height: 1),
+            _buildBottomSection(context),
+          ],
+        ),
       ),
     );
   }
@@ -79,26 +81,26 @@ class GuestMenuDrawer extends StatelessWidget {
 
   List<Widget> _buildMenuItems(BuildContext context) {
     final items = [
-      {
-        'icon': Icons.home_outlined,
-        'title': 'Home',
-        'route': AppRoutes.guestHome,
-      },
-      {
-        'icon': Icons.school_outlined,
-        'title': 'Courses',
-        'route': AppRoutes.coursesScreen,
-      },
-      {
-        'icon': Icons.person_outline,
-        'title': 'Teachers',
-        'route': AppRoutes.teachersScreen,
-      },
-      {
-        'icon': Icons.info_outline,
-        'title': 'About',
-        'route': AppRoutes.aboutScreen,
-      },
+      // {
+      //   'icon': Icons.home_outlined,
+      //   'title': 'Home',
+      //   'route': AppRoutes.guestHome,
+      // },
+      // {
+      //   'icon': Icons.school_outlined,
+      //   'title': 'Courses',
+      //   'route': AppRoutes.coursesScreen,
+      // },
+      // {
+      //   'icon': Icons.person_outline,
+      //   'title': 'Teachers',
+      //   'route': AppRoutes.teachersScreen,
+      // },
+      // {
+      //   'icon': Icons.info_outline,
+      //   'title': 'About',
+      //   'route': AppRoutes.aboutScreen,
+      // },
       {
         'icon': Icons.lightbulb_outline,
         'title': 'How it Works',

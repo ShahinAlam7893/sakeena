@@ -11,11 +11,8 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text('About'),
+        
+        title: Center(child: Text('About')),
         elevation: 0,
         backgroundColor: Colors.white,
       ),

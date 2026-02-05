@@ -68,32 +68,87 @@ class ProfileHeader extends StatelessWidget {
 }
 
 
-
-
-class ProfileHeaderTeacher extends StatelessWidget {
-  final String initials;
+class ProfileHeaderTeacher extends StatefulWidget {
+  final String initials; // still used for avatar fallback
   final VoidCallback onUploadPhoto;
-  final String fullName;
-  final String title;
-  final String email;
-  final String location;
+  final String initialFullName;
+  final String initialTitle;
+  final String initialEmail;
+  final String initialLocation;
 
+  // You can pass initial values from parent / bloc / provider / firebase
   const ProfileHeaderTeacher({
     super.key,
     required this.initials,
     required this.onUploadPhoto,
-    required this.fullName,
-    required this.title,
-    required this.email,
-    required this.location,
+    required this.initialFullName,
+    required this.initialTitle,
+    required this.initialEmail,
+    required this.initialLocation,
   });
+
+  @override
+  State<ProfileHeaderTeacher> createState() => _ProfileHeaderTeacherState();
+}
+
+class _ProfileHeaderTeacherState extends State<ProfileHeaderTeacher> {
+  late TextEditingController _nameController;
+  late TextEditingController _titleController;
+  late TextEditingController _emailController;
+  late TextEditingController _locationController;
+
+  bool _isEditing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.initialFullName);
+    _titleController = TextEditingController(text: widget.initialTitle);
+    _emailController = TextEditingController(text: widget.initialEmail);
+    _locationController = TextEditingController(text: widget.initialLocation);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _titleController.dispose();
+    _emailController.dispose();
+    _locationController.dispose();
+    super.dispose();
+  }
+
+  void _toggleEditMode() {
+    if (_isEditing) {
+      // ── SAVE logic here ────────────────────────────────
+      // You can call a bloc event, repository method, etc.
+      final updatedData = {
+        'fullName': _nameController.text.trim(),
+        'title': _titleController.text.trim(),
+        'email': _emailController.text.trim(),
+        'location': _locationController.text.trim(),
+      };
+
+      // Example:
+      // context.read<ProfileBloc>().add(UpdateProfileEvent(updatedData));
+      // await profileRepo.updateTeacherProfile(updatedData);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Profile updated')),
+      );
+    }
+
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(height: 24.h),
-        // Profile Avatar
+
+        // Profile Avatar (unchanged)
         Container(
           width: 80.w,
           height: 80.w,
@@ -103,7 +158,7 @@ class ProfileHeaderTeacher extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              initials,
+              widget.initials,
               style: TextStyle(
                 fontSize: 28.sp,
                 fontWeight: FontWeight.w700,
@@ -112,10 +167,12 @@ class ProfileHeaderTeacher extends StatelessWidget {
             ),
           ),
         ),
+
         SizedBox(height: 16.h),
-        // Upload Photo Button
+
+        // Edit Profile / Save Button
         GestureDetector(
-          onTap: onUploadPhoto,
+          onTap: _toggleEditMode,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
             decoration: BoxDecoration(
@@ -123,7 +180,7 @@ class ProfileHeaderTeacher extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Text(
-              'Upload Profile Photo',
+              _isEditing ? 'Save Changes' : 'Edit Profile',
               style: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
@@ -132,6 +189,31 @@ class ProfileHeaderTeacher extends StatelessWidget {
             ),
           ),
         ),
+
+        if (_isEditing) ...[
+          SizedBox(height: 8.h),
+          GestureDetector(
+            onTap: () {
+              // Reset to original values and exit edit mode
+              setState(() {
+                _nameController.text = widget.initialFullName;
+                _titleController.text = widget.initialTitle;
+                _emailController.text = widget.initialEmail;
+                _locationController.text = widget.initialLocation;
+                _isEditing = false;
+              });
+            },
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: Colors.grey.shade700,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+        ],
+
         SizedBox(height: 8.h),
         Text(
           'Professional photo recommended (JPG, PNG - Max. 5MB)',
@@ -140,103 +222,87 @@ class ProfileHeaderTeacher extends StatelessWidget {
             color: Colors.grey.shade500,
           ),
         ),
+
         SizedBox(height: 20.h),
-        // Full Name / Title
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Full Name / Title',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey.shade700,
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                fullName,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
+
+        // ── Full Name / Title ───────────────────────────────────────
+        _buildEditableField(
+          label: 'Full Name / Title',
+          controller: _nameController,
+          isEditing: _isEditing,
         ),
+
         SizedBox(height: 12.h),
-        // Public Email
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Public Email',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey.shade700,
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                email,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
+
+        // ── Public Email ────────────────────────────────────────────
+        _buildEditableField(
+          label: 'Public Email',
+          controller: _emailController,
+          isEditing: _isEditing,
         ),
+
         SizedBox(height: 12.h),
-        // Location
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Location',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey.shade700,
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                location,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
+
+        // ── Location ────────────────────────────────────────────────
+        _buildEditableField(
+          label: 'Location',
+          controller: _locationController,
+          isEditing: _isEditing,
         ),
       ],
+    );
+  }
+
+  Widget _buildEditableField({
+    required String label,
+    required TextEditingController controller,
+    required bool isEditing,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey.shade700,
+            ),
+          ),
+          SizedBox(height: 4.h),
+
+          if (isEditing)
+            TextField(
+              controller: controller,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+              decoration: const InputDecoration(
+                isDense: true,
+                contentPadding: EdgeInsets.zero,
+                border: InputBorder.none,
+              ),
+            )
+          else
+            Text(
+              controller.text.isEmpty ? 'Not set' : controller.text,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

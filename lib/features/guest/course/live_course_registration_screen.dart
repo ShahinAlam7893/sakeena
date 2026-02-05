@@ -29,7 +29,6 @@ class _LiveCourseRegistrationPageState
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7F7),
 
-      /// 🔥 AppBar
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -56,7 +55,6 @@ class _LiveCourseRegistrationPageState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// 🔥 Section Title
               Text(
                 "Personal Information",
                 style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
@@ -64,7 +62,6 @@ class _LiveCourseRegistrationPageState
 
               SizedBox(height: 18.h),
 
-              /// 🔥 First + Last Name
               Row(
                 children: [
                   Expanded(
@@ -91,7 +88,6 @@ class _LiveCourseRegistrationPageState
 
               SizedBox(height: 16.h),
 
-              /// 🔥 Email
               _fieldLabel(
                 "Email Address *",
                 CustomTextField(
@@ -103,7 +99,6 @@ class _LiveCourseRegistrationPageState
 
               SizedBox(height: 16.h),
 
-              /// 🔥 Phone
               _fieldLabel(
                 "Phone Number *",
                 CustomTextField(
@@ -115,7 +110,6 @@ class _LiveCourseRegistrationPageState
 
               SizedBox(height: 14.h),
 
-              /// 🔥 Checkbox
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -176,9 +170,33 @@ class _LiveCourseRegistrationPageState
                       isGradient: true,
                       textColor: Colors.white,
                       onPressed: () {
-                        if (_formKey.currentState!.validate() && isAgreed) {
-                          context.push(AppRoutes.checkoutDetails);
+                        if (!_formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Please fill in all required fields.",
+                              ),
+                              backgroundColor: Colors.red,
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                          return;
                         }
+                        if (!isAgreed) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Please agree to the terms and conditions.",
+                              ),
+                              backgroundColor: Colors.red,
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                          return;
+                        }
+
+                        // ✅ Everything is valid
+                        context.push(AppRoutes.checkoutDetails);
                       },
                     ),
                   ),
@@ -191,7 +209,6 @@ class _LiveCourseRegistrationPageState
     );
   }
 
-  /// 🔥 Label + Field Helper
   Widget _fieldLabel(String label, Widget field) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,7 +223,6 @@ class _LiveCourseRegistrationPageState
     );
   }
 
-  /// 🔥 Price Row
   Widget _priceRow(
     String title,
     String price, {

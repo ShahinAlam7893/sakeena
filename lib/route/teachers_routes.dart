@@ -4,6 +4,7 @@ import 'package:sakeena/features/student/profile/profile_and_settings_screen.dar
 import 'package:sakeena/features/teachers/consultation_page/consultation_page.dart';
 import 'package:sakeena/features/teachers/earnings/earnings_screen.dart';
 import 'package:sakeena/features/teachers/landing_page/landing_page.dart';
+import 'package:sakeena/features/teachers/profile/profile_preview_screen.dart';
 import 'package:sakeena/features/teachers/upload_content/upload_content.dart';
 import 'package:sakeena/features/teachers/upload_content/upload_new_content.dart';
 import '../features/teachers/course_detail/course_detail_screen.dart';
@@ -15,6 +16,7 @@ import '../features/teachers/profile/profile_screen.dart';
 class TeachersRoutes {
   static const String dashboard = '/teachers/dashboard';
   static const String profile = '/teachers/profile';
+  static const String profilePreview = '/teachers/profile_preview';
   static const String myCourses = '/teachers/my-courses';
   static const String message = "/message";
   static const String createCourse = '/teachers/create-course';
@@ -62,9 +64,16 @@ class TeachersRoutes {
             builder: (context, state) => const ProfileSettingsPage(),
           ),
           GoRoute(
-        path: profile,
-        builder: (context, state) => const ProfileScreen(),
-      ),
+            path: profile,
+            builder: (context, state) => const ProfileScreen(),
+          ),
+          GoRoute(
+            path: '${TeachersRoutes.profilePreview}/:id',
+            builder: (context, state) {
+              final id = state.pathParameters['id'] ?? '1';
+              return CounselorPreviewPage(counselorId: id);
+            },
+          ),
         ],
       ),
 
@@ -72,7 +81,7 @@ class TeachersRoutes {
         path: dashboard,
         builder: (context, state) => const DashboardScreen(),
       ),
-      
+
       GoRoute(
         path: myCourses,
         builder: (context, state) => const MyCoursesScreen(),
@@ -81,10 +90,10 @@ class TeachersRoutes {
         path: createCourse,
         builder: (context, state) => const CreateCourseScreen(),
       ),
-      GoRoute(
-        path: courseDetail,
-        builder: (context, state) => const CourseDetailScreen(),
-      ),
+      // GoRoute(
+      //   path: courseDetail,
+      //   builder: (context, state) => const CourseDetailScreen(),
+      // ),
       // Add more teacher-specific routes here
     ];
   }
