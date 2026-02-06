@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/model/course_model.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/achievement_section.dart';
 import 'package:sakeena/widgets/booking_dialog_box.dart';
@@ -334,7 +335,7 @@ class CounselorDetailPage extends StatelessWidget {
                     SizedBox(height: 12.h),
                     CustomButton(
                       text: 'View Courses',
-                      onPressed: () => context.go(AppRoutes.coursesScreen),
+                      onPressed: () => context.push(AppRoutes.coursesStandalone),
                       isGradient: true,
                       textColor: Colors.white,
                     ),
@@ -423,17 +424,7 @@ class CounselorDetailPage extends StatelessWidget {
                         itemCount: courses.length,
                         itemBuilder: (context, index) {
                           final course = courses[index];
-                          return CourseCard(
-                            title: course['title'],
-                            instructor: course['instructor'],
-                            lessons: course['lessons'],
-                            numberOfWeeks: course['weeks'],
-                            duration: course['duration'],
-                            sessionDuration: course['sessionDuration'],
-                            price: course['price'],
-                            imagePath: course['image'],
-                            isUpcoming: course['isUpcoming'],
-                          );
+                          return CourseCard(course: CourseData.mock());
                         },
                       ),
                     ),

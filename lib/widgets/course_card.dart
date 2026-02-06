@@ -3,35 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakeena/core/app_theme.dart';
+import 'package:sakeena/model/course_model.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 
 class CourseCard extends StatelessWidget {
-  final String title;
-  final String instructor;
-  final String sessionDuration;
-  final String numberOfWeeks;
-  final String duration;
-  final String lessons;
-  final String price;
-  final String? imagePath; 
-  final bool
-  isSvgImage; 
-  final bool isUpcoming;
+  final CourseData course;
+  final bool isSvgImage;
 
-  const CourseCard({
-    super.key,
-    required this.title,
-    required this.instructor,
-    required this.sessionDuration,
-    required this.numberOfWeeks,
-    required this.duration,
-    required this.lessons,
-    required this.price,
-    this.imagePath,
-    this.isSvgImage = false, 
-    this.isUpcoming = false,
-  });
+  const CourseCard({super.key, required this.course, this.isSvgImage = false});
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,30 +36,23 @@ class CourseCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          /// 🔹 Image
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
             child: SizedBox(
               height: 140.h,
               width: double.infinity,
-              child: imagePath != null
-                  ? (isSvgImage
-                        ? SvgPicture.asset(
-                            imagePath!,
-                            height: 140.h,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            placeholderBuilder: (context) =>
-                                _placeholderImage(),
-                          )
-                        : Image.asset(
-                            imagePath!,
-                            height: 140.h,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                _errorImage(),
-                          ))
-                  : _placeholderImage(),
+              child: isSvgImage
+                  ? SvgPicture.asset(
+                      course.imageAsset,
+                      fit: BoxFit.cover,
+                      placeholderBuilder: (_) => _placeholderImage(),
+                    )
+                  : Image.asset(
+                      course.imageAsset,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => _errorImage(),
+                    ),
             ),
           ),
 
@@ -85,52 +61,48 @@ class CourseCard extends StatelessWidget {
               padding: EdgeInsets.all(12.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (isUpcoming)
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.w,
-                        vertical: 4.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2C7A7B).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                      child: Text(
-                        'Upcoming',
-                        style: TextStyle(
-                          fontSize: 11.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF2C7A7B),
-                        ),
-                      ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 4.h,
                     ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2C7A7B).withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child:Text(
+  course.courseStatus.label,
+  style: TextStyle(
+    fontSize: 11.sp,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xFF2C7A7B),
+  ),
+),
 
-                  SizedBox(height: isUpcoming ? 8.h : 0),
+                  ),
 
-                  Flexible(
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                  Text(
+                    course.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
                     ),
                   ),
 
                   SizedBox(height: 6.h),
 
+                  /// 🔹 Instructor
                   Row(
                     children: [
                       SvgPicture.asset(
                         'assets/icons/healthicons_doctor-male.svg',
                         width: 14.sp,
                         height: 14.sp,
-                        colorFilter: ColorFilter.mode(
+                        colorFilter: const ColorFilter.mode(
                           Colors.black,
                           BlendMode.srcIn,
                         ),
@@ -138,14 +110,13 @@ class CourseCard extends StatelessWidget {
                       SizedBox(width: 4.w),
                       Expanded(
                         child: Text(
-                          instructor,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            color: Colors.black87,
-                            fontFamily: 'Arimo',
-                          ),
+                          course.instructor.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontFamily: 'Arimo',
+                          ),
                         ),
                       ),
                     ],
@@ -153,86 +124,49 @@ class CourseCard extends StatelessWidget {
 
                   SizedBox(height: 8.h),
 
+                  /// 🔹 Lessons & Weeks
                   Row(
                     children: [
-                      Icon(
-                        Icons.menu_book_sharp,
-                        size: 14.sp,
-                        color: Colors.black,
-                      ),
+                      Icon(Icons.menu_book_sharp, size: 14.sp),
                       SizedBox(width: 4.w),
-                      Expanded(
-                        child: Text(
-                          '$lessons ',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.black,
-                            fontFamily: 'Arimo',
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      Text(
+                        '${course.courseDetails.lessons} Lessons',
+                        style: TextStyle(fontSize: 12.sp),
                       ),
+                      SizedBox(width: 6.w),
+                      Icon(Icons.calendar_month, size: 14.sp),
                       SizedBox(width: 4.w),
-                      Icon(
-                        Icons.calendar_month,
-                        size: 14.sp,
-                        color: Colors.black,
-                      ),
-                      SizedBox(width: 4.w),
-                      Expanded(
-                        child: Text(
-                          numberOfWeeks,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.black,
-                            fontFamily: 'Arimo',
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      Text(
+                        course.courseDetails.duration,
+                        style: TextStyle(fontSize: 12.sp),
                       ),
                     ],
                   ),
 
                   SizedBox(height: 8.h),
 
+                  /// 🔹 Duration
                   Row(
                     children: [
-                      Icon(Icons.schedule, size: 14.sp, color: Colors.black),
+                      Icon(Icons.schedule, size: 14.sp),
                       SizedBox(width: 4.w),
                       Expanded(
                         child: Text(
-                          duration,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.black,
-                            fontFamily: 'Arimo',
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      SizedBox(width: 4.w),
-                      Icon(Icons.schedule, size: 14.sp, color: Colors.black),
-                      SizedBox(width: 4.w),
-                      Expanded(
-                        child: Text(
-                          sessionDuration,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.black,
-                            fontFamily: 'Arimo',
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                          course.courseDetails.duration,
+                          style: TextStyle(fontSize: 12.sp),
                         ),
                       ),
                     ],
                   ),
 
-                  SizedBox(height: 12.h),
+                  const Spacer(),
+
+                  /// 🔹 Price + Button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        price,
+                        course.price,
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
@@ -241,14 +175,13 @@ class CourseCard extends StatelessWidget {
                       ),
                       CustomButton(
                         text: 'View Details',
+                        height: 32,
+                        width: 110.w,
+                        isGradient: true,
                         textColor: Colors.white,
                         onPressed: () {
-                          context.push(AppRoutes.courseDetails);
+                          context.push(AppRoutes.courseDetails, extra: course);
                         },
-                        height: 32,
-                        isGradient: true,
-                        isOutlined: false,
-                        width: 110.w,
                       ),
                     ],
                   ),
@@ -261,27 +194,34 @@ class CourseCard extends StatelessWidget {
     );
   }
 
-  // Helper: placeholder when no image
+
   Widget _placeholderImage() {
     return Container(
       color: Colors.grey.shade200,
-      child: Center(
-        child: Icon(Icons.book, size: 50.sp, color: Colors.grey),
-      ),
+      child: Icon(Icons.book, size: 50.sp, color: Colors.grey),
     );
   }
 
-  // Helper: error image
   Widget _errorImage() {
     return Container(
       color: Colors.grey.shade300,
-      child: Center(
-        child: Icon(Icons.broken_image, size: 50.sp, color: Colors.grey),
-      ),
+      child: Icon(Icons.broken_image, size: 50.sp, color: Colors.grey),
     );
   }
 }
 
+extension CourseStatusText on CourseStatus {
+  String get label {
+    switch (this) {
+      case CourseStatus.upcoming:
+        return 'Upcoming';
+      case CourseStatus.live:
+        return 'Live';
+      case CourseStatus.recorded:
+        return 'Recorded';
+    }
+  }
+}
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:sakeena/route/go_route.dart';
@@ -320,7 +260,7 @@ class CourseCardTeacher extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: GestureDetector(
-        onTap: onViewDetails, 
+        onTap: onViewDetails,
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,

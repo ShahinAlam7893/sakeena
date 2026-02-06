@@ -59,7 +59,8 @@ class AppRoutes {
   static const guestHome = '/guest_home';
   static const howItWorks = '/how_it_works';
   static const subscription = '/subscription';
-  static const coursesScreen = '/courses_screen';
+  static const coursesScreen = '/courses_screen'; // WITH navbar
+  static const coursesStandalone = '/courses_standalone'; // WITHOUT navbar
   static const courseDetails = '/courses_details_screen';
   static const teachersScreen = '/teachers_screen';
   static const teacherDetails = '/teachers_details_screen';
@@ -86,7 +87,8 @@ class AppRoutes {
   static const privacyPolicyPage = '/privacy_policy_page';
   static const termsAndConditionsPage = '/terms_and_conditions_page';
   static const profileSettingsPage = '/profile_settings_page';
-  static const LiveCourseRegistrationScreen = '/live_course_registration_screen';
+  static const LiveCourseRegistrationScreen =
+      '/live_course_registration_screen';
 }
 
 GoRouter createRouter() {
@@ -166,7 +168,22 @@ GoRouter createRouter() {
         path: AppRoutes.booksPage,
         builder: (context, state) => BooksPage(),
       ),
-      GoRoute(path: AppRoutes.LiveCourseRegistrationScreen, builder: (context, state) => const LiveCourseRegistrationPage(),),
+      GoRoute(
+        path: AppRoutes.LiveCourseRegistrationScreen,
+        builder: (context, state) => const LiveCourseRegistrationPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.blogScreen,
+        builder: (context, state) => const BlogScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.blogDetailsScreen,
+        builder: (context, state) => const BlogDetailsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.coursesStandalone,
+        builder: (context, state) => const CoursesPage(),
+      ),
 
       /// GUEST SHELL (GLOBAL BOTTOM NAV + DRAWER)
       ShellRoute(
@@ -200,14 +217,7 @@ GoRouter createRouter() {
             path: AppRoutes.aboutScreen,
             builder: (context, state) => const AboutScreen(),
           ),
-          GoRoute(
-            path: AppRoutes.blogScreen,
-            builder: (context, state) => const BlogScreen(),
-          ),
-          GoRoute(
-            path: AppRoutes.blogDetailsScreen,
-            builder: (context, state) => const BlogDetailsPage(),
-          ),
+
           GoRoute(
             path: AppRoutes.videoLibraryScreen,
             builder: (context, state) => const VideoLibraryScreen(),

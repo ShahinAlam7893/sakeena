@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/core/app_theme.dart';
 import 'package:sakeena/widgets/blog_card.dart';
 import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
@@ -32,24 +33,43 @@ class BlogScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 14.w,
-                      vertical: 6.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0x33FFFFFF),
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(color: Colors.white70),
-                    ),
-                    child: Text(
-                      'Knowledge & Insights',
-                      style: TextStyle(
-                        fontSize: 11.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () => context.pop(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.arrow_back,
+                              size: 24.sp,
+                              color: Colors.white,
+                            ),
+                            SizedBox(width: 60.w),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 14.w,
+                                vertical: 6.h,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Color(0x33FFFFFF),
+                                borderRadius: BorderRadius.circular(20.r),
+                                border: Border.all(color: Colors.white70),
+                              ),
+                              child: Text(
+                                'Knowledge & Insights',
+                                style: TextStyle(
+                                  fontSize: 11.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
 
                   SizedBox(height: 14.h),

@@ -8,6 +8,7 @@ import 'package:sakeena/model/quiz_question_model.dart';
 
 // ============ ENUMS ============
 enum CourseStatus { upcoming, live, recorded }
+
 enum EnrollmentStatus { notEnrolled, enrolled, completed }
 
 class CourseData {
@@ -43,7 +44,7 @@ class CourseData {
     title: 'Mindfulness in Islam',
     imageAsset: 'assets/images/quran_recite_image.png',
     price: '\$99',
-    courseStatus: CourseStatus.upcoming,
+    courseStatus: CourseStatus.live,
     enrollmentStatus: EnrollmentStatus.notEnrolled,
     description:
         'This comprehensive healing program integrates Islamic spiritual practices with modern-based psychological approaches. Through 5 carefully designed modules over 6 weeks (40 Days), you will learn tools and insights to overcome stress, build emotional resilience, and cultivate lasting behavior change.',

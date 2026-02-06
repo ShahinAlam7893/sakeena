@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/core/app_theme.dart';
 import 'package:sakeena/widgets/counselor_card.dart';
 import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/past_consultation_card%20.dart';
@@ -59,18 +60,18 @@ class TeachersScreenForStudent extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Teachers & Consultants',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Teachers & Consultants',
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.primaryColor,
+                        ),
+                      ),
                     ),
-                  ),
-                  // Text("View all"),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.arrow_circle_right_outlined),
                   ),
                 ],
               ),
@@ -119,6 +120,7 @@ class TeachersScreenForStudent extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 // SizedBox(height: 16.h),
                 // SessionCard(
                 //   title: 'Dr. Fatima Rahman',
@@ -129,7 +131,6 @@ class TeachersScreenForStudent extends StatelessWidget {
                 //     // Action to join the session
                 //   },
                 // ),
-
               ],
             ),
             Padding(

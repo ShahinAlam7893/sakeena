@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/model/course_model.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/course_card.dart';
 import 'package:sakeena/widgets/custom_app_bar.dart';
@@ -63,21 +64,8 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                   return SizedBox(
                     width: 250.w,
                     child: CourseCard(
-                        title: index == 0
-                            ? 'Tafsir Al-Quran: Understanding Divine Message'
-                            : 'Quran & Mental Wellness',
-                        instructor: index == 0
-                            ? 'Dr. Ahmad Hassan'
-                            : 'Prof. Ahmed Hassan',
-                        sessionDuration: '2hr per session',
-                        numberOfWeeks: '12 weeks',
-                        duration: '24 Lessons',
-                        lessons: '24 Lessons',
-                        price: '\$99',
-                        imagePath: 'assets/images/quran_recite_image.png',
-                        isSvgImage: false,
-                        isUpcoming: index == 0,
-                      ),
+  course: CourseData.mock(),
+),
 
                   );
                 },
@@ -125,7 +113,8 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                 CustomButton(
                   text: "View all",
                   onPressed: () {
-                    context.push(AppRoutes.coursesScreen);
+                    context.push(AppRoutes.coursesStandalone);
+
                   },
                   isGradient: true,
                   width: 70.w,
@@ -149,21 +138,8 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                     return SizedBox(
                       width: 250.w,
                       child: CourseCard(
-                        title: index == 0
-                            ? 'Tafsir Al-Quran: Understanding Divine Message'
-                            : 'Quran & Mental Wellness',
-                        instructor: index == 0
-                            ? 'Dr. Ahmad Hassan'
-                            : 'Prof. Ahmed Hassan',
-                        sessionDuration: '2hr per session',
-                        numberOfWeeks: '12 weeks',
-                        duration: '24 Lessons',
-                        lessons: '24 Lessons',
-                        price: '\$99',
-                        imagePath: 'assets/images/quran_recite_image.png',
-                        isSvgImage: false,
-                        isUpcoming: index == 0,
-                      ),
+  course: CourseData.mock(),
+)
                     );
                   },
                 ),

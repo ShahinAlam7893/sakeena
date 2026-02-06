@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/core/app_theme.dart';
 import 'package:sakeena/widgets/book_card.dart';
 import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/filter_section.dart';
+
 class BooksPage extends StatefulWidget {
   const BooksPage({super.key});
 
@@ -62,13 +64,17 @@ class _BooksPageState extends State<BooksPage> {
                     children: [
                       IconButton(
                         onPressed: () => context.pop(),
-                        icon: const Icon(Icons.arrow_back),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: AppTheme.primaryColor,
+                        ),
                       ),
                       Text(
                         'Books & Publications',
                         style: TextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.bold,
+                          color: AppTheme.primaryColor,
                         ),
                       ),
                     ],
@@ -92,8 +98,7 @@ class _BooksPageState extends State<BooksPage> {
                 title: 'Category',
                 items: categories,
                 selectedItem: selectedCategory,
-                onSelected: (value) =>
-                    setState(() => selectedCategory = value),
+                onSelected: (value) => setState(() => selectedCategory = value),
                 isHorizontal: true,
               ),
             ),

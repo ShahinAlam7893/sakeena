@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/core/app_theme.dart';
 import 'package:sakeena/features/guest/course/course_details_screen.dart';
 import 'package:sakeena/model/course_details_model.dart';
 import 'package:sakeena/model/course_model.dart';
@@ -33,10 +34,19 @@ class CoursesDataHelper {
           title: 'Module 1: Understanding Anxiety',
           duration: '4 lessons • 52 min',
           lessons: [
-            CourseLessonItem(title: 'Introduction to the Course', duration: '0:00'),
+            CourseLessonItem(
+              title: 'Introduction to the Course',
+              duration: '0:00',
+            ),
             CourseLessonItem(title: 'What is Anxiety?', duration: '12:43'),
-            CourseLessonItem(title: 'Islamic Perspective on Anxiety', duration: '15:00'),
-            CourseLessonItem(title: 'Types of Anxiety Disorders', duration: '11:32'),
+            CourseLessonItem(
+              title: 'Islamic Perspective on Anxiety',
+              duration: '15:00',
+            ),
+            CourseLessonItem(
+              title: 'Types of Anxiety Disorders',
+              duration: '11:32',
+            ),
           ],
         ),
         CourseModule(
@@ -45,15 +55,24 @@ class CoursesDataHelper {
           lessons: [
             CourseLessonItem(title: 'Introduction to Dhikr', duration: '10:15'),
             CourseLessonItem(title: 'Mindfulness Practices', duration: '12:30'),
-            CourseLessonItem(title: 'Combining Dhikr and Mindfulness', duration: '25:15'),
+            CourseLessonItem(
+              title: 'Combining Dhikr and Mindfulness',
+              duration: '25:15',
+            ),
           ],
         ),
         CourseModule(
           title: 'Module 3: Cognitive Approaches',
           duration: '4 lessons • 56 min',
           lessons: [
-            CourseLessonItem(title: 'Cognitive Behavioral Therapy Basics', duration: '18:00'),
-            CourseLessonItem(title: 'Identifying Negative Thoughts', duration: '15:30'),
+            CourseLessonItem(
+              title: 'Cognitive Behavioral Therapy Basics',
+              duration: '18:00',
+            ),
+            CourseLessonItem(
+              title: 'Identifying Negative Thoughts',
+              duration: '15:30',
+            ),
           ],
         ),
       ],
@@ -66,7 +85,8 @@ class CoursesDataHelper {
       instructor: const InstructorData(
         name: 'Sheikh Omar Ibrahim',
         title: 'Islamic Scholar & Wellness Expert',
-        bio: 'Content will always be kept fresh! Our team will be helping guide the course forward.',
+        bio:
+            'Content will always be kept fresh! Our team will be helping guide the course forward.',
         studentCount: 2450,
         courseCount: 8,
       ),
@@ -105,7 +125,10 @@ class CoursesDataHelper {
           title: 'Module 2: Mental Health in Islam',
           duration: '4 lessons • 60 min',
           lessons: [
-            CourseLessonItem(title: 'Islamic Perspective on Mental Health', duration: '15:00'),
+            CourseLessonItem(
+              title: 'Islamic Perspective on Mental Health',
+              duration: '15:00',
+            ),
             CourseLessonItem(title: 'Quranic Guidance', duration: '18:00'),
           ],
         ),
@@ -148,8 +171,14 @@ class CoursesDataHelper {
           title: 'Module 1: Quranic Wisdom for Well-being',
           duration: '5 lessons • 70 min',
           lessons: [
-            CourseLessonItem(title: 'Introduction to Quranic Healing', duration: '10:00'),
-            CourseLessonItem(title: 'Key Verses for Wellness', duration: '18:00'),
+            CourseLessonItem(
+              title: 'Introduction to Quranic Healing',
+              duration: '10:00',
+            ),
+            CourseLessonItem(
+              title: 'Key Verses for Wellness',
+              duration: '18:00',
+            ),
           ],
         ),
       ],
@@ -162,7 +191,8 @@ class CoursesDataHelper {
       instructor: const InstructorData(
         name: 'Prof. Ahmed Hassan',
         title: 'Quran Scholar & Wellness Coach',
-        bio: 'Passionate about connecting spiritual wisdom with modern wellness practices.',
+        bio:
+            'Passionate about connecting spiritual wisdom with modern wellness practices.',
         studentCount: 3200,
         courseCount: 12,
       ),
@@ -174,27 +204,29 @@ class CoursesDataHelper {
     ),
   ];
 
-  /// Get all courses
   static List<CourseData> getCourses() => allCourses;
 
-  /// Filter courses by category and type
   static List<CourseData> getFilteredCourses({
     required String category,
     required String courseType,
   }) {
     List<CourseData> filtered = allCourses;
 
-    // Filter by category (you can add more logic here)
     if (category != 'All') {
-      // Add category filtering logic based on your needs
     }
 
     // Filter by course type
     if (courseType != 'All') {
       filtered = filtered.where((course) {
-        if (courseType == 'Live') return course.courseStatus == CourseStatus.live;
-        if (courseType == 'Recorded') return course.courseStatus == CourseStatus.recorded;
-        if (courseType == 'Upcoming') return course.courseStatus == CourseStatus.upcoming;
+        if (courseType == 'Live') {
+          return course.courseStatus == CourseStatus.live;
+        }
+        if (courseType == 'Recorded') {
+          return course.courseStatus == CourseStatus.recorded;
+        }
+        if (courseType == 'Upcoming') {
+          return course.courseStatus == CourseStatus.upcoming;
+        }
         return true;
       }).toList();
     }
@@ -202,7 +234,6 @@ class CoursesDataHelper {
     return filtered;
   }
 
-  /// Get a specific course by title
   static CourseData? getCourseByTitle(String title) {
     try {
       return allCourses.firstWhere((course) => course.title == title);
@@ -229,7 +260,6 @@ class _CoursesPageState extends State<CoursesPage> {
     const categories = ['All', 'Mental Health', 'Spiritual Growth'];
     const courseTypes = ['All', 'Live', 'Recorded', 'Upcoming'];
 
-    // Get filtered courses
     final filteredCourses = CoursesDataHelper.getFilteredCourses(
       category: selectedCategory,
       courseType: selectedCourseType,
@@ -242,7 +272,6 @@ class _CoursesPageState extends State<CoursesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
@@ -256,25 +285,42 @@ class _CoursesPageState extends State<CoursesPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 14.w,
-                      vertical: 6.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0x33FFFFFF),
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(color: Colors.white70),
-                    ),
-                    child: Text(
-                      'Explore Our Courses',
-                      style: TextStyle(
-                        fontSize: 11.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+                  Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    SizedBox(
+      width: 40.w,
+      child: Navigator.of(context).canPop()
+          ? IconButton(
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                }
+              },
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+            )
+          : null,
+    ),
+    Container(
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
+      decoration: BoxDecoration(
+        color: const Color(0x33FFFFFF),
+        borderRadius: BorderRadius.circular(20.r),
+        border: Border.all(color: Colors.white70),
+      ),
+      child: Text(
+        'Explore Our Courses',
+        style: TextStyle(
+          fontSize: 11.sp,
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    ),
+    SizedBox(width: 40.w),
+  ],
+),
+
                   SizedBox(height: 14.h),
                   Text(
                     'Learn, Grow, Heal',
@@ -374,44 +420,29 @@ class _CoursesPageState extends State<CoursesPage> {
                     )
                   else
                     Column(
-                      children: List.generate(
-                        filteredCourses.length,
-                        (index) {
-                          final course = filteredCourses[index];
-                          return Column(
-                            children: [
-                              _CenteredCourseCard(
-                                onTap: () {
-                                  // Navigate to course detail screen
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => CourseDetailScreen(
-                                        courseData: course,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: CourseCard(
-                                  title: course.title,
-                                  instructor: course.instructor.name,
-                                  sessionDuration: '90 min', // You can calculate from modules
-                                  numberOfWeeks: course.courseDetails.duration,
-                                  duration: '${course.courseDetails.lessons} Lessons',
-                                  lessons: '${course.courseDetails.lessons} Lessons',
-                                  price: course.price,
-                                  imagePath: course.imageAsset,
-                                  isSvgImage: false,
-                                  isUpcoming: course.courseStatus == CourseStatus.upcoming,
-                                ),
-                              ),
-                              if (index < filteredCourses.length - 1)
-                                SizedBox(height: 16.h)
-                              else
-                                SizedBox(height: 24.h),
-                            ],
-                          );
-                        },
-                      ),
+                      children: List.generate(filteredCourses.length, (index) {
+                        final course = filteredCourses[index];
+                        return Column(
+                          children: [
+                            _CenteredCourseCard(
+                              onTap: () {
+                                // Navigate to course detail screen
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CourseDetailScreen(courseData: course),
+                                  ),
+                                );
+                              },
+                              child: CourseCard(course: CourseData.mock()),
+                            ),
+                            if (index < filteredCourses.length - 1)
+                              SizedBox(height: 16.h)
+                            else
+                              SizedBox(height: 24.h),
+                          ],
+                        );
+                      }),
                     ),
                 ],
               ),
@@ -428,10 +459,7 @@ class _CenteredCourseCard extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
 
-  const _CenteredCourseCard({
-    required this.child,
-    this.onTap,
-  });
+  const _CenteredCourseCard({required this.child, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -439,10 +467,7 @@ class _CenteredCourseCard extends StatelessWidget {
       child: SizedBox(
         width: 0.95.sw,
         height: 332.h,
-        child: GestureDetector(
-          onTap: onTap,
-          child: child,
-        ),
+        child: GestureDetector(onTap: onTap, child: child),
       ),
     );
   }

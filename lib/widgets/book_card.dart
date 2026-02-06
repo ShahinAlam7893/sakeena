@@ -42,15 +42,13 @@ class BookCard extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min, // 🔑 VERY IMPORTANT
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Image
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: ClipRRect(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(12.r),
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
                 child: Image.asset(
                   imagePath,
                   height: 200.h,
@@ -93,10 +91,7 @@ class BookCard extends StatelessWidget {
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: 'Arimo',
-                    ),
+                    style: TextStyle(fontSize: 14.sp, fontFamily: 'Arimo'),
                   ),
 
                   SizedBox(height: 4.h),
@@ -125,12 +120,14 @@ class BookCard extends StatelessWidget {
                         ),
                       ),
                       CustomButton(
-                        text: 'Download',
+                        text: 'Buy now',
                         height: 35.h,
                         width: 80.w,
                         textColor: Colors.white,
                         isGradient: true,
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push('/book_details/$bookId');
+                        },
                       ),
                     ],
                   ),

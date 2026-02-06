@@ -24,7 +24,6 @@ class BlogDetailsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top Bar: Back + Notification
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                 child: Row(
@@ -41,7 +40,7 @@ class BlogDetailsPage extends StatelessWidget {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            'Back to Courses',
+                            'Back to Blogs',
                             style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
@@ -50,11 +49,6 @@ class BlogDetailsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                    Icon(
-                      Icons.notifications_outlined,
-                      size: 24.sp,
-                      color: Colors.black87,
                     ),
                   ],
                 ),

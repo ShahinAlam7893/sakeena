@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sakeena/features/guest/about_us_section.dart';
 import 'package:sakeena/features/guest/testimonials_section.dart';
 import 'package:sakeena/features/guest/what_makes_us_diff_section.dart';
+import 'package:sakeena/model/course_model.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/book_card.dart';
 import 'package:sakeena/widgets/category_card.dart';
@@ -248,42 +249,15 @@ class GuestHomeScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
                   children: [
                     CourseCard(
-                      title: 'Tafsir Al-Quran: Understanding Faith...',
-                      instructor: 'Dr.Ahmed Hassan',
-                      sessionDuration: '2hr per session',
-                      numberOfWeeks: '24 Weeks',
-                      duration: '12 hr',
-                      lessons: '24 Lessons',
-                      price: '\$99',
-                      imagePath: 'assets/images/quran_image.png',
-                      isSvgImage: false,
-                      isUpcoming: true,
-                    ),
+  course: CourseData.mock(),
+),
 
                     CourseCard(
-                      title: 'Mindfulness in Islam',
-                      instructor: 'Sheikh Omar Ibrahim',
-                      sessionDuration: '1.5hr per session',
-                      numberOfWeeks: '16 Weeks',
-                      duration: '24 hr',
-                      lessons: '18 Lessons',
-                      price: '\$99',
-                      imagePath: 'assets/images/quran_recite_image.png',
-                      isSvgImage: false,
-                      isUpcoming: true,
-                    ),
+  course: CourseData.mock(),
+),
                     CourseCard(
-                      title: 'Islamic Family Counseling',
-                      instructor: 'Dr. Fatema Saekh',
-                      sessionDuration: '1.5hr per session',
-                      numberOfWeeks: '16 Weeks',
-                      duration: '24 hr',
-                      lessons: '18 Lessons',
-                      price: '\$99',
-                      imagePath: 'assets/images/female_image.png',
-                      isSvgImage: false,
-                      isUpcoming: true,
-                    ),
+  course: CourseData.mock(),
+),
                   ],
                 ),
               ),
