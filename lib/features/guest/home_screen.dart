@@ -117,24 +117,24 @@ class GuestHomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomButton(
-                                text: 'Browse Courses',
+                                text: 'Login',
                                 width: 143.w,
                                 height: 44.h,
                                 isGradient: true,
                                 textColor: Colors.white,
                                 onPressed: () {
-                                  context.push(AppRoutes.coursesScreen);
+                                  context.push(AppRoutes.login);
                                 },
                               ),
                               SizedBox(width: 12.w),
                               CustomButton(
-                                text: 'Book Consultation',
+                                text: 'Sign Up',
                                 width: 143.w,
                                 height: 44.h,
                                 isOutlined: true,
                                 textColor: Colors.white,
                                 onPressed: () {
-                                  context.push(AppRoutes.teachersScreen);
+                                  context.push(AppRoutes.signup);
                                 },
                               ),
                             ],
@@ -248,16 +248,10 @@ class GuestHomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
                   children: [
-                    CourseCard(
-  course: CourseData.mock(),
-),
+                    CourseCard(course: CourseData.mock()),
 
-                    CourseCard(
-  course: CourseData.mock(),
-),
-                    CourseCard(
-  course: CourseData.mock(),
-),
+                    CourseCard(course: CourseData.mock()),
+                    CourseCard(course: CourseData.mock()),
                   ],
                 ),
               ),

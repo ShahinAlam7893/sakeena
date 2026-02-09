@@ -11,7 +11,6 @@ class UserProvider extends ChangeNotifier {
   String? get tempResetEmail => _tempResetEmail;
 
   Future<void> login(String email, String password) async {
-    // TODO: real auth call
     await Future.delayed(const Duration(milliseconds: 800));
     _isLoggedIn = true;
     _userEmail = email;
@@ -19,7 +18,6 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> signup(String name, String email, String password) async {
-    // TODO: real auth call
     await Future.delayed(const Duration(milliseconds: 800));
     _isLoggedIn = true;
     _userEmail = email;

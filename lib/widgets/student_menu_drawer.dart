@@ -53,6 +53,11 @@ final List<DrawerMenuItem> studentMenuItems = [
     route: AppRoutes.blogScreen,
   ),
   DrawerMenuItem(
+    label: 'Mastery Bundle',
+    icon: Icons.article_outlined,
+    route: AppRoutes.subscription,
+  ),
+  DrawerMenuItem(
     label: 'Profile',
     icon: Icons.person_outline,
     route: AppRoutes.studentProfilePage,

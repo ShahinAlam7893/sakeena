@@ -7,9 +7,11 @@ class SubscriptionCard extends StatelessWidget {
   final String tag, title, description, price, originalPrice, discount;
   final Color tagColor;
   final List<String> courses;
+  final List<String>? courseCategories;
+  final List<String>? coursePrices;
   final int sales;
   final String created;
-  final VoidCallback onBuyPressed;
+  final VoidCallback onViewDetailsPressed;
 
   const SubscriptionCard({
     super.key,
@@ -21,9 +23,11 @@ class SubscriptionCard extends StatelessWidget {
     required this.originalPrice,
     required this.discount,
     required this.courses,
+    this.courseCategories,
+    this.coursePrices,
     required this.sales,
     required this.created,
-    required this.onBuyPressed,
+    required this.onViewDetailsPressed,
   });
 
   @override
@@ -126,7 +130,7 @@ class SubscriptionCard extends StatelessWidget {
 
           // Includes Courses
           Text(
-            'Includes 4 Courses:',
+            'Includes ${courses.length} Courses:',
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w600,
@@ -159,35 +163,33 @@ class SubscriptionCard extends StatelessWidget {
               ),
             ),
           ),
-
-          // SizedBox(height: 14.h),
-
-          // Sales & Created
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text('Sales', style: TextStyle(fontSize: 11.sp, color: Colors.grey.shade500)),
-          //         Text('$sales', style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600, color: Colors.black87)),
-          //       ],
-          //     ),
-          //     Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text('Created', style: TextStyle(fontSize: 11.sp, color: Colors.grey.shade500)),
-          //         Text(created, style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600, color: Colors.black87)),
-          //       ],
-          //     ),
-          //   ],
-          // ),
-          SizedBox(height: 16.h),
-
-          // Buy Now Button
+          SizedBox(height: 10.h),
+          Divider(),
+          SizedBox(height: 10.h),
+                    Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Sales: $sales',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+              Text(
+                'Created: $created',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10.h),
+          // View Details Button
           CustomButton(
-            text: 'Buy Now',
-            onPressed: onBuyPressed,
+            text: 'View Details',
+            onPressed: onViewDetailsPressed,
             isGradient: true,
             textColor: Colors.white,
           ),

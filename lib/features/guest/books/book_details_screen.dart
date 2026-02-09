@@ -5,6 +5,7 @@ import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/about_book_section.dart';
 import 'package:sakeena/widgets/custom_button.dart';
 import 'package:sakeena/widgets/format_selection_section.dart';
+import 'package:sakeena/widgets/book_format_selection.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BookDetailsPage extends StatefulWidget {
@@ -44,6 +45,8 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           'ISBN': '978-1-234567-89-0',
         },
         'price': '\$99',
+        'pdfPath': 'assets/pdfs/demo.pdf',
+        'videoPath': 'https://www.youtube.com/watch?v=JnX7Oc8LqD8&t=11s',
       },
       '2': {
         'title': 'Peace Movements in Islam',
@@ -64,6 +67,8 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           'ISBN': '978-1-234567-90-6',
         },
         'price': '\$79',
+        'pdfPath': 'assets/documents/book_2.pdf',
+        'videoPath': 'assets/videos/book_2_intro.mp4',
       },
     };
 
@@ -78,7 +83,31 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           'description': 'No description available',
           'details': {},
           'price': '\$0',
+          'pdfPath': 'assets/documents/default.pdf',
+          'videoPath': 'assets/videos/default.mp4',
         };
+  }
+
+  void _openPDFViewer() {
+    final book = _getBookData();
+    context.push(
+      AppRoutes.booksPdf,
+      extra: {
+        'title': book['title'],
+        'pdfPath': book['pdfPath'],
+      },
+    );
+  }
+
+  void _openVideoPlayer() {
+    final book = _getBookData();
+    context.push(
+      AppRoutes.booksVideo,
+      extra: {
+        'title': book['title'],
+        'videoPath': book['videoPath'],
+      },
+    );
   }
 
   @override
@@ -95,7 +124,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
       "Chapter 2: Sabr in the Quran and Sunnah",
       "Chapter 3: The Psychology of Patience",
       "Chapter 4: Daily Practices for Building Sabr",
-      "Chapter 5: Patience with Life’s Trials",
+      "Chapter 5: Patience with Life's Trials",
       "Chapter 6: Living Sabr: Case Studies",
       "Chapter 7: Sabr in Modern Mental Health",
       "Chapter 8: Teaching Sabr to Children",
@@ -124,7 +153,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
         child: SafeArea(
           child: Column(
             children: [
-              // ------------------ Book Images Carousel ------------------
+              // Book Images Carousel
               SizedBox(
                 height: 280.h,
                 child: PageView.builder(
@@ -169,7 +198,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
 
               SizedBox(height: 16.h),
 
-              // ------------------ Book Info ------------------
+              // Book Info
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
@@ -218,7 +247,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
 
               SizedBox(height: 20.h),
 
-              // ------------------ Book Details ------------------
+              // Book Details
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(16.w),
@@ -281,16 +310,14 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
 
               SizedBox(height: 24.h),
 
-              SizedBox(
-                child: FormatSelectionSection(
-                  digitalPrice: 15.0,
-                  physicalPrice: 29.0,
-                  totalPrice: 39.0,
-                  onBuyNow: () {
-                    context.push(AppRoutes.checkoutDetails);
-                  },
-                ),
+              // Read Book / Watch Video Format Selection
+              BookFormatSelection(
+                bookTitle: book['title'] as String? ?? 'Book',
+                onReadBook: _openPDFViewer,
+                onWatchVideo: _openVideoPlayer,
               ),
+
+              SizedBox(height: 24.h),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),

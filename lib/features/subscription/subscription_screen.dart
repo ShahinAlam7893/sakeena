@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sakeena/features/subscription/bundle_details_dialog.dart';
 import 'package:sakeena/route/go_route.dart';
 import 'package:sakeena/widgets/auth_required_dialog.dart';
 import 'package:sakeena/widgets/subscription_card.dart';
@@ -8,9 +9,70 @@ import 'package:sakeena/widgets/subscription_card.dart';
 class SubscriptionPage extends StatelessWidget {
   const SubscriptionPage({super.key});
 
+  void _showBundleDetails(
+    BuildContext context, {
+    required String title,
+    required String description,
+    required String price,
+    required String originalPrice,
+    required List<String> courses,
+    required List<String> courseCategories,
+    required List<String> coursePrices,
+  }) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return BundleDetailsDialog(
+          title: title,
+          description: description,
+          price: price,
+          originalPrice: originalPrice,
+          courses: courses,
+          courseCategories: courseCategories,
+          coursePrices: coursePrices,
+          onCourseTapped: (index, courseName) {
+            // Handle course tap - navigate to course details
+            Navigator.pop(context); // Close bundle dialog
+            context.push(AppRoutes.courseDetails, extra: {
+              'courseName': courseName,
+              'courseCategory': courseCategories[index],
+              'coursePrice': coursePrices[index],
+            });
+          },
+          onBuyPressed: () {
+            Navigator.pop(context); // Close bundle details
+            _showAuthDialog(context);
+          },
+        );
+      },
+    );
+  }
+
+  void _showAuthDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AuthRequiredDialog(
+          onSignIn: () {
+            Navigator.pop(context);
+            context.push(AppRoutes.login);
+          },
+          onCreateAccount: () {
+            Navigator.pop(context);
+            context.push(AppRoutes.signup);
+          },
+          onBrowse: () {
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final teal = const Color(0xFF2C7A7B);
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
@@ -22,7 +84,7 @@ class SubscriptionPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Subscription',
+          'Mastery Bundle',
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -50,27 +112,36 @@ class SubscriptionPage extends StatelessWidget {
                 'CSS Masterclass',
                 'Advanced React Patterns',
               ],
+              courseCategories: [
+                'Data Science',
+                'Web Development',
+                'Web Development',
+                'Web Development',
+              ],
+              coursePrices: ['\$299', '\$299', '\$299', '\$299'],
               sales: 47,
               created: '1/10/2024',
-              onBuyPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return AuthRequiredDialog(
-                      onSignIn: () {
-                        Navigator.pop(context); 
-                        context.push(AppRoutes.login); 
-                      },
-                      onCreateAccount: () {
-                        Navigator.pop(context); 
-                        context.push(AppRoutes.signup); 
-                      },
-                      onBrowse: () {
-                        Navigator.pop(context); 
-                      },
-                    );
-                  },
+              onViewDetailsPressed: () {
+                _showBundleDetails(
+                  context,
+                  title: 'Web Development Mastery Bundle',
+                  description:
+                      'Complete web development stack from frontend to backend',
+                  price: '\$599',
+                  originalPrice: '\$1,344',
+                  courses: [
+                    'Data Science Fundamentals',
+                    'Node js Backend Development',
+                    'CSS Masterclass',
+                    'Advanced React Patterns',
+                  ],
+                  courseCategories: [
+                    'Data Science',
+                    'Web Development',
+                    'Web Development',
+                    'Web Development',
+                  ],
+                  coursePrices: ['\$299', '\$299', '\$299', '\$299'],
                 );
               },
             ),
@@ -86,38 +157,44 @@ class SubscriptionPage extends StatelessWidget {
               discount: 'Save 55%',
               courses: [
                 'Data Science Fundamentals',
-
                 'Node js Backend Development',
-
                 'CSS Masterclass',
                 'Advanced React Patterns',
               ],
+              courseCategories: [
+                'Data Science',
+                'Web Development',
+                'Web Development',
+                'Web Development',
+              ],
+              coursePrices: ['\$299', '\$299', '\$299', '\$299'],
               sales: 47,
               created: '1/10/2024',
-              onBuyPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return AuthRequiredDialog(
-                      onSignIn: () {
-                        Navigator.pop(context); 
-                        context.push(AppRoutes.login); 
-                      },
-                      onCreateAccount: () {
-                        Navigator.pop(context); 
-                        context.push(AppRoutes.signup); 
-                      },
-                      onBrowse: () {
-                        Navigator.pop(context); 
-                      },
-                    );
-                  },
+              onViewDetailsPressed: () {
+                _showBundleDetails(
+                  context,
+                  title: 'Web Development Mastery Bundle',
+                  description:
+                      'Complete web development stack from frontend to backend',
+                  price: '\$599',
+                  originalPrice: '\$1,344',
+                  courses: [
+                    'Data Science Fundamentals',
+                    'Node js Backend Development',
+                    'CSS Masterclass',
+                    'Advanced React Patterns',
+                  ],
+                  courseCategories: [
+                    'Data Science',
+                    'Web Development',
+                    'Web Development',
+                    'Web Development',
+                  ],
+                  coursePrices: ['\$299', '\$299', '\$299', '\$299'],
                 );
               },
             ),
             SizedBox(height: 20.h),
-
             SubscriptionCard(
               tag: 'Draft',
               tagColor: const Color(0xFFA0A0A0),
@@ -129,33 +206,40 @@ class SubscriptionPage extends StatelessWidget {
               discount: 'Save 55%',
               courses: [
                 'Data Science Fundamentals',
-
                 'Node js Backend Development',
-
                 'CSS Masterclass',
                 'Advanced React Patterns',
               ],
+              courseCategories: [
+                'Data Science',
+                'Web Development',
+                'Web Development',
+                'Web Development',
+              ],
+              coursePrices: ['\$299', '\$299', '\$299', '\$299'],
               sales: 47,
               created: '1/10/2024',
-              onBuyPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return AuthRequiredDialog(
-                      onSignIn: () {
-                        Navigator.pop(context); 
-                        context.push(AppRoutes.login); 
-                      },
-                      onCreateAccount: () {
-                        Navigator.pop(context); 
-                        context.push(AppRoutes.signup); 
-                      },
-                      onBrowse: () {
-                        Navigator.pop(context); 
-                      },
-                    );
-                  },
+              onViewDetailsPressed: () {
+                _showBundleDetails(
+                  context,
+                  title: 'Web Development Mastery Bundle',
+                  description:
+                      'Complete web development stack from frontend to backend',
+                  price: '\$599',
+                  originalPrice: '\$1,344',
+                  courses: [
+                    'Data Science Fundamentals',
+                    'Node js Backend Development',
+                    'CSS Masterclass',
+                    'Advanced React Patterns',
+                  ],
+                  courseCategories: [
+                    'Data Science',
+                    'Web Development',
+                    'Web Development',
+                    'Web Development',
+                  ],
+                  coursePrices: ['\$299', '\$299', '\$299', '\$299'],
                 );
               },
             ),

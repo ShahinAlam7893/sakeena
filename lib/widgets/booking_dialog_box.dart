@@ -7,6 +7,25 @@ import 'package:sakeena/widgets/custom_button.dart';
 import 'package:svg_image/svg_image.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// Simple model to store session info
+class BookingSession {
+  final DateTime date;
+  final String timeSlot;
+
+  BookingSession({required this.date, required this.timeSlot});
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BookingSession &&
+          runtimeType == other.runtimeType &&
+          date == other.date &&
+          timeSlot == other.timeSlot;
+
+  @override
+  int get hashCode => date.hashCode ^ timeSlot.hashCode;
+}
+
 class BookingDialog extends StatefulWidget {
   final String counselorName;
   final String counselorTitle;
@@ -26,22 +45,60 @@ class BookingDialog extends StatefulWidget {
 }
 
 class _BookingDialogState extends State<BookingDialog> {
-  DateTime? selectedDate;
-  String? selectedTimeSlot;
+  DateTime? currentDate;
+  String? currentTimeSlot;
+  final List<BookingSession> selectedSessions = [];
 
   final List<String> mockTimeSlots = [
     'Mon 9:00 AM',
     'Wed 2:00 PM',
-    'Wed 2:00 PM',
-    'Wed 2:00 PM',
     'Fri 4:00 PM',
   ];
+
+  void _addSession() {
+    if (currentDate != null && currentTimeSlot != null) {
+      final session = BookingSession(
+        date: currentDate!,
+        timeSlot: currentTimeSlot!,
+      );
+
+      if (!selectedSessions.contains(session)) {
+        setState(() {
+          selectedSessions.add(session);
+          currentDate = null;
+          currentTimeSlot = null;
+        });
+      }
+    }
+  }
+
+  void _removeSession(int index) {
+    setState(() => selectedSessions.removeAt(index));
+  }
+
+  double _calculateTotal() {
+    if (selectedSessions.length <= 3) {
+      return widget.price * 2;
+    }
+    // Bundle (3 sessions at discounted rate) + extra sessions at full price
+    return (widget.price * 2) + (widget.price * (selectedSessions.length - 3));
+  }
+
+  // String _getBundleLabel() {
+  //   if (selectedSessions.isEmpty) {
+  //     return '3 sessions';
+  //   } else if (selectedSessions.length <= 3) {
+  //     return '${selectedSessions.length} session${selectedSessions.length > 1 ? 's' : ''}';
+  //   } else {
+  //     return '${selectedSessions.length} sessions (Bundle + ${selectedSessions.length - 3} extra)';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final teal = const Color(0xFF2C7A7B);
-    final selected = selectedDate != null && selectedTimeSlot != null;
+    final isComplete = selectedSessions.length >= 1;
 
     return Dialog(
       insetPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
@@ -103,7 +160,7 @@ class _BookingDialogState extends State<BookingDialog> {
                 ),
                 20.verticalSpace,
 
-                // Date + Time Slots side by side (like first screenshot)
+                // Date + Time Slots side by side
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -121,10 +178,10 @@ class _BookingDialogState extends State<BookingDialog> {
                           ),
                           8.verticalSpace,
                           ...mockTimeSlots.map((slot) {
-                            final isSelected = selectedTimeSlot == slot;
+                            final isSelected = currentTimeSlot == slot;
                             return GestureDetector(
                               onTap: () =>
-                                  setState(() => selectedTimeSlot = slot),
+                                  setState(() => currentTimeSlot = slot),
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 8.h),
                                 padding: EdgeInsets.symmetric(
@@ -183,7 +240,7 @@ class _BookingDialogState extends State<BookingDialog> {
 
                     16.horizontalSpace,
 
-                    // Calendar placeholder (real showDatePicker on tap)
+                    // Calendar
                     Expanded(
                       child: GestureDetector(
                         onTap: () => _selectDate(context),
@@ -206,11 +263,10 @@ class _BookingDialogState extends State<BookingDialog> {
                               ),
                               8.verticalSpace,
                               Text(
-                                selectedDate == null
+                                currentDate == null
                                     ? "Tap to pick"
-                                    : DateFormat(
-                                        'MMM dd, yyyy',
-                                      ).format(selectedDate!),
+                                    : DateFormat('MMM dd, yyyy')
+                                        .format(currentDate!),
                                 style: TextStyle(
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w500,
@@ -229,9 +285,31 @@ class _BookingDialogState extends State<BookingDialog> {
                     ),
                   ],
                 ),
+
                 24.verticalSpace,
 
-                // Bundle Offer (prominent like first screenshot)
+                // Add Session Button
+                if (currentDate != null && currentTimeSlot != null)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton.icon(
+                      onPressed: _addSession,
+                      icon: Icon(Icons.add, size: 18.sp),
+                      label: Text('Add Session ${selectedSessions.length + 1}'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: teal,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 8.h,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                if (currentDate != null || currentTimeSlot != null)
+                  12.verticalSpace,
+
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -269,7 +347,6 @@ class _BookingDialogState extends State<BookingDialog> {
                         width: 36.w,
                         height: 36.h,
                       ),
-                      // 10.verticalSpace,
                       Text(
                         'Complete Bundle',
                         style: TextStyle(
@@ -280,7 +357,7 @@ class _BookingDialogState extends State<BookingDialog> {
                         ),
                       ),
                       Text(
-                        '3 sessions',
+                        "3 Sessions",
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontFamily: 'Arimo',
@@ -292,7 +369,7 @@ class _BookingDialogState extends State<BookingDialog> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '\$${widget.price * 2} ',
+                            '\$${_calculateTotal().toStringAsFixed(0)} ',
                             style: TextStyle(
                               fontSize: 30.sp,
                               fontFamily: 'Arimo',
@@ -300,15 +377,15 @@ class _BookingDialogState extends State<BookingDialog> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-
-                          Text(
-                            "\$${(widget.price * 3).toStringAsFixed(0)}",
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              color: Colors.grey.shade700,
-                              decoration: TextDecoration.lineThrough,
+                          if (selectedSessions.length <= 3)
+                            Text(
+                              "\$${(widget.price * 3).toStringAsFixed(0)}",
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Colors.grey.shade700,
+                                decoration: TextDecoration.lineThrough,
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ],
@@ -316,8 +393,8 @@ class _BookingDialogState extends State<BookingDialog> {
                 ),
                 24.verticalSpace,
 
-                // Consultation Details (shown when selected - like second screenshot)
-                if (selected) ...[
+                // Selected Sessions
+                if (selectedSessions.isNotEmpty)
                   Container(
                     padding: EdgeInsets.all(14.w),
                     decoration: BoxDecoration(
@@ -328,40 +405,82 @@ class _BookingDialogState extends State<BookingDialog> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Consultation Details",
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Selected Sessions (${selectedSessions.length})",
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            if (!isComplete)
+                              Text(
+                                "Add ${3 - selectedSessions.length} more",
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                          ],
                         ),
                         10.verticalSpace,
-                        _DetailRow(
-                          label: "Date",
-                          value: DateFormat(
-                            'EEEE, MMMM d, yyyy',
-                          ).format(selectedDate!),
-                        ),
-                        _DetailRow(label: "Time", value: selectedTimeSlot!),
-                        _DetailRow(
-                          label: "Duration",
-                          value: "60 minutes | Video Call",
-                        ),
+                        ...selectedSessions.asMap().entries.map((e) {
+                          final idx = e.key;
+                          final session = e.value;
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 8.h),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Session ${idx + 1}",
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          color: Colors.grey.shade600,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${DateFormat('MMM dd').format(session.date)} • ${session.timeSlot}",
+                                        style: TextStyle(
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () => _removeSession(idx),
+                                  child: Icon(
+                                    Icons.close,
+                                    size: 18.sp,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
                       ],
                     ),
                   ),
-                  24.verticalSpace,
-                ],
+
+                if (selectedSessions.isNotEmpty) 24.verticalSpace,
 
                 // Buttons
                 Row(
                   children: [
                     Expanded(
                       child: CustomButton(
-                        text: 'Cancle',
-                        onPressed: () {
-                          context.pop();
-                        },
+                        text: 'Cancel',
+                        onPressed: () => context.pop(),
                         isGradient: false,
                         isOutlined: true,
                         textColor: Colors.black,
@@ -370,10 +489,10 @@ class _BookingDialogState extends State<BookingDialog> {
                     12.horizontalSpace,
                     Expanded(
                       child: CustomButton(
-                        text: 'Confirm Booking',
-                        onPressed: () {
-                          context.push(AppRoutes.checkoutDetails);
-                        },
+                        text: isComplete ? 'Confirm Booking' : 'Select Sessions',
+                        onPressed: isComplete
+                            ? () => context.push(AppRoutes.checkoutDetails)
+                            : null,
                         isGradient: true,
                         isOutlined: false,
                         textColor: Colors.white,
@@ -393,7 +512,7 @@ class _BookingDialogState extends State<BookingDialog> {
     final now = DateTime.now();
     final picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate ?? now,
+      initialDate: currentDate ?? now,
       firstDate: now.subtract(const Duration(days: 1)),
       lastDate: DateTime(2027),
       builder: (context, child) => Theme(
@@ -403,36 +522,8 @@ class _BookingDialogState extends State<BookingDialog> {
         child: child!,
       ),
     );
-    if (picked != null && picked != selectedDate) {
-      setState(() => selectedDate = picked);
+    if (picked != null && picked != currentDate) {
+      setState(() => currentDate = picked);
     }
-  }
-}
-
-// Helpers
-
-class _DetailRow extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const _DetailRow({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8.h),
-      child: Row(
-        children: [
-          Text(
-            "$label: ",
-            style: TextStyle(fontSize: 13.sp, color: Colors.grey.shade700),
-          ),
-          Text(
-            value,
-            style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
   }
 }

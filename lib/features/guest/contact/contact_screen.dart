@@ -18,7 +18,6 @@ class ContactScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const teal = Color(0xFF2C7A7B);
-    const lightTeal = Color(0xFF3A6E73);
 
     return Scaffold(
       backgroundColor: Colors.white,

@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:sakeena/route/go_route.dart';
+import 'package:sakeena/route/go_route.dart';               // assuming this exports createRouter()
 import 'package:sakeena/view_model/auth_view_model.dart';
 import 'package:sakeena/view_model/user_provider.dart';
 
-void main() {
-final router = createRouter();
-  runApp( MyApp(router: router,));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
+  await SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge,
+    overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+  );
+  final router = createRouter();
+
+  runApp(MyApp(router: router));
 }
 
 class MyApp extends StatelessWidget {
   final GoRouter router;
-   MyApp({super.key,required this.router});
+
+  const MyApp({super.key, required this.router});
 
   static const Color primaryColor = Color(0xFF2C7A7B);
   static const Color backgroundColor = Color(0xFFFFFEF8);
@@ -21,11 +33,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
+
       builder: (context, child) {
         return MultiProvider(
           providers: [
@@ -33,16 +45,42 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(create: (_) => AuthViewModel()),
           ],
           child: MaterialApp.router(
-                title: 'Sakeena Institute',
-                debugShowCheckedModeBanner: false,
-                routerConfig: router,
-                theme: ThemeData(
-                  primaryColor: primaryColor,
-                  scaffoldBackgroundColor: Colors.grey.shade50,
-                  useMaterial3: true,
-                  colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
+            title: 'Sakeena Institute',
+            debugShowCheckedModeBanner: false,
+            routerConfig: router,
+
+            theme: ThemeData(
+              useMaterial3: true,
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: primaryColor,
+                brightness: Brightness.light,
+                primary: primaryColor,
+                surface: backgroundColor,
+              ),
+              scaffoldBackgroundColor: Colors.grey.shade50,
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                centerTitle: true,
+                titleTextStyle: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
                 ),
-              )
+              ),
+              textTheme: TextTheme(
+                bodyMedium: TextStyle(fontSize: 14.sp),
+              ),
+            ),
+            darkTheme: ThemeData(
+              useMaterial3: true,
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: primaryColor,
+                brightness: Brightness.dark,
+              ),
+            ),
+            themeMode: ThemeMode.light,
+          ),
         );
       },
     );

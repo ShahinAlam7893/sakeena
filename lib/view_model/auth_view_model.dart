@@ -34,8 +34,7 @@ class AuthViewModel extends ChangeNotifier {
     clearError();
 
     try {
-      // TODO: Replace with real auth service
-      await Future.delayed(const Duration(seconds: 1)); // simulate network
+      await Future.delayed(const Duration(seconds: 1));
       onSuccess();
     } catch (e) {
       setError('Login failed: ${e.toString()}');
