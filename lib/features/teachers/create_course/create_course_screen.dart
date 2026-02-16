@@ -73,7 +73,6 @@ class _CreateCourseScreenState extends State<CreateCourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyApp.backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,

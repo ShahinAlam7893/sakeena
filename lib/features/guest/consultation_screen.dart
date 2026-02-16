@@ -13,7 +13,6 @@ class ConsultationScreen extends StatelessWidget {
     final teal = const Color(0xFF3A6E73);
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,

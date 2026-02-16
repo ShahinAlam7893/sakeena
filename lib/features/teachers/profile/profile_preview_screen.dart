@@ -116,7 +116,6 @@ class CounselorPreviewPage extends StatelessWidget {
     final data = _getCounselorData();
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
       appBar: CustomAppBar(),
       // appBar: AppBar(
       //   elevation: 0,

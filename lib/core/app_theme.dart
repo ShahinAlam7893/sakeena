@@ -9,6 +9,16 @@ class AppTheme {
   static const Color errorColor = Color(0xFFDC2626);
   static const Color successColor = Color(0xFF10B981);
 
+  // Gradient for global background
+  static const LinearGradient backgroundGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFF4EFE8),
+      Color(0xFFEFE8DD),
+    ],
+  );
+
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
@@ -17,7 +27,7 @@ class AppTheme {
         primary: primaryColor,
         secondary: accentColor,
       ),
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: Colors.transparent,
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.white,
         elevation: 0,

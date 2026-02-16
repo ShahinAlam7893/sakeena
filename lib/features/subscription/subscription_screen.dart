@@ -75,7 +75,6 @@ class SubscriptionPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,

@@ -3,20 +3,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:sakeena/route/go_route.dart';               // assuming this exports createRouter()
+import 'package:sakeena/core/app_theme.dart';
+import 'package:sakeena/features/teachers/submission/presentation/providers/submission_provider.dart';
+import 'package:sakeena/route/go_route.dart'; // assuming this exports createRouter()
 import 'package:sakeena/view_model/auth_view_model.dart';
 import 'package:sakeena/view_model/user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
     overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
   );
+
   final router = createRouter();
 
   runApp(MyApp(router: router));
@@ -37,18 +39,17 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-
       builder: (context, child) {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => UserProvider()),
             ChangeNotifierProvider(create: (_) => AuthViewModel()),
+            ChangeNotifierProvider(create: (_) => SubmissionProvider()),
           ],
           child: MaterialApp.router(
             title: 'Sakeena Institute',
             debugShowCheckedModeBanner: false,
             routerConfig: router,
-
             theme: ThemeData(
               useMaterial3: true,
               colorScheme: ColorScheme.fromSeed(
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
                 primary: primaryColor,
                 surface: backgroundColor,
               ),
-              scaffoldBackgroundColor: Colors.grey.shade50,
+              scaffoldBackgroundColor:
+                  Colors.transparent, // important for gradient
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -68,9 +70,7 @@ class MyApp extends StatelessWidget {
                   color: Colors.black87,
                 ),
               ),
-              textTheme: TextTheme(
-                bodyMedium: TextStyle(fontSize: 14.sp),
-              ),
+              textTheme: TextTheme(bodyMedium: TextStyle(fontSize: 14.sp)),
             ),
             darkTheme: ThemeData(
               useMaterial3: true,
@@ -80,6 +80,16 @@ class MyApp extends StatelessWidget {
               ),
             ),
             themeMode: ThemeMode.light,
+
+            // ✅ Wrap all screens globally with gradient
+            builder: (context, child) {
+              return Container(
+                decoration: const BoxDecoration(
+                  gradient: AppTheme.backgroundGradient,
+                ),
+                child: child,
+              );
+            },
           ),
         );
       },

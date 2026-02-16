@@ -25,8 +25,7 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
     final categories = ['All', 'Live', 'Recorded', 'Upcoming'];
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: Column(

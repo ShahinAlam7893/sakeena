@@ -14,11 +14,10 @@ class UploadContentHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFBF2),
       appBar: CustomAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -42,7 +41,9 @@ class UploadContentHomePage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {context.push(TeachersRoutes.uploadNewContent);},
+                      onPressed: () {
+                        context.push(TeachersRoutes.uploadNewContent);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryTeal,
                         shape: const StadiumBorder(),

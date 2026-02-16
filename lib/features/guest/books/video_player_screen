@@ -157,7 +157,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(_buildBody(),),
+      body: SafeArea(child: _buildBody(),),
     );
   }
 

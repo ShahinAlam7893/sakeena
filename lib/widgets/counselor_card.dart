@@ -87,6 +87,7 @@ class CounselorCard extends StatelessWidget {
                 // Specialties
                 Wrap(
                   spacing: 6.w,
+                  
 
                   children: specialties
                       .map(
@@ -95,6 +96,7 @@ class CounselorCard extends StatelessWidget {
                             horizontal: 10.w,
                             vertical: 4.h,
                           ),
+                          margin: EdgeInsets.all(4.h),
                           decoration: BoxDecoration(
                             // color: teal.withOpacity(0.1),
                             color: Colors.white,
@@ -117,28 +119,28 @@ class CounselorCard extends StatelessWidget {
                 SizedBox(height: 12.h),
 
                 // Rating, Students, Courses
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _StatItem(
-                      icon: Icons.star,
-                      value: rating.toString(),
-                      label: 'Rating',
-                    ),
-                    _StatItem(
-                      icon: Icons.people,
-                      value: students.toString(),
-                      label: 'Students',
-                    ),
-                    _StatItem(
-                      icon: Icons.book,
-                      value: courses.toString(),
-                      label: 'Courses',
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     _StatItem(
+                //       icon: Icons.star,
+                //       value: rating.toString(),
+                //       label: 'Rating',
+                //     ),
+                //     _StatItem(
+                //       icon: Icons.people,
+                //       value: students.toString(),
+                //       label: 'Students',
+                //     ),
+                //     _StatItem(
+                //       icon: Icons.book,
+                //       value: courses.toString(),
+                //       label: 'Courses',
+                //     ),
+                //   ],
+                // ),
 
-                SizedBox(height: 14.h),
+                // SizedBox(height: 14.h),
 
                 // View Profile Button
                 CustomButton(

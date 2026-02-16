@@ -16,7 +16,6 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyApp.backgroundColor,
       appBar: CustomAppBar(),
       body: SingleChildScrollView(
         child: Column(

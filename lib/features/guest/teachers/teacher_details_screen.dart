@@ -115,8 +115,7 @@ class CounselorDetailPage extends StatelessWidget {
     const teal = Color(0xFF2C7A7B);
     final data = _getCounselorData();
 
-    return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+    return Scaffold(    
       appBar: CustomAppBar(),
       // appBar: AppBar(
       //   elevation: 0,
@@ -244,28 +243,28 @@ class CounselorDetailPage extends StatelessWidget {
                     SizedBox(height: 16.h),
 
                     // Stats
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        _StatBadge(
-                          svgPath: 'assets/icons/star_icon.svg',
-                          value: '4.9',
-                          label: 'Rating',
-                        ),
-                        SizedBox(width: 24),
-                        _StatBadge(
-                          svgPath: 'assets/icons/book_icon.svg',
-                          value: '8',
-                          label: 'Courses',
-                        ),
-                        SizedBox(width: 24),
-                        _StatBadge(
-                          icon: Icons.people,
-                          value: '2456',
-                          label: 'Students',
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: const [
+                    //     _StatBadge(
+                    //       svgPath: 'assets/icons/star_icon.svg',
+                    //       value: '4.9',
+                    //       label: 'Rating',
+                    //     ),
+                    //     SizedBox(width: 24),
+                    //     _StatBadge(
+                    //       svgPath: 'assets/icons/book_icon.svg',
+                    //       value: '8',
+                    //       label: 'Courses',
+                    //     ),
+                    //     SizedBox(width: 24),
+                    //     _StatBadge(
+                    //       icon: Icons.people,
+                    //       value: '2456',
+                    //       label: 'Students',
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),

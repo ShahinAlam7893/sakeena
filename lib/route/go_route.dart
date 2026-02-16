@@ -45,6 +45,7 @@ import 'package:sakeena/features/subscription/checkout/checkout_details_page.dar
 import 'package:sakeena/features/subscription/checkout/checkout_payment_page.dart';
 import 'package:sakeena/features/subscription/checkout/checkout_success_page.dart';
 import 'package:sakeena/features/subscription/subscription_screen.dart';
+import 'package:sakeena/features/teachers/submission/presentation/screens/submission_management_page.dart';
 import 'package:sakeena/route/guest_shell_route.dart';
 import 'package:sakeena/route/shell_route_for_student.dart';
 import 'package:sakeena/route/teachers_routes.dart';
@@ -214,6 +215,7 @@ GoRoute(
     );
   },
 ),
+
 
       /// GUEST SHELL (GLOBAL BOTTOM NAV + DRAWER)
       ShellRoute(

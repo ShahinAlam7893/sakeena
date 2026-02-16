@@ -43,6 +43,11 @@ const List<TeacherDrawerMenuItem> teacherMenuItems = [
     route: TeachersRoutes.earnings,
   ),
   TeacherDrawerMenuItem(
+    label: 'Submissions',
+    icon: Icons.file_upload_outlined,
+    route: TeachersRoutes.submissions,
+  ),
+  TeacherDrawerMenuItem(
     label: 'Profile',
     icon: Icons.person_outline,
     route: TeachersRoutes.profile,
@@ -54,6 +59,7 @@ const List<TeacherDrawerMenuItem> teacherMenuItems = [
     // route: AppRoutes.profileSettingsPage,
   ),
 ];
+
 class TeacherMenuDrawer extends StatelessWidget {
   final String selectedRoute;
 
@@ -70,18 +76,19 @@ class TeacherMenuDrawer extends StatelessWidget {
             children: [
               // 🔹 Header
               _buildHeader(context),
-      
+
               // 🔹 Menu items
               Expanded(
                 child: SingleChildScrollView(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 20.h,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: teacherMenuItems.map((item) {
-                      final isActive =
-                          selectedRoute.startsWith(item.route);
-      
+                      final isActive = selectedRoute.startsWith(item.route);
+
                       return _MenuTile(
                         label: item.label,
                         icon: item.icon,
@@ -105,51 +112,51 @@ class TeacherMenuDrawer extends StatelessWidget {
   }
 }
 
+Widget _buildHeader(BuildContext context) {
+  final headerColor = const Color(0xFF2C7A7B);
 
-  Widget _buildHeader(BuildContext context) {
-    final headerColor = const Color(0xFF2C7A7B);
-
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.fromLTRB(24.w, 40.h, 24.w, 10.h),
-      decoration: BoxDecoration(
-        color: headerColor,
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [headerColor, headerColor.withOpacity(0.85)],
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.fromLTRB(24.w, 40.h, 24.w, 10.h),
+    decoration: BoxDecoration(
+      color: headerColor,
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [headerColor, headerColor.withOpacity(0.85)],
+      ),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Avatar
+        CircleAvatar(
+          radius: 38.r,
+          backgroundColor: Colors.white24,
+          child: Icon(Icons.person, size: 44.sp, color: Colors.white70),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Avatar
-          CircleAvatar(
-            radius: 38.r,
-            backgroundColor: Colors.white24,
-            child: Icon(Icons.person, size: 44.sp, color: Colors.white70),
-          ),
-          SizedBox(height: 12.h),
+        SizedBox(height: 12.h),
 
-          // Name & Role
-          Text(
-            'Zara',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.2,
-            ),
+        // Name & Role
+        Text(
+          'Zara',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.2,
           ),
-          SizedBox(height: 4.h),
-          Text(
-            'Lecturer',
-            style: TextStyle(color: Colors.white70, fontSize: 14.sp),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+        SizedBox(height: 4.h),
+        Text(
+          'Lecturer',
+          style: TextStyle(color: Colors.white70, fontSize: 14.sp),
+        ),
+      ],
+    ),
+  );
+}
+
 class _MenuTile extends StatelessWidget {
   final String label;
   final IconData icon;

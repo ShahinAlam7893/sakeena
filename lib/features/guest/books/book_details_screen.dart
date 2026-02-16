@@ -131,8 +131,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
       "Chapter 9: The Journey Continues",
     ];
 
-    return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+    return Scaffold(    
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,

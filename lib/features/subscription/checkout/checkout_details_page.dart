@@ -25,7 +25,6 @@ class _CheckoutDetailsPageState extends State<CheckoutDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: const Text('Secure Checkout'),
         backgroundColor: const Color(0xFF2C7A7B),

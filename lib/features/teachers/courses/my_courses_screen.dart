@@ -67,7 +67,7 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      
       appBar: CustomAppBar(),
       body: SingleChildScrollView(
         child: Padding(

@@ -101,11 +101,11 @@ class GuestMenuDrawer extends StatelessWidget {
       //   'title': 'About',
       //   'route': AppRoutes.aboutScreen,
       // },
-      {
-        'icon': Icons.lightbulb_outline,
-        'title': 'How it Works',
-        'route': AppRoutes.howItWorks,
-      },
+      // {
+      //   'icon': Icons.lightbulb_outline,
+      //   'title': 'How it Works',
+      //   'route': AppRoutes.howItWorks,
+      // },
       {
         'icon': Icons.video_library_outlined,
         'title': 'Videos',

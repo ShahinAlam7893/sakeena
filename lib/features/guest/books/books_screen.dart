@@ -48,7 +48,6 @@ class _BooksPageState extends State<BooksPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
       appBar: const CustomAppBar(),
       body: SafeArea(
         child: ListView(

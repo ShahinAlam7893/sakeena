@@ -5,6 +5,10 @@ import 'package:sakeena/features/teachers/consultation_page/consultation_page.da
 import 'package:sakeena/features/teachers/earnings/earnings_screen.dart';
 import 'package:sakeena/features/teachers/landing_page/landing_page.dart';
 import 'package:sakeena/features/teachers/profile/profile_preview_screen.dart';
+import 'package:sakeena/features/teachers/submission/presentation/screens/grade_submission_screen.dart';
+import 'package:sakeena/features/teachers/submission/presentation/screens/quiz_review_page.dart';
+import 'package:sakeena/features/teachers/submission/presentation/screens/submission_details_screen.dart';
+import 'package:sakeena/features/teachers/submission/presentation/screens/submission_management_page.dart';
 import 'package:sakeena/features/teachers/upload_content/upload_content.dart';
 import 'package:sakeena/features/teachers/upload_content/upload_new_content.dart';
 import '../features/teachers/course_detail/course_detail_screen.dart';
@@ -29,6 +33,7 @@ class TeachersRoutes {
   static const String uploadNewContent = "/upload-new-content";
   static const String earnings = "/earnings";
   static const String settings = "/settings";
+  static const String submissions = "/submissions";
 
   static List<RouteBase> getRoutes() {
     return [
@@ -90,11 +95,30 @@ class TeachersRoutes {
         path: createCourse,
         builder: (context, state) => const CreateCourseScreen(),
       ),
+
       // GoRoute(
       //   path: courseDetail,
       //   builder: (context, state) => const CourseDetailScreen(),
       // ),
       // Add more teacher-specific routes here
+      GoRoute(
+        path: TeachersRoutes.submissions,
+        builder: (context, state) => const SubmissionManagementPage(),
+      ),
+      GoRoute(
+        path: '/submission/detail/:id',
+        builder: (context, state) =>
+            SubmissionDetailPage(submissionId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/submission/grade/:id',
+        builder: (context, state) =>
+            GradeSubmissionPage(submissionId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+  path: '/submission/quiz-review/:id',
+  builder: (context, state) => QuizReviewPage(quizId: state.pathParameters['id']!),
+),
     ];
   }
 

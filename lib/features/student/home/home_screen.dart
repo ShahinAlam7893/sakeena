@@ -13,8 +13,7 @@ class StudentHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
-      backgroundColor: AppColors.background,
+      appBar: CustomAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

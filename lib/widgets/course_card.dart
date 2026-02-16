@@ -13,14 +13,10 @@ class CourseCard extends StatelessWidget {
 
   const CourseCard({super.key, required this.course, this.isSvgImage = false});
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 240.w,
-      height: 400.h,
       margin: EdgeInsets.only(right: 16.w),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -34,34 +30,38 @@ class CourseCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// 🔹 Image
-          ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-            child: SizedBox(
-              height: 140.h,
-              width: double.infinity,
-              child: isSvgImage
-                  ? SvgPicture.asset(
-                      course.imageAsset,
-                      fit: BoxFit.cover,
-                      placeholderBuilder: (_) => _placeholderImage(),
-                    )
-                  : Image.asset(
-                      course.imageAsset,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _errorImage(),
-                    ),
+          Padding(
+            padding: EdgeInsets.all(12.w),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: SizedBox(
+                height: 140.h,
+                width: double.infinity,
+                child: isSvgImage
+                    ? SvgPicture.asset(
+                        course.imageAsset,
+                        fit: BoxFit.cover,
+                        placeholderBuilder: (_) => _placeholder(),
+                      )
+                    : Image.asset(
+                        course.imageAsset,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => _error(),
+                      ),
+              ),
             ),
           ),
 
+          /// 🔹 Content (scroll-safe)
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(12.w),
+            child: SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 12.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  /// Status
                   Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 10.w,
@@ -71,17 +71,19 @@ class CourseCard extends StatelessWidget {
                       color: const Color(0xFF2C7A7B).withOpacity(0.15),
                       borderRadius: BorderRadius.circular(20.r),
                     ),
-                    child:Text(
-  course.courseStatus.label,
-  style: TextStyle(
-    fontSize: 11.sp,
-    fontWeight: FontWeight.w600,
-    color: const Color(0xFF2C7A7B),
-  ),
-),
-
+                    child: Text(
+                      course.courseStatus.label,
+                      style: TextStyle(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF2C7A7B),
+                      ),
+                    ),
                   ),
 
+                  SizedBox(height: 6.h),
+
+                  /// Title
                   Text(
                     course.title,
                     maxLines: 2,
@@ -89,23 +91,18 @@ class CourseCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87,
                     ),
                   ),
 
                   SizedBox(height: 6.h),
 
-                  /// 🔹 Instructor
+                  /// Instructor
                   Row(
                     children: [
                       SvgPicture.asset(
                         'assets/icons/healthicons_doctor-male.svg',
                         width: 14.sp,
                         height: 14.sp,
-                        colorFilter: const ColorFilter.mode(
-                          Colors.black,
-                          BlendMode.srcIn,
-                        ),
                       ),
                       SizedBox(width: 4.w),
                       Expanded(
@@ -113,27 +110,24 @@ class CourseCard extends StatelessWidget {
                           course.instructor.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            fontFamily: 'Arimo',
-                          ),
+                          style: TextStyle(fontSize: 13.sp),
                         ),
                       ),
                     ],
                   ),
 
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 6.h),
 
-                  /// 🔹 Lessons & Weeks
+                  /// Lessons & Duration
                   Row(
                     children: [
-                      Icon(Icons.menu_book_sharp, size: 14.sp),
+                      Icon(Icons.menu_book, size: 14.sp),
                       SizedBox(width: 4.w),
                       Text(
                         '${course.courseDetails.lessons} Lessons',
                         style: TextStyle(fontSize: 12.sp),
                       ),
-                      SizedBox(width: 6.w),
+                      SizedBox(width: 8.w),
                       Icon(Icons.calendar_month, size: 14.sp),
                       SizedBox(width: 4.w),
                       Text(
@@ -143,9 +137,9 @@ class CourseCard extends StatelessWidget {
                     ],
                   ),
 
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 6.h),
 
-                  /// 🔹 Duration
+                  /// Duration
                   Row(
                     children: [
                       Icon(Icons.schedule, size: 14.sp),
@@ -159,9 +153,9 @@ class CourseCard extends StatelessWidget {
                     ],
                   ),
 
-                  const Spacer(),
+                  SizedBox(height: 12.h),
 
-                  /// 🔹 Price + Button
+                  /// Price + Button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -194,22 +188,22 @@ class CourseCard extends StatelessWidget {
     );
   }
 
-
-  Widget _placeholderImage() {
+  Widget _placeholder() {
     return Container(
       color: Colors.grey.shade200,
-      child: Icon(Icons.book, size: 50.sp, color: Colors.grey),
+      child: Center(child: Icon(Icons.book, size: 40.sp)),
     );
   }
 
-  Widget _errorImage() {
+  Widget _error() {
     return Container(
       color: Colors.grey.shade300,
-      child: Icon(Icons.broken_image, size: 50.sp, color: Colors.grey),
+      child: Center(child: Icon(Icons.broken_image, size: 40.sp)),
     );
   }
 }
 
+/// Extension for status label
 extension CourseStatusText on CourseStatus {
   String get label {
     switch (this) {
@@ -222,6 +216,7 @@ extension CourseStatusText on CourseStatus {
     }
   }
 }
+
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:sakeena/route/go_route.dart';

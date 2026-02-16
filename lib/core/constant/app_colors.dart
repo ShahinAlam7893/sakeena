@@ -8,4 +8,13 @@ class AppColors {
   static const textDark = Color(0xFF1A3C34);
   static const textGrey = Color(0xFF6B8E7D);
   static const cardBorder = Color(0xFFE0F2E9);
+  
+  static const LinearGradient homeBackgroundGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFF4EFE8), // #f4efe8
+      Color(0xFFEFE8DD), // #efe8dd
+    ],
+  );
 }

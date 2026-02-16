@@ -54,7 +54,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyApp.backgroundColor,
       appBar: CustomAppBar(onNotificationTap: () {}),
       body: SingleChildScrollView(
         child: Column(
