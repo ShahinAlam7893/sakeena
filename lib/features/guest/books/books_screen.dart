@@ -5,6 +5,7 @@ import 'package:sakeena/core/app_theme.dart';
 import 'package:sakeena/widgets/book_card.dart';
 import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/filter_section.dart';
+import 'dart:async';
 
 class BooksPage extends StatefulWidget {
   const BooksPage({super.key});
@@ -15,6 +16,9 @@ class BooksPage extends StatefulWidget {
 
 class _BooksPageState extends State<BooksPage> {
   String selectedCategory = 'All';
+  final TextEditingController _searchController = TextEditingController();
+  Timer? _debounce;
+  String searchQuery = '';
 
   final categories = ['All', 'Mental Health', 'Spiritual Growth'];
 
@@ -45,8 +49,33 @@ class _BooksPageState extends State<BooksPage> {
     },
   ];
 
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    _debounce = Timer(const Duration(milliseconds: 400), () {
+      setState(() {
+        searchQuery = query.toLowerCase();
+      });
+    });
+  }
+
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final filteredBooks = books.where((book) {
+    final title = (book['title'] as String).toLowerCase();
+    final author = (book['author'] as String).toLowerCase();
+
+    return title.contains(searchQuery) || author.contains(searchQuery);
+  }).toList();
+  
     return Scaffold(
       appBar: const CustomAppBar(),
       body: SafeArea(
@@ -90,6 +119,27 @@ class _BooksPageState extends State<BooksPage> {
               ),
             ),
 
+            // Search Bar
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: TextField(
+                controller: _searchController,
+                onChanged: _onSearchChanged,
+                decoration: InputDecoration(
+                  hintText: 'Search books...',
+                  prefixIcon: const Icon(Icons.search),
+                  contentPadding: EdgeInsets.symmetric(vertical: 12.h),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                    borderSide: BorderSide(color: AppTheme.primaryColor),
+                  ),
+                ),
+              ),
+            ),
+
             // Filters
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -105,7 +155,7 @@ class _BooksPageState extends State<BooksPage> {
             SizedBox(height: 24.h),
 
             // Books List
-            ...books.asMap().entries.map((entry) {
+            ...filteredBooks.asMap().entries.map((entry) {
               int index = entry.key;
               Map book = entry.value;
 

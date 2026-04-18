@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sakeena/core/constant/app_colors.dart';
 import 'package:sakeena/widgets/custom_app_bar.dart';
 import 'package:sakeena/widgets/custom_button.dart';
+import 'package:intl/intl.dart';
 
-// Main Page with Profile
+String formatLocalTime(String utcTime) {
+  final utcDateTime = DateTime.parse(utcTime).toUtc();
+  final localDateTime = utcDateTime.toLocal();
+
+  return DateFormat('hh:mm a').format(localDateTime);
+}
+
+String formatLocalDate(String utcTime) {
+  final utcDateTime = DateTime.parse(utcTime).toUtc();
+  final localDateTime = utcDateTime.toLocal();
+
+  return DateFormat('dd MMM yyyy').format(localDateTime);
+}
+
 class StudentLiveClassPage extends StatelessWidget {
   const StudentLiveClassPage({super.key});
 
@@ -16,7 +31,6 @@ class StudentLiveClassPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // My Classes Section
             _Section(
               title: 'My Classes',
               subtitle: 'Join your live sessions and access class materials',
@@ -189,10 +203,6 @@ class _WarningBanner extends StatelessWidget {
   }
 }
 
-// ============================================================================
-// PUBLIC REUSABLE WIDGETS
-// ============================================================================
-
 /// Class Card Widget
 class ClassCard extends StatelessWidget {
   final String courseName;
@@ -288,7 +298,6 @@ class ClassCard extends StatelessWidget {
                     textColor: Colors.white,
                   ),
                 ),
-                
               ],
             ),
           ),
@@ -319,106 +328,122 @@ class SessionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+      elevation: 2,
+      shadowColor: Colors.black.withOpacity(0.08),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       color: Colors.white,
-      elevation: 0,
       child: Padding(
-        padding: EdgeInsets.all(4.w),
+        padding: EdgeInsets.all(12.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Session Title
-            Container(
-              padding: EdgeInsets.all(4.w),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: Colors.grey, width: 1.sp),
+            // 🔹 Session Title
+            Text(
+              sessionName,
+              style: TextStyle(
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w600,
+                height: 1.3,
               ),
-              child: Column(
-                children: [
-                  Text(
-                    sessionName,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(height: 12.h),
-
-                  // Date & Time
-                  SizedBox(
-                    width: (MediaQuery.of(context).size.width - 80.w) / 2,
-                    child: _InlineInfo(
-                      icon: Icons.calendar_today,
-                      text: date,
-                      iconSize: 14.sp,
-                    ),
-                  ),
-                  SizedBox(
-                    width: (MediaQuery.of(context).size.width - 80.w) / 2,
-                    child: _InlineInfo(
-                      icon: Icons.access_time,
-                      text: time,
-                      iconSize: 14.sp,
-                    ),
-                  ),
-                ],
-              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
+
             SizedBox(height: 12.h),
 
-            // Zoom Meeting Details
-            Container(
-              padding: EdgeInsets.all(4.w),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: Colors.grey, width: 1.sp),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Zoom Meeting Details:',
-                          style: TextStyle(
-                            fontSize: 11.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
+            Row(
+              children: [
+                Icon(Icons.calendar_month_outlined, color: AppColors.textGrey),
+                Text(
+                  date,
+                  style: TextStyle(color: AppColors.textGrey, fontSize: 10.sp),
+                ),
+              ],
+            ),
+            SizedBox(height: 12.h,),
+            Row(
+              children: [
+                Icon(Icons.schedule_sharp, color: AppColors.textGrey),
+                Text(
+                  time,
+                  style: TextStyle(color: AppColors.textGrey, fontSize: 10.sp),
+                ),
+              ],
+            ),
+
+            // // 🔹 Date & Time Row
+            // Expanded(
+            //   child: _InlineInfo(
+            //     icon: Icons.calendar_today_outlined,
+            //     text: date,
+            //     iconSize: 14.sp,
+            //   ),
+            // ),
+            // SizedBox(width: 12.w),
+            // Expanded(
+            //   child: _InlineInfo(
+            //     icon: Icons.access_time_outlined,
+            //     text: time,
+            //     iconSize: 14.sp,
+            //   ),
+            // ),
+            SizedBox(height: 16.h),
+
+            // 🔹 Divider
+            Divider(height: 1, color: Colors.grey.shade300),
+
+            SizedBox(height: 12.h),
+
+            // 🔹 Zoom Section
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Zoom Meeting',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black87,
                         ),
-                        SizedBox(height: 4.h),
-                        Text(
-                          'Meeting ID: ${zoomLink.split('/j/').last}',
-                          style: TextStyle(
-                            fontSize: 11.sp,
-                            color: const Color(0xFF0066CC),
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 4.h),
+                      Text(
+                        'ID: ${zoomLink.split('/j/').last}',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: const Color(0xFF0066CC),
                         ),
-                      ],
-                    ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
-                  SizedBox(width: 8.w),
-                  GestureDetector(
-                    onTap: onCopyZoomLink,
+                ),
+                GestureDetector(
+                  onTap: onCopyZoomLink,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 6.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2B7A78).withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
                     child: Text(
                       'Copy',
                       style: TextStyle(
                         fontSize: 12.sp,
-                        color: const Color(0xFF2B7A78),
                         fontWeight: FontWeight.w600,
+                        color: const Color(0xFF2B7A78),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
@@ -426,10 +451,6 @@ class SessionCard extends StatelessWidget {
     );
   }
 }
-
-// ============================================================================
-// HELPER WIDGETS
-// ============================================================================
 
 /// Inline Info Widget (Icon + Text)
 class _InlineInfo extends StatelessWidget {

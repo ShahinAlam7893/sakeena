@@ -170,33 +170,34 @@ class GuestHomeScreen extends StatelessWidget {
                       title: "Stress",
                       iconPath: 'assets/icons/stress_Icon.svg',
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const CoursesPage(),
-                          ),
-                        );
+                        context.push(AppRoutes.coursesScreen);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (_) => const CoursesPage(),
+                        //   ),
+                        // );
                       },
                     ),
                     DoorCategoryCard(
                       title: "Anxiety",
                       iconPath: 'assets/icons/anxiety_icon.svg',
-                      onTap: () {},
+                      onTap: () {context.push(AppRoutes.coursesScreen);},
                     ),
                     DoorCategoryCard(
                       title: "Depression",
                       iconPath: 'assets/icons/depression_Icon.svg',
-                      onTap: () {},
+                      onTap: () {context.push(AppRoutes.coursesScreen);},
                     ),
                     DoorCategoryCard(
                       title: "Relationships",
                       iconPath: 'assets/icons/relationship_Icon.svg',
-                      onTap: () {},
+                      onTap: () {context.push(AppRoutes.coursesScreen);},
                     ),
                     DoorCategoryCard(
                       title: "Spiritual Growth",
                       iconPath: 'assets/icons/love_icon.svg',
-                      onTap: () {},
+                      onTap: () {context.push(AppRoutes.coursesScreen);},
                     ),
                   ],
                 ),
